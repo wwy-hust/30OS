@@ -1,0 +1,34 @@
+
+#ifndef _CMD_H_
+#define _CMD_H_
+
+#include "typedef.h"
+#include "funcUtils.h"
+#include "asmhead.h"
+#include "globalTbl.h"
+#include "wnd_console.h"
+
+typedef struct FILEINFO{
+	uint8 name[8], ext[3], type;
+	uint8 reserve[10];
+	uint16 time, date, clustno;
+	uint32 size;
+}FILEINFO;
+
+void fat_decodeFat(int32* fatBase, int32 fatSize, uint8* img);
+void fat_loadFile(uint16 clustno, uint32 size, int8* buf, int32* fatBase, uint8* img);
+
+boolean top(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean mem(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean help(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean ls(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean clear(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean type(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean hex(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean showWnd(WND_CONSOLE* console, int32 argc, int8* argv[]);
+boolean exit(WND_CONSOLE* console, int32 argc, int8* argv[]);
+
+
+boolean exec_bin(WND_CONSOLE* console, int32 argc, int8* argv[]);
+
+#endif

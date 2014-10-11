@@ -1,0 +1,318 @@
+
+#include "cmd.h"
+
+void fat_decodeFat(int32* fatBase, int32 fatSize, uint8* img)
+{
+	int i, j = 0;
+	for(i = 0; i < fatSize; i += 2) {
+		fatBase[i + 0] = (img[j + 0] | (img[j + 1] << 8)) & 0xFFF;
+		fatBase[i + 1] = ((img[j + 1] >> 4) | (img[j + 2] << 4)) & 0xFFF;
+		j += 3;
+	}
+}
+
+void fat_loadFile(uint16 clustno, uint32 size, int8* buf, int32* fatBase, uint8* img)
+{
+	int i;
+	while(1) {
+		if(size <= 512) {
+			for(i = 0; i < size; i++)
+				buf[i] = img[clustno * 512 + i];
+			break;
+		}
+		for(i = 0; i < 512; i++) {
+			buf[i] = img[clustno * 512 + i];
+		}
+		size -= 512;
+		buf += 512;
+		clustno = fatBase[clustno];
+	}
+}
+
+extern TASK_CTL taskCtl;
+boolean top(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	int32 i, j, nameLen;
+	console_puts(console, "Task Cnt (%d), Running (%d), Stoped (%d), Sleeping (%d).\n", taskCtl.taskNum, taskCtl.runningTasksEnd, taskCtl.stoppedTasksEnd, taskCtl.sleepTasksEnd);
+	console_puts(console, "Task Name       Id   priority   status\n");
+	for(i = 0; i < taskCtl.runningTasksEnd; i++) {
+		nameLen = strlen(taskCtl.runningTasks[i]->taskName);
+		console_puts(console, "%s", taskCtl.runningTasks[i]->taskName);
+		for(j = 0; j < (16 - nameLen) && j >= 0; j++) console_put_ascii(console, ' ');
+		console_puts(console, "%d\t\t%d       running\n", taskCtl.runningTasks[i]->taskId, taskCtl.runningTasks[i]->priority);
+	}
+	for(i = 0; i < taskCtl.stoppedTasksEnd; i++) {
+		nameLen = strlen(taskCtl.stoppedTasks[i]->taskName);
+		console_puts(console, "%s", taskCtl.stoppedTasks[i]->taskName);
+		for(j = 0; j < (16 - nameLen) && j >= 0; j++) console_put_ascii(console, ' ');
+		console_puts(console, "%d\t\t%d       stopped\n", taskCtl.stoppedTasks[i]->taskId, taskCtl.stoppedTasks[i]->priority);
+	}
+	for(i = 0; i < taskCtl.sleepTasksEnd; i++) {
+		nameLen = strlen(taskCtl.sleepTasks[i]->taskName);
+		console_puts(console, "%s", taskCtl.sleepTasks[i]->taskName);
+		for(j = 0; j < (16 - nameLen) && j >= 0; j++) console_put_ascii(console, ' ');
+		console_puts(console, "%d\t\t%d       stopped\n", taskCtl.sleepTasks[i]->taskId, taskCtl.sleepTasks[i]->priority);
+	}
+	
+	return TRUE;
+}
+
+extern WND_CTL wndCtl;
+extern SHEET_CTL sheetCtl;
+boolean showWnd(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	int32 i, nameLen;
+	console_puts(console, "Wnd Cnt (%d)\n", wndCtl.wndCnt);
+	console_puts(console, "Sheet Cnt (%d)\n", sheetCtl.topZ);
+	for(i = 0; i < wndCtl.wndCnt; i++) {
+		console_puts(console, "%d  %s  %d - %d, %d\n", wndCtl.sortedWnd[i]->isUsing, wndCtl.sortedWnd[i]->title, wndCtl.sortedWnd[i]->z, wndCtl.sortedWnd[i]->wndSheet->no, wndCtl.sortedWnd[i]->wndSheet->z);
+	}
+	return TRUE;
+}
+
+boolean mem(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	console_puts(console, "Mem totalSize :%d KB\n", mem_getTotalSize() / 1024);
+	console_puts(console, "Mem freeSize  :%d KB\n", mem_getFreeSum() / 1024);
+	console_puts(console, "Mem usedSize  :%d KB\n", mem_getUsedSum() / 1024);
+
+	return TRUE;
+}
+
+boolean help(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	CMD_NODE* tmpNode;
+	int32 bufLen;
+	int8 buf[256] = "";
+	
+	console_puts(console, "Supported Cmd (%d) :\n", console->cmd_cnt);
+
+	for(tmpNode = console->cmd_set; tmpNode != NULL; tmpNode = tmpNode->nextCmd) {
+		strcat(buf, tmpNode->cmd.cmdName);
+		bufLen = strlen(buf);
+		buf[bufLen] = ' ';
+		buf[bufLen + 1] = 0;
+	}
+	console_puts(console, "%s\n", buf);
+	
+	if(argc >= 2) {
+		for(tmpNode = console->cmd_set; tmpNode != NULL; tmpNode = tmpNode->nextCmd) {
+			if(strcmp(tmpNode->cmd.cmdName, argv[1]) == 0) {
+				console_puts(console, "%s : %s\n", tmpNode->cmd.cmdName, tmpNode->cmd.cmdDetail);
+				return TRUE;
+			}
+		}
+		console_puts(console, "Unknown Command.\n");
+	}
+	return TRUE;
+}
+
+boolean ls(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	uint8 tmp, endPos, blankCnt;
+	int8 name[9], ext[4];
+	int8 blank[10] = "         ";
+	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);
+	
+	for(tmp = 0; tmp < 224; tmp++) {
+		if(finfo[tmp].name[0] == 0x00) break;
+		if(finfo[tmp].name[0] != 0xe5) {
+			blankCnt = 0;
+			for(endPos = 7; finfo[tmp].name[endPos] == ' ' && endPos > 0; endPos--);
+			strncpy(name, finfo[tmp].name, endPos + 1);
+			name[endPos + 1] = 0;
+			blankCnt += (7 - endPos);		//空格的数目
+			for(endPos = 2; finfo[tmp].ext[endPos] == ' ' && endPos > 0; endPos--);
+			strncpy(ext, finfo[tmp].ext, endPos + 1);
+			ext[endPos + 1] = 0;
+			blankCnt += (2 - endPos);		//空格的数目
+			blank[blankCnt] = 0;				//空格
+			console_puts(console, "%s.%s%s  %7d\n", name, ext, blank, finfo[tmp].size);
+			blank[blankCnt] = ' ';
+		}
+	}
+
+	return TRUE;
+}
+
+boolean clear(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	WND* wnd = console->wnd;
+	console->x = 0;
+	console->y = 0;
+	fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1, wnd->contentRect.bottomRightX, wnd->contentRect.bottomRightY);
+
+	return TRUE;
+}
+
+boolean type(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);
+	uint32 clustno, size, tmp, i, endPos, *fatBase;
+	uint8 *fileBuf;
+	int8 name[16] = "";
+	
+	if(mem_alloc(4 * 2880, &fatBase) == FALSE)
+		return FALSE;
+	fat_decodeFat(fatBase, 2880, ADR_DISKIMG + 0x000200);
+	
+	for(tmp = 0; tmp < 224; tmp++) {
+		if(finfo[tmp].name[0] == 0x00) break;
+		if(finfo[tmp].name[0] != 0xe5) {
+			for(endPos = 7; finfo[tmp].name[endPos] == ' '&& endPos > 0; endPos--);
+			strncpy(name, finfo[tmp].name, endPos + 1);
+			name[endPos + 1] = '.';
+			name[endPos + 2] = 0;
+			i = strlen(name);
+			for(endPos = 2; finfo[tmp].ext[endPos] == ' '&& endPos > 0; endPos--);
+			strncat(name, finfo[tmp].ext, endPos + 1);
+			name[i + endPos + 1] = 0;
+			
+			if(strcmp(name, argv[1]) == 0) {
+				size = finfo[tmp].size;
+				if(mem_alloc(8000, &fileBuf) == FALSE) {
+					console_puts(console, "alloc buffer failed!\n");
+					return FALSE;
+				}
+				clustno = finfo[tmp].clustno;
+				
+				sprintf(name, "%d", size);
+				console_puts(console, name);
+				fat_loadFile(clustno, size, fileBuf, fatBase, ADR_DISKIMG + 0x003e00);
+//				fileBase = (int8*)(clustno * 512 + 0x003e00 + ADR_DISKIMG);
+				
+				for(i = 0; i < size; i++) {
+					console_put_ascii(console, fileBuf[i]);
+				}
+				
+				console_puts(console, "\n");
+				return TRUE;
+			}
+		}
+	}
+	console_puts(console, "file not found.\n");
+	return FALSE;
+}
+
+boolean hex(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);
+	uint32 clustno, size, tmp, i, j, endPos, *fatBase;
+	uint8 *fileBuf;
+	int8 name[16] = "";
+	
+	if(mem_alloc(4 * 2880, &fatBase) == FALSE)
+		return FALSE;
+	fat_decodeFat(fatBase, 2880, ADR_DISKIMG + 0x000200);
+	
+	for(tmp = 0; tmp < 224; tmp++) {
+		if(finfo[tmp].name[0] == 0x00) break;
+		if(finfo[tmp].name[0] != 0xe5) {
+			for(endPos = 7; finfo[tmp].name[endPos] == ' '&& endPos > 0; endPos--);
+			strncpy(name, finfo[tmp].name, endPos + 1);
+			name[endPos + 1] = '.';
+			name[endPos + 2] = 0;
+			i = strlen(name);
+			for(endPos = 2; finfo[tmp].ext[endPos] == ' '&& endPos > 0; endPos--);
+			strncat(name, finfo[tmp].ext, endPos + 1);
+			name[i + endPos + 1] = 0;
+			
+			if(strcmp(name, argv[1]) == 0) {
+				size = finfo[tmp].size;
+				if(mem_alloc(8000, &fileBuf) == FALSE) {
+					console_puts(console, "alloc buffer failed!\n");
+					return FALSE;
+				}
+				clustno = finfo[tmp].clustno;
+				
+				fat_loadFile(clustno, size, fileBuf, fatBase, ADR_DISKIMG + 0x003e00);
+//				fileBase = (int8*)(clustno * 512 + 0x003e00 + ADR_DISKIMG);
+	/*				
+				for(j = 0; j < 16; j++)
+					console_puts(console, "%02x ", j);
+				console_put_ascii(console, 0x0A);
+	*/			
+				for(i = 0; i < size;) {
+					for(j = 0; j < 16 && i < size; j++, i++) {
+						console_puts(console, "%02x ", fileBuf[i]);
+					}
+					console_put_ascii(console, 0x0A);
+				}
+				return TRUE;
+			}
+		}
+	}
+	console_puts(console, "file not found.\n");
+	return FALSE;
+}
+
+
+boolean exec_bin(WND_CONSOLE* console, int32 argc, int8* argv[])
+{
+	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);
+	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
+	uint32 size, tmp, endPos, tmpAddr, blankCnt, *fatBase, dataSize, dataAddr, segSize, esp, i;
+	uint8 *fileBuf;
+	int8 name[9], ext[4], argvName[9];
+	TASK	*task = multiTask_NowRunning();
+	
+	if(mem_alloc(4 * 2880, &fatBase) == FALSE)
+		return FALSE;
+	fat_decodeFat(fatBase, 2880, ADR_DISKIMG + 0x000200);
+	
+	for(endPos = strlen(argv[0]); argv[0][endPos] != '.' && endPos > 0; endPos--);
+	if(endPos != 0) {
+		strncpy(argvName, argv[0], endPos);
+		argvName[endPos] = 0;
+	}
+	else
+		strcpy(argvName, argv[0]);
+	
+	for(tmp = 0; tmp < 224; tmp++) {
+		if(finfo[tmp].name[0] == 0x00) break;
+		if(finfo[tmp].name[0] != 0xe5) {
+			blankCnt = 0;
+			for(endPos = 7; finfo[tmp].name[endPos] == ' ' && endPos > 0; endPos--);
+			strncpy(name, finfo[tmp].name, endPos + 1);
+			name[endPos + 1] = 0;
+			blankCnt += (7 - endPos);		//空格的数目
+			for(endPos = 2; finfo[tmp].ext[endPos] == ' ' && endPos > 0; endPos--);
+			strncpy(ext, finfo[tmp].ext, endPos + 1);
+			ext[endPos + 1] = 0;
+			blankCnt += (2 - endPos);		//空格的数目
+			
+			if((strcmp(argvName, name) == 0) && (strcmp(ext, "BIN") == 0)) {
+				if(mem_alloc(finfo[tmp].size, &fileBuf) == FALSE)
+					return FALSE;
+				fat_loadFile(finfo[tmp].clustno, finfo[tmp].size, fileBuf, fatBase, ADR_DISKIMG + 0x003e00);
+				if(strncmp(fileBuf + 4, "Hari", 4) == 0) {
+						
+					segSize = *((int*) (fileBuf + 0x0000));		//向操作系统请求的数据段大小
+					if(mem_alloc(segSize, &tmpAddr) == FALSE)
+						return FALSE;
+					esp = *((int*) (fileBuf + 0x000C));				//ESP初始值
+					dataSize = *((int*) (fileBuf + 0x0010));	//数据部分大小
+					dataAddr = *((int*) (fileBuf + 0x0014));	//数据部分首地址
+					*((int*)0x0FEC) = (int)console;						//console
+					*((int*)0xFE8) = (int)tmpAddr;						//ds_base
+	
+					set_segmdesc(gdt + 1005, finfo[tmp].size - 1, (int)fileBuf, AR_CODE32_ER + 0x60);
+					set_segmdesc(gdt + 1007, segSize - 1, (int)tmpAddr, AR_DATA32_RW + 0x60);
+					for(i = 0; i < dataSize; i++) {
+						((int8*)tmpAddr)[esp + i] = ((int8*)fileBuf)[dataAddr + i];
+					}
+					start_bin(0x1b, 1005 * 8, esp, 1007 * 8, &(task->tss.esp0));
+					//void start_bin(int eip, int cs, int esp, int ds);
+					//far_call(0, 1005 * 8);
+					
+					return TRUE;
+				}
+				else {
+					console_puts(console, "%s\n", "executable binary file format error.");
+					return FALSE;
+				}
+			}
+		}
+	}
+	return FALSE;
+}

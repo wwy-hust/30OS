@@ -1,0 +1,289 @@
+
+#include "asmhead.h"
+#include "funcUtils.h"
+#include "graphic.h"
+#include "globalTbl.h"
+#include "interrupt.h"
+#include "dataStruct.h"
+#include "mouse_keyboard.h"
+#include "mem.h"
+#include "tim.h"
+#include "multiTask.h"
+#include "wnd_console.h"
+#include "cmd.h"
+
+#include "stdio.h"
+
+extern uint8 icon_heart[256];
+extern TIM_CTL timerCtl;
+extern SHEET_CTL sheetCtl;
+extern TASK_CTL taskCtl;
+extern KEYBOARD_CTL keyboardCtl;
+
+
+SHEET* bgSheet, *wndSheet, *testSheet;
+extern TIM* task_timer;
+TIM *bTim;
+int a = 0, b = 0, c = 0;
+char printBuf[64];
+extern int32 mt_tr;
+int kk = 0, t = 0;
+
+typedef struct AFILEINFO{
+	uint8 name[8], ext[3], type;
+	uint8 reserve[10];
+	uint16 time, date, clustno;
+	uint32 size;
+}AFILEINFO;
+
+
+void task_a_main(SHEET *bgSheet, TASK* curTask)
+{
+	timer_add(100, &bTim);
+	
+	sprintf(printBuf, "[%d]%d, %d, %d", curTask, running, sleep, stopped);
+	puts_str(bgSheet, printBuf, WHITE, 0, 348);
+	sheet_add_redraw_region(0, 348, 100, 364);
+	for (;;) {
+		
+		fill_box(bgSheet, GREEN, 500, 516, 800, 532);
+		sprintf(printBuf, "%d|%d, %d, %d", mt_tr, timerCtl.timecount, timerCtl.sortedEnd, timerCtl.timeoutEnd, timerCtl.timerPos);
+		puts_str(bgSheet, printBuf, WHITE, 500 + kk, 516);
+		sheet_add_redraw_region(500, 516, 800, 532);
+		
+		if(bTim->isUsing == TRUE && bTim->isTimeout == TRUE) {
+			fill_box(bgSheet, GREEN, 400, 400, 500, 416);
+			sprintf(printBuf, "%d", b);
+			puts_str(bgSheet, printBuf, WHITE, 400, 400);
+			sheet_add_redraw_region(400, 400, 500, 416);
+			timer_set_timeout(bTim, 100);
+		}
+		b++;
+		task_sleep(curTask, 0);
+	}
+	// 不能有 return 
+}
+
+void task_b_main(SHEET *bgSheet, TASK* curTask)
+{
+	RECT wndRect;
+	WND_CONSOLE wnd;
+	boolean re;
+	
+	wndRect.topLeftX = 100;
+	wndRect.topLeftY = 0;
+	wndRect.bottomRightX = 700;
+	wndRect.bottomRightY = 600;
+	
+	re = wnd_console_create(curTask, wndRect, "ACmd", icon_heart, &wnd);
+//	*((int*)0x0FEC) = (int)&wnd;						//console
+		
+	wnd_console_add_cmd(&wnd, "mem", "Show the memory useage.", (CONSOLE_CMD_FUNCTION)mem);
+	wnd_console_add_cmd(&wnd, "wnd", "Show the wnd state.", (CONSOLE_CMD_FUNCTION)showWnd);
+	wnd_console_add_cmd(&wnd, "help", "Show cmd reference", (CONSOLE_CMD_FUNCTION)help);
+	wnd_console_add_cmd(&wnd, "ls", "Show files under directory", (CONSOLE_CMD_FUNCTION)ls);
+	wnd_console_add_cmd(&wnd, "clear", "Clear screen", (CONSOLE_CMD_FUNCTION)clear);
+	wnd_console_add_cmd(&wnd, "type", "Show the Content of file", (CONSOLE_CMD_FUNCTION)type);
+	wnd_console_add_cmd(&wnd, "hex", "Show the Hex Content of file", (CONSOLE_CMD_FUNCTION)hex);
+	wnd_console_add_cmd(&wnd, "top", "Show the tasks.", (CONSOLE_CMD_FUNCTION)top);
+
+	wnd_console_daemon(&wnd);
+}
+
+void task_c_main(SHEET *bgSheet, TASK* curTask)
+{
+	RECT wndRect;
+	WND_CONSOLE wnd;
+	boolean re;
+	
+	wndRect.topLeftX = 150;
+	wndRect.topLeftY = 0;
+	wndRect.bottomRightX = 750;
+	wndRect.bottomRightY = 500;
+
+	re = wnd_console_create(curTask, wndRect, "ECmd", icon_heart, &wnd);
+//	*((int*)0x0FEC) = (int)&wnd;						//console
+
+	wnd_console_add_cmd(&wnd, "mem", "Show the memory useage.", (CONSOLE_CMD_FUNCTION)mem);
+	wnd_console_add_cmd(&wnd, "wnd", "Show the wnd state.", (CONSOLE_CMD_FUNCTION)showWnd);
+	wnd_console_add_cmd(&wnd, "help", "Show cmd reference", (CONSOLE_CMD_FUNCTION)help);
+	wnd_console_add_cmd(&wnd, "ls", "Show files under directory", (CONSOLE_CMD_FUNCTION)ls);
+	wnd_console_add_cmd(&wnd, "clear", "Clear screen", (CONSOLE_CMD_FUNCTION)clear);
+	wnd_console_add_cmd(&wnd, "type", "Show the Content of file", (CONSOLE_CMD_FUNCTION)type);
+	wnd_console_add_cmd(&wnd, "hex", "Show the Hex Content of file", (CONSOLE_CMD_FUNCTION)hex);
+	wnd_console_add_cmd(&wnd, "top", "Show the tasks.", (CONSOLE_CMD_FUNCTION)top);
+
+	wnd_console_daemon(&wnd);
+}
+
+struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
+
+void OS_Init(void)
+{
+	BOOTINFO* info;
+	
+	int32 screenWidth, screenHeight;
+	uint8* bgBuf, *resVram;
+	boolean re[2];
+	uint32 tmpAddr;
+
+	InitPeripheralBuffer();
+	
+	init_gdtidt();
+	init_pic();
+	io_sti();		// 恢复中断
+	tim_init();
+	io_out8(PIC0_IMR, 0xf8); /* PIT和PIC1和键盘设置为许可(11111000) */
+	io_out8(PIC1_IMR, 0xef); /* 鼠标设置为许可(11101111) */
+	
+	info = (BOOTINFO*) ADR_BOOTINFO;
+	screenHeight = info->screenHeight;
+	screenWidth = info->screenWidth;
+	
+	init_palette();
+	mem_init();
+	re[0] = mem_alloc(768 * 1024, &tmpAddr);
+	resVram = (uint8*)tmpAddr;
+	sheet_init(resVram);
+	
+	InitMouse();
+	InitKeyboard();
+	
+	re[1] = mem_alloc(768 * 1024, &tmpAddr);
+	bgBuf = (uint8*)tmpAddr;
+	
+	//screenWidth * screenHeight
+	sheet_add(bgBuf, screenWidth, screenHeight, 0, 0, NONE_COL, &bgSheet);
+
+	fill_box(bgSheet, DARKGRASS, 0, 0, info->screenWidth, info->screenHeight);
+	if(re[0] == FALSE || re[1] == FALSE) {
+		fill_box(bgSheet, RED, 0, 0, info->screenWidth, info->screenHeight);
+	}
+}
+
+void OS_Main(void)
+{
+	uint32 tmpAddr;
+	TIM* testTim, *cntTIM;
+	int8 buf[10];
+	RECT wndRect;
+	WND* myWnd1, *myWnd2, *myWnd3, *myWnd4, *topWnd;
+	TASK	*taskA, *taskB, *taskC;
+	WND_CONSOLE* console;
+
+	OS_Init();
+	
+	fill_box(bgSheet, BLACK, 0, 0, 160, 16);
+	sprintf(printBuf, "MemVol:%dMB", mem_getTotalSize() / (1024 * 1024));
+	puts_str(bgSheet, printBuf, WHITE, 0, 0);
+
+	timer_add(300, &testTim);
+	timer_add(50, &cntTIM);
+	timer_add(100, &cntTIM);
+	
+	sprintf(printBuf, "%d,%d,%d,%d", testTim->timeout, testTim->isUsing, testTim->isTimeout, timerCtl.sortedEnd);
+	puts_str(bgSheet, printBuf, WHITE, 0, 184);
+
+	wndRect.topLeftX = 400;
+	wndRect.topLeftY = 200;
+	wndRect.bottomRightX = 800;
+	wndRect.bottomRightY = 400;
+	
+	wnd_create(wndRect, "Nike", icon_heart, &myWnd1, draw_wnd1);
+	wnd_create(wndRect, "Adidas", icon_heart, &myWnd2, draw_wnd1);
+	wnd_create(wndRect, "New balance", icon_heart, &myWnd3, draw_wnd2);
+	wnd_create(wndRect, "HelloWorld!HelloWorld!HelloWorld!", icon_heart, &myWnd4, draw_wnd1);
+
+	multiTask_init();
+	
+	//Task A
+	mem_alloc(64 * 1024, &tmpAddr);
+	tmpAddr += 64 * 1024 - 12;
+	*((int*)(tmpAddr + 4)) = (int)bgSheet;
+	task_alloc("Task A", (int32)&task_a_main, tmpAddr, 0x00000202, 1, &taskA);
+	*((int*)(tmpAddr + 8)) = (int)taskA;
+	taskA->tss.cs = 2 * 8;
+	task_run(taskA);
+
+	//Task B
+	mem_alloc(64 * 1024, &tmpAddr);
+	tmpAddr += 64 * 1024 - 12;
+	*((int*)(tmpAddr + 4)) = (int)bgSheet;
+	task_alloc("Task Console", (int32)&task_b_main, tmpAddr, 0x00000202, 1, &taskB);
+	*((int*)(tmpAddr + 8)) = (int)taskB;
+	taskB->tss.cs = 2 * 8;		//目前必须为 2 × 8
+	task_run(taskB);
+	
+	
+	//Task C
+	mem_alloc(64 * 1024, &tmpAddr);
+	tmpAddr += 64 * 1024 - 12;
+	*((int*)(tmpAddr + 4)) = (int)bgSheet;
+	task_alloc("Task ConsoleC", (int32)&task_c_main, tmpAddr, 0x00000202, 1, &taskC);
+	*((int*)(tmpAddr + 8)) = (int)taskC;
+	taskC->tss.cs = 2 * 8;		//目前必须为 2 × 8
+	task_run(taskC);
+
+
+
+	sprintf(printBuf, "1(%d)%d, %d, %d", taskCtl.taskNum, taskCtl.runningTasksEnd, taskCtl.stoppedTasksEnd, taskCtl.sleepTasksEnd);
+	puts_str(bgSheet, printBuf, WHITE, 0, 300);	
+	sprintf(printBuf, "2(%d)%d, %d, %d", taskCtl.nowRunningTaskPos, taskCtl.runningTasks[0]->status, taskA->status, taskB->status);
+	puts_str(bgSheet, printBuf, WHITE, 0, 316);
+	sprintf(printBuf, "3(%d)%d, %d, %d", taskA, running, sleep, stopped);
+	puts_str(bgSheet, printBuf, WHITE, 0, 332);
+	sheet_add_redraw_region(0, 300, 100, 348);
+
+	sheet_draw_all();	
+	while(1){
+
+		if(cntTIM->isUsing == TRUE && cntTIM->isTimeout) {
+			fill_box(bgSheet, BLACK, 300, 300, 350, 350);
+			sprintf(printBuf, "%d", a);
+			puts_str(bgSheet, printBuf, WHITE, 300, 300);
+			sheet_add_redraw_region(300, 300, 350, 350);
+			timer_set_timeout(cntTIM, 100);
+		}
+		a++;
+
+		if(testTim->isUsing == TRUE && testTim->isTimeout) {
+			testTim->isUsing = FALSE;
+			sprintf(printBuf, "timer out!");
+			puts_str(bgSheet, printBuf, WHITE, 0, 96);
+			sheet_add_redraw_region(0, 96, 100, 112);
+		}
+		
+		fill_box(bgSheet, BLACK, 500, 500, 800, 516);
+		sprintf(printBuf, "%d|%d, %d, %d", mt_tr, timerCtl.sortedEnd, timerCtl.timeoutEnd, timerCtl.timerPos);
+		puts_str(bgSheet, printBuf, WHITE, 500, 500);
+//		sprintf(printBuf, "%d,%d,%d", sheetCtl.sortedSheet[0]->buf, sheetCtl.sortedSheet[1]->buf, sheetCtl.sortedSheet[2]->buf);
+//		puts_str(bgSheet, printBuf, WHITE, 500, 516);
+		sheet_add_redraw_region(500, 500, 800, 516);
+		 
+		if(KeyboardGetChar(buf, 1)) {
+			fill_box(bgSheet, BLACK, 0, 232, 100, 248);
+			puts_str(bgSheet, buf, WHITE, 0, 232);
+			sheet_add_redraw_region(0, 232, 100, 248);
+			topWnd = wnd_get_top();
+			if(topWnd != NULL) {
+				PutIntoLoopArray(topWnd->keyboardBuffer, buf[0]);
+			}
+		}
+		MouseKeyboardDeamon();
+		sheet_draw_deamon();
+		if(keyboardCtl.AltOn == TRUE && keyboardCtl.F4_On == TRUE) {
+			console = (WND_CONSOLE*)*((int*)0xFEC);
+			if(console->task->tss.ss0 != 0) {
+				console_puts(console, "\nBreak(key) :\n");
+				io_cli();
+				taskC->tss.eax = (int) &(console->task->tss.esp0);
+				taskC->tss.eip = (int) asm_end_app;
+				io_sti();
+				keyboardCtl.AltOn = FALSE;
+				keyboardCtl.F4_On = FALSE;
+			}
+		}
+	}
+	// 不能有 return 
+}
+

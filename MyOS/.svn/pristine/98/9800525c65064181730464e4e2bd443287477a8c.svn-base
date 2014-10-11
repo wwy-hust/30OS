@@ -1,0 +1,10 @@
+[INSTRSET "i486p"]
+[BITS 32]
+fin:
+	MOV AL, 'A'
+	MOV EDX, 1
+	INT 0x40
+	JMP fin
+
+	MOV	EDX, 4
+	INT 0x40

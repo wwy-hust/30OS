@@ -1,0 +1,493 @@
+
+#include "wnd_console.h"
+
+int32 interrupt_handler_0x0c(int32 esp)
+{
+	TASK* task = multiTask_NowRunning();
+	WND_CONSOLE* console = (WND_CONSOLE*)*((int32*)0x0FEC);
+	
+	console_puts(console, "%s\n", "INT 0x0C, Stack Out-Bound Exception.");
+	return (int)&(task->tss.esp0);			//让程序强制结束
+}
+
+int32 interrupt_handler_0x0d(int32 esp)
+{
+	TASK* task = multiTask_NowRunning();
+	WND_CONSOLE* console = (WND_CONSOLE*)*((int32*)0x0FEC);
+	
+	console_puts(console, "%s\n", "INT 0x0D, General Protected Exception.");
+	return (int)&(task->tss.esp0);			//让程序强制结束
+}
+
+
+static int8 wnd_console_printBuf[256];
+
+boolean wnd_console_create(IN TASK* curTask, IN RECT wndSize, IN int8* title, IN int8* icon, INOUT WND_CONSOLE* console)
+{
+	boolean re = FALSE;
+	
+	if(console == NULL)
+		return FALSE;
+	
+	re = timer_add(CONSOLE_CURSOR_BLINK_TIM, &(console->cursorTim));
+	console->cursorCnt = 0;
+	if(re == FALSE)
+		return FALSE;
+
+	re = wnd_create(wndSize, title, icon, &(console->wnd), draw_wnd2);
+	if(re == FALSE)
+		return FALSE;
+	
+	console->task = curTask;
+	console->cmd_cnt = 0;
+	console->cmd_set = NULL;
+	console->x = 0;
+	console->y = 0;
+	console->lastIsCR = TRUE;
+	console->inputCmdLength = 0;
+	
+	for(console->xMax = 0; console->wnd->contentRect.topLeftX + 9 + console->xMax < console->wnd->contentRect.bottomRightX; console->xMax += 8);
+	for(console->yMax = 0; console->wnd->contentRect.topLeftY + 16 + console->yMax < console->wnd->contentRect.bottomRightY; console->yMax += 16);
+	
+	return TRUE;
+}
+
+boolean wnd_console_add_cmd(WND_CONSOLE* console, int8* nameOfCmd, int8* cmdDetail, CONSOLE_CMD_FUNCTION routine)
+{
+	boolean re;
+	uint32 addr;
+	CMD_NODE* cmdNode;
+	re = mem_alloc(sizeof(CMD_NODE), &addr);
+	if(re == FALSE)
+		return FALSE;
+	
+	console->cmd_cnt++;
+	cmdNode = (CMD_NODE*)addr;
+	strcpy(cmdNode->cmd.cmdName, nameOfCmd);
+	cmdNode->cmd.cmdRoutine = routine;
+	cmdNode->cmd.cmdDetail = cmdDetail;
+	cmdNode->nextCmd = NULL;
+	
+	if(console->cmd_set == NULL)
+		console->cmd_set = cmdNode;
+	else {
+		for(cmdNode = console->cmd_set; cmdNode->nextCmd != NULL; cmdNode = cmdNode->nextCmd);
+		cmdNode->nextCmd = (CMD_NODE*)addr;
+	}
+	return TRUE;
+}
+
+boolean wnd_console_del_cmd(WND_CONSOLE* console, int8* nameOfCmd)
+{
+	CMD_NODE* tmpNode = console->cmd_set;
+	
+	if(strcmp(tmpNode->cmd.cmdName, nameOfCmd) == 0) {
+		tmpNode = tmpNode->nextCmd;
+		mem_free((uint32)(console->cmd_set), sizeof(CMD_NODE));
+		console->cmd_set = tmpNode;
+		return TRUE;
+	}
+	else {
+		while(tmpNode->nextCmd != NULL) {
+			if(strcmp(tmpNode->nextCmd->cmd.cmdName, nameOfCmd) == 0) {
+				tmpNode = tmpNode->nextCmd->nextCmd;
+				mem_free((uint32)(tmpNode->nextCmd), sizeof(CMD_NODE));
+				return TRUE;
+			}
+			tmpNode = tmpNode->nextCmd;
+		}
+		return FALSE;
+	}
+	return FALSE;
+}
+
+void wnd_console_daemon(WND_CONSOLE* console)
+{
+	uint8 data;
+	boolean findCmd = FALSE;
+	WND* wnd = console->wnd;
+	CMD_NODE* tmpCmdNode = NULL;
+	int32 argc, tmp, tmpStartPos;
+	int8* argv[CONSOLE_INPUT_CMD_MAX_PARM];
+	
+	while(console->wnd->isUsing == TRUE) {
+		if(console->lastIsCR == TRUE) {
+			console_put_ascii(console,'>');
+			console->lastBracketX = console->x;
+			console->lastBracketY = console->y;
+			console->lastIsCR = FALSE;
+		}
+		
+		if(console->wnd == wnd_get_top() && console->cursorTim->isUsing == TRUE && console->cursorTim->isTimeout == TRUE) {
+			console->cursorCnt++;
+			if(console->cursorCnt % 2 == 0) {
+				console_put_ascii(console, '_');
+				console->x -= 8;
+			}
+			else
+				console_clear_current_block(console);
+			timer_set_timeout(console->cursorTim, CONSOLE_CURSOR_BLINK_TIM);
+		}
+		else if(console->wnd != wnd_get_top()) {
+			console_clear_current_block(console);
+		}
+		
+		if(GetFromLoopArray(wnd->keyboardBuffer, &data) == TRUE) {
+			if(data == ASC_CR) {			//接收到回车
+				console->lastIsCR = TRUE;
+				
+				console_clear_current_block(console);
+				console->x = 0;
+				console->y += 16;
+				console_check_rollback(console);
+				
+				console->inputCmd[console->inputCmdLength] = 0;
+				
+				for(argc = 0, tmp = 0; console->inputCmd[tmp] == ' ' && tmp < console->inputCmdLength + 1; tmp++);		//忽略空格
+				if(tmp < console->inputCmdLength) {			//字符串非空格
+					//解析字符串，并将参数填入 argc  argv
+					for(tmpStartPos = tmp; tmp < console->inputCmdLength + 1; tmp++) {
+						if(console->inputCmd[tmp] == ' ' || console->inputCmd[tmp] == '\0') {
+							console->inputCmd[tmp++] = 0;
+							argv[argc++] = &(console->inputCmd[tmpStartPos]);
+							for(; (tmp < console->inputCmdLength + 1) && (console->inputCmd[tmp] == ' '); tmp++);		//忽略空格
+							tmpStartPos = tmp;						
+						}
+					}
+					//与命令队列中的命令进行匹配
+					tmpCmdNode = console->cmd_set;
+					while(tmpCmdNode != NULL) {
+						if(strcmp(tmpCmdNode->cmd.cmdName, argv[0]) == 0) {
+							tmpCmdNode->cmd.cmdRoutine(console, argc, argv);
+							findCmd = TRUE;
+							break;
+						}
+						tmpCmdNode = tmpCmdNode->nextCmd;
+					}
+					if(findCmd == FALSE) {
+						if(FALSE == exec_bin(console, argc, argv)) {
+							console_puts(console, "Command not found!\n");
+						}
+					}
+					else {
+						findCmd = FALSE;
+					}
+					console->inputCmdLength = 0;
+				}
+			}
+			else if(data == ASC_BS) {			//接收到退格
+				if(console->lastBracketX == console->x && console->lastBracketY == console->y) {
+					
+				}
+				else {
+					console->inputCmdLength--;
+					if(console->inputCmdLength < 0) console->inputCmdLength = 0;
+					// 删掉光标
+					console_clear_current_block(console);
+					// 删掉之前的字母
+					console->x -= 8;
+					if(console->x <= 0 && console->y == 0) {
+						console->x = 0;
+					}
+					if(console->x < 0 && console->y > 0) {
+						console->y -= 16;
+						console->x = console->xMax - 8;
+					}
+					console_clear_current_block(console);
+				}
+			}
+			else {
+				console->inputCmd[console->inputCmdLength++] = data;
+				console_clear_current_block(console);
+				console_put_ascii(console, data);
+			}
+		}
+		sheet_add_redraw_region_rect(console->wnd->wndRect);
+		task_sleep(console->task, 0);
+	}
+	task_stop_free(console->task);		//关闭窗口时删除该任务
+}
+
+void console_clear_current_block(WND_CONSOLE* console)
+{
+	WND* wnd = console->wnd;
+	fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1 + console->x, wnd->contentRect.topLeftY + 1 + console->y, wnd->contentRect.topLeftX + 1 + console->x + 8, wnd->contentRect.topLeftY + 1 + console->y + 16);
+}
+
+void console_clear_current_line(WND_CONSOLE* console)
+{
+	WND* wnd = console->wnd;
+	fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1 + console->y, wnd->contentRect.topLeftX + 1 + console->xMax, wnd->contentRect.topLeftY + 1 + console->y + 16);
+}
+
+void console_check_rollback(WND_CONSOLE* console)
+{
+	WND* wnd = console->wnd;
+	
+	if(console->y + wnd->contentRect.topLeftY + 17 > wnd->contentRect.bottomRightY) {
+		copy_buf(wnd->wndSheet, console->xMax, console->yMax - 16, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1 + 16);
+		console->y -= 16;
+		fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1 + console->y, wnd->contentRect.topLeftX + 1 + console->xMax, wnd->contentRect.topLeftY + 1 + console->y + 16);
+	}
+}
+
+void console_put_ascii(WND_CONSOLE* console, int8 data)
+{
+	WND* wnd = console->wnd;
+
+	if(data == '\n') {
+		console->x = 0;
+		console->y += 16;
+		console_check_rollback(console);
+	}
+	else if(data == 0x0D) {
+	}
+	else if(data == 0x09) {
+		do{
+			put_ascii(wnd->wndSheet, ' ', WHITE, wnd->contentRect.topLeftX + 1 + console->x, wnd->contentRect.topLeftY + 1 + console->y);
+			console->x += 8;
+		}while(((console->x / 8) % 4) != 0);
+	}
+	else {
+		put_ascii(wnd->wndSheet, data, WHITE, wnd->contentRect.topLeftX + 1 + console->x, wnd->contentRect.topLeftY + 1 + console->y);
+		console->x += 8;
+	}
+	
+	if(console->x >= console->xMax) {
+		console->x = 0;
+		console->y += 16;
+		console_check_rollback(console);
+	}
+}
+
+void console_puts(WND_CONSOLE* console, const char* format, ...)
+{
+	va_list arg_list;
+	int32 rowLetterCnt, i = 0;	
+	
+	va_start(arg_list, format);
+	vsprintf((char*)wnd_console_printBuf, format, arg_list);
+	va_end(arg_list);
+	rowLetterCnt = strlen(wnd_console_printBuf);
+
+	if(console->x >= console->xMax) {
+		console->x = 0;
+		console->y += 16;
+		console_check_rollback(console);
+	}
+	
+	for(i = 0; i < rowLetterCnt; i++) {
+			console_put_ascii(console, wnd_console_printBuf[i]);
+	}
+}
+
+void console_put_n_chars(WND_CONSOLE* console, const char* format, int32 size)
+{
+	int32 i;
+	if(console->x >= console->xMax) {
+		console->x = 0;
+		console->y += 16;
+		console_check_rollback(console);
+	}
+	for(i = 0; i < size; i++) {
+			console_put_ascii(console, format[i]);
+	}
+}
+
+/*
+	功能号1 显示单个字符（AL=字符编码）
+	功能号2 显示字符串0 （EBX=字符串地址）
+	功能号3 显示字符串1 （EBX=字符串地址，ECX=字符串长度）
+*/
+extern uint8 icon_heart[256];
+int32 os_console_api(int32 edi, int32 esi, int32 ebp, int32 esp, int32 ebx, int32 edx, int32 ecx, int32 eax)
+{
+	WND_CONSOLE* console = (WND_CONSOLE*)*((int32*)0x0FEC);
+	int8* buf;
+	uint8 data;
+	int ds_base = *((int*)0xFE8);
+	TASK* task;
+	RECT rect;
+	WND* wnd;
+	TIM* tim;
+	int32 i;
+	
+	task = multiTask_NowRunning();
+//	console_puts(console, "eax, ebx, ecx, edx, esi, edi\n");
+//	console_puts(console, "%d, %d, %d, %d, %d, %d\n", eax, ebx, ecx, edx, esi, edi);
+//	console_puts(console, "%d", cs_base);
+
+	if(edx == 1) {
+		console_put_ascii(console, (eax & 0x00FF));
+	}
+	else if(edx == 2) {
+		console_puts(console, "%s", (int8*)(ebx + ds_base));
+	}
+	else if(edx == 3) {
+		console_put_n_chars(console, (int8*)(ebx), ecx);
+	}
+	else if(edx == 4) {
+		return (int32)&(task->tss.esp0);
+	}
+	else if(edx == 5) {
+		rect.topLeftX = 80;
+		rect.topLeftY = 80;
+		rect.bottomRightX = 80 + esi;
+		rect.bottomRightY = 80 + edi;
+		wnd_create(rect, ds_base + ecx, ds_base + eax, &wnd, draw_wnd1);
+		*(((int*)(&eax) + 8)) = wnd;
+//		console_puts(console, "$%d$\n", wnd);
+	}
+	else if(edx == 6) {
+		if((WND*)ebx != NULL) {
+			fill_box(((WND*)ebx)->wndSheet, ebp, esi, edi, esi + eax, edi + ecx);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 7) {
+		if((WND*)ebx != NULL) {
+			puts_str(((WND*)ebx)->wndSheet, eax + ds_base, ecx, esi, edi);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 8) {
+		if((WND*)ebx != NULL) {
+			draw_point(((WND*)ebx)->wndSheet, esi, edi, eax);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 9) {
+		if((WND*)ebx != NULL) {
+//			console_puts(console, "%d[%d,%d]-[%d,%d]%d\n", ebx, esi, edi, eax, ecx, ebp);
+			draw_line(((WND*)ebx)->wndSheet, esi, edi, eax, ecx, ebp);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 10) {
+		if((WND*)ebx != NULL) {
+			wnd_del((WND*)ebx);
+			sheet_add_redraw_region_rect(((WND*)ebx)->wndRect);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 11) {
+		if((WND*)ebx != NULL) {
+			while(1) {
+				io_cli();
+				if(GetFromLoopArray(((WND*)ebx)->keyboardBuffer, &data) == TRUE) {
+					*(((int*)(&eax) + 8)) = data;
+					task_run(task);
+					io_sti();
+					break;
+				}
+				else if(eax != 0){
+					task_sleep(task, 0);
+				}
+				else {
+					*(((int*)(&eax) + 8)) = -1;
+					io_sti();
+					break;
+				}
+				io_sti();
+			}
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 12) {
+		if((WND*)ebx != NULL) {
+			//boolean sheet_add_redraw_region_rect(IN RECT rect);
+			sheet_add_redraw_region_rect(((WND*)ebx)->wndRect);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 13){
+		memcpy(ecx + ds_base, ebx, eax);
+	}
+	else if(edx == 14) {
+		if(timer_add(eax, &tim) == TRUE) {
+			*(((int*)(&eax) + 8)) = tim;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = NULL;
+		}
+	}
+	else if(edx == 15) {
+		if((TIM*)ebx != NULL) {
+			timer_set_timeout((TIM*)ebx, eax);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 16) {
+		if((TIM*)ebx != NULL) {
+			if(((TIM*)ebx)->isTimeout == TRUE)
+				*(((int*)(&eax) + 8)) = TRUE;
+			else
+				*(((int*)(&eax) + 8)) = FALSE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 17) {
+		if((TIM*)ebx != NULL) {
+			timer_del((TIM*)ebx);
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else if(edx == 18) {
+		if(eax == 0) {
+			i = io_in8(0x61);
+			io_out8(0x61, i & 0x0d);
+		}
+		else {
+			i = 1193180000 / eax;
+			io_out8(0x43, 0xb6);
+			io_out8(0x42, i & 0xff);
+			io_out8(0x42, 1 >> 8);
+			i = io_in8(0x61);
+			io_out8(0x61, (i | 0x03) & 0x0f);
+		}
+	}
+	else if(edx == 19) {
+		if((WND*)ebx != NULL) {
+			//wnd_del((WND*)ebx);
+			fill_box_with_buf(((WND*)ebx)->wndSheet, eax + ds_base, ((WND*)ebx)->contentRect.topLeftX, ((WND*)ebx)->contentRect.topLeftY, ((WND*)ebx)->contentRect.bottomRightX, ((WND*)ebx)->contentRect.bottomRightY);
+			sheet_add_redraw_region_rect(((WND*)ebx)->wndRect);
+//			sheet_add_redraw_region_rect(((WND*)ebx)->wndRect);
+			*(((int*)(&eax) + 8)) = TRUE;
+		}
+		else {
+			*(((int*)(&eax) + 8)) = FALSE;
+		}
+	}
+	else {
+		console_puts(console, "%s", "Call console API failed.");
+	}
+	return 0;
+}
+
