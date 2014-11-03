@@ -18,4 +18,4 @@
 3. ....
 
 ###ScreenShot###
-![image](http://github.com/yourname/your-repository/raw/master/images-folder/screenshot.png)
+![image](https://github.com/wwy-hust/30OS/blob/master/screenshot.png)
