@@ -24,6 +24,7 @@
 ###How To Build & Run###
 I made this OS on windows platform. You should install Cygwin ( install rm, cp, make & cat ) to build the OS. Open your Cygwin terminal and do next steps.
 
+    [user@Localhost]$ chmod +x ./z_tools/*
     [user@Localhost]$ cd MyOS
-    [user@Localhost]$ make IMG       # to generate OS.img
+    [user@Localhost]$ make IMG       # to generate OS.img, If failed first time, make again
     use OS.img as floppy disk image to boot OS with virtual machine. (I used VMWare)
