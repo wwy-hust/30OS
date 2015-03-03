@@ -1,0 +1,81 @@
+\hypertarget{struct_m_o_u_s_e___c_t_l}{}\section{M\+O\+U\+S\+E\+\_\+\+C\+T\+L Struct Reference}
+\label{struct_m_o_u_s_e___c_t_l}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+
+
+mouse information.  
+
+
+
+
+{\ttfamily \#include $<$mouse\+\_\+keyboard.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int32 \hyperlink{struct_m_o_u_s_e___c_t_l_aa56dc48b53502faff745181e13a3ccfc}{x}
+\begin{DoxyCompactList}\small\item\em x value pos mouse pos. \end{DoxyCompactList}\item 
+int32 \hyperlink{struct_m_o_u_s_e___c_t_l_add9dc2e15464a86ea8e87d04dff862fb}{y}
+\begin{DoxyCompactList}\small\item\em y value pos mouse pos. \end{DoxyCompactList}\item 
+boolean \hyperlink{struct_m_o_u_s_e___c_t_l_a50ef4375066f58c21f75787b603805fb}{is\+Mouse\+Off}
+\begin{DoxyCompactList}\small\item\em is mouse enabled. \end{DoxyCompactList}\item 
+uint8 \hyperlink{struct_m_o_u_s_e___c_t_l_ade3f3716166e203684737f31cff4a753}{key}
+\begin{DoxyCompactList}\small\item\em contains the pressed key on mouse. \end{DoxyCompactList}\item 
+\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$ \hyperlink{struct_m_o_u_s_e___c_t_l_ab7257a50dfc91c78666621e0af7bbbe7}{sheet}
+\begin{DoxyCompactList}\small\item\em sheet which contains this mouse. \end{DoxyCompactList}\item 
+uint8 $\ast$ \hyperlink{struct_m_o_u_s_e___c_t_l_aa66808aaae9beee8ea274abf02c85124}{buffer}
+\begin{DoxyCompactList}\small\item\em buffer which contains pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+mouse information. 
+
+including pos, buffer \& its sheet. etc. 
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_m_o_u_s_e___c_t_l_aa66808aaae9beee8ea274abf02c85124}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!buffer@{buffer}}
+\index{buffer@{buffer}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{buffer}]{\setlength{\rightskip}{0pt plus 5cm}uint8$\ast$ M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::buffer}\label{struct_m_o_u_s_e___c_t_l_aa66808aaae9beee8ea274abf02c85124}
+
+
+buffer which contains pixels. 
+
+\hypertarget{struct_m_o_u_s_e___c_t_l_a50ef4375066f58c21f75787b603805fb}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!is\+Mouse\+Off@{is\+Mouse\+Off}}
+\index{is\+Mouse\+Off@{is\+Mouse\+Off}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{is\+Mouse\+Off}]{\setlength{\rightskip}{0pt plus 5cm}boolean M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::is\+Mouse\+Off}\label{struct_m_o_u_s_e___c_t_l_a50ef4375066f58c21f75787b603805fb}
+
+
+is mouse enabled. 
+
+\hypertarget{struct_m_o_u_s_e___c_t_l_ade3f3716166e203684737f31cff4a753}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!key@{key}}
+\index{key@{key}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{key}]{\setlength{\rightskip}{0pt plus 5cm}uint8 M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::key}\label{struct_m_o_u_s_e___c_t_l_ade3f3716166e203684737f31cff4a753}
+
+
+contains the pressed key on mouse. 
+
+Program could get this from \hyperlink{mouse__keyboard_8c_a01ccca89f78ef807bb021f66fe1addaf}{Mouse\+Get\+Key()}. \hypertarget{struct_m_o_u_s_e___c_t_l_ab7257a50dfc91c78666621e0af7bbbe7}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!sheet@{sheet}}
+\index{sheet@{sheet}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{sheet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+H\+E\+E\+T}$\ast$ M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::sheet}\label{struct_m_o_u_s_e___c_t_l_ab7257a50dfc91c78666621e0af7bbbe7}
+
+
+sheet which contains this mouse. 
+
+\hypertarget{struct_m_o_u_s_e___c_t_l_aa56dc48b53502faff745181e13a3ccfc}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!x@{x}}
+\index{x@{x}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}int32 M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::x}\label{struct_m_o_u_s_e___c_t_l_aa56dc48b53502faff745181e13a3ccfc}
+
+
+x value pos mouse pos. 
+
+\hypertarget{struct_m_o_u_s_e___c_t_l_add9dc2e15464a86ea8e87d04dff862fb}{}\index{M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}!y@{y}}
+\index{y@{y}!M\+O\+U\+S\+E\+\_\+\+C\+T\+L@{M\+O\+U\+S\+E\+\_\+\+C\+T\+L}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}int32 M\+O\+U\+S\+E\+\_\+\+C\+T\+L\+::y}\label{struct_m_o_u_s_e___c_t_l_add9dc2e15464a86ea8e87d04dff862fb}
+
+
+y value pos mouse pos. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/mouse\+\_\+keyboard.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,535 @@
+\hypertarget{graphic_8c}{}\section{src/graphic.c File Reference}
+\label{graphic_8c}\index{src/graphic.\+c@{src/graphic.\+c}}
+
+
+basic functions related to painting.  
+
+
+{\ttfamily \#include \char`\"{}graphic.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{graphic_8c_a42a564ae1340c89e85f7ef58c6f8e46e}{init\+\_\+palette} (void)
+\begin{DoxyCompactList}\small\item\em init palette. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_aa03047a07f0e57f8490f995f95f887a4}{set\+\_\+palette} (int32 start, int32 end, uint8 $\ast$rgb)
+\begin{DoxyCompactList}\small\item\em set palette. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a15a51b4145d9fed0bc2383d42048c505}{fill\+\_\+box} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, uint8 color, int32 xtop\+Left, int32 ytop\+Left, int32 x\+Bottom\+Right, int32 y\+Bottom\+Right)
+\begin{DoxyCompactList}\small\item\em draw a rectangle. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_ad6234cf55f926d30484f7eed8fab1c5e}{fill\+\_\+box\+\_\+with\+\_\+buf} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, uint8 $\ast$buf, int32 xtop\+Left, int32 ytop\+Left, int32 x\+Bottom\+Right, int32 y\+Bottom\+Right)
+\begin{DoxyCompactList}\small\item\em draw a rectangle with given buf. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a3473d9d6db4f8034f42fb16294638269}{put\+\_\+ascii} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, uint8 ascii, uint8 color\+Num, int32 x, int32 y)
+\begin{DoxyCompactList}\small\item\em print a ascii character on specific position. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a63709ef370e647226f826b80d0f65130}{put\+\_\+gbk} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, uint16 gbk, uint8 color\+Num, int32 x, int32 y)
+\begin{DoxyCompactList}\small\item\em print a chinese gbk character on specific position. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_aad699d88e56a51e76de2e7d15d774418}{puts\+\_\+str} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, uint8 $\ast$str, uint8 color\+Num, int32 x, int32 y)
+\begin{DoxyCompactList}\small\item\em print strings on specific position, the string could be mixture of gbk \& ascii. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_afb0e918ec3f47f523e177e16df122f83}{draw\+\_\+point} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, int32 x, int32 y, uint8 color)
+\begin{DoxyCompactList}\small\item\em draw a point on specific position. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a436a7be5f21a5aa13601c5e1915815b1}{draw\+\_\+line} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, int32 x0, int32 y0, int32 x1, int32 y1, uint8 color)
+\begin{DoxyCompactList}\small\item\em draw a line on specific position. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a44784f8195753941634c567d8eb92c10}{copy\+\_\+buf} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, int32 width, int32 height, int32 to\+Top\+Left\+X, int32 to\+Top\+Left\+X, int32 from\+Top\+Left\+X, int32 from\+Top\+Left\+Y)
+\begin{DoxyCompactList}\small\item\em copy buffer from one area to another. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_a91771d8f5800b9458f3500c147646da5}{draw\+\_\+default\+\_\+wnd} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, int8 $\ast$title, uint8 $\ast$icon, int32 top\+Left\+X, int32 top\+Left\+Y, int32 bottom\+Right\+X, int32 bottom\+Right\+Y)
+\begin{DoxyCompactList}\small\item\em draw a window on given sheet with specific title ,icon and position. \end{DoxyCompactList}\item 
+void \hyperlink{graphic_8c_aaf9a7159f5033e892e858ea6f03ca1ff}{draw\+\_\+console\+\_\+wnd} (\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$sheet, int8 $\ast$title, uint8 $\ast$icon, int32 top\+Left\+X, int32 top\+Left\+Y, int32 bottom\+Right\+X, int32 bottom\+Right\+Y)
+\begin{DoxyCompactList}\small\item\em draw a console window on given sheet with specific title ,icon and position. \end{DoxyCompactList}\item 
+boolean \hyperlink{graphic_8c_a2e34150c7e68e0d3e6dbd28191d302d2}{pos\+\_\+inside\+\_\+rect} (I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} $\ast$rect, I\+N \hyperlink{struct_p_o_s}{P\+O\+S} $\ast$pos)
+\begin{DoxyCompactList}\small\item\em test if a point is in a rectangle. \end{DoxyCompactList}\item 
+boolean \hyperlink{graphic_8c_a05cf57d9078877f998474073a36fcdfe}{rect\+\_\+inside\+\_\+rect} (I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} $\ast$small\+Rect, I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} $\ast$big\+Rect)
+\begin{DoxyCompactList}\small\item\em test if a rectangle is in another rectangle. \end{DoxyCompactList}\item 
+int32 \hyperlink{graphic_8c_af58c750873ec1d9367fde190260008f5}{rect\+\_\+get\+\_\+area} (I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} $\ast$rect)
+\begin{DoxyCompactList}\small\item\em get the area value of a rectangle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{graphic_8c_ac0fcbb9720e16833b1878f66a1965636}{}int8 \hyperlink{graphic_8c_ac0fcbb9720e16833b1878f66a1965636}{hankaku} \mbox{[}4096\mbox{]}\label{graphic_8c_ac0fcbb9720e16833b1878f66a1965636}
+
+\begin{DoxyCompactList}\small\item\em chracter matrix of ascii \& number. \end{DoxyCompactList}\item 
+\hypertarget{graphic_8c_a2dbf8f7b7c5ec0333b209995e477474c}{}uint8 \hyperlink{graphic_8c_a2dbf8f7b7c5ec0333b209995e477474c}{icon\+\_\+close} \mbox{[}256\mbox{]}\label{graphic_8c_a2dbf8f7b7c5ec0333b209995e477474c}
+
+\begin{DoxyCompactList}\small\item\em picture matrix of close icon of windows. \end{DoxyCompactList}\item 
+\hypertarget{graphic_8c_a5c20faf099e3cfe09b4a16cc236d137a}{}\hyperlink{struct_f_a_t___c_t_l}{F\+A\+T\+\_\+\+C\+T\+L} \hyperlink{graphic_8c_a5c20faf099e3cfe09b4a16cc236d137a}{fat\+Ctl}\label{graphic_8c_a5c20faf099e3cfe09b4a16cc236d137a}
+
+\begin{DoxyCompactList}\small\item\em Used to load G\+B\+K character matrix for drawing chinese. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+basic functions related to painting. 
+
+The graphic include init palette, print rectangle, print characters, draw point \& line. 
+
+\subsection{Function Documentation}
+\hypertarget{graphic_8c_a44784f8195753941634c567d8eb92c10}{}\index{graphic.\+c@{graphic.\+c}!copy\+\_\+buf@{copy\+\_\+buf}}
+\index{copy\+\_\+buf@{copy\+\_\+buf}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{copy\+\_\+buf}]{\setlength{\rightskip}{0pt plus 5cm}void copy\+\_\+buf (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{int32}]{width, }
+\item[{int32}]{height, }
+\item[{int32}]{to\+Top\+Left\+X, }
+\item[{int32}]{to\+Top\+Left\+X, }
+\item[{int32}]{from\+Top\+Left\+X, }
+\item[{int32}]{from\+Top\+Left\+Y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a44784f8195753941634c567d8eb92c10}
+
+
+copy buffer from one area to another. 
+
+Copy buffer on given sheet from one area to another. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em width} & the width of copyed area. \\
+\hline
+{\em height} & the height of copyed area. \\
+\hline
+{\em to\+Top\+Left\+X} & x value of left top pos of dst area. \\
+\hline
+{\em to\+Top\+Left\+Y} & y value of left top pos of dst area. \\
+\hline
+{\em from\+Top\+Left\+X} & x value of left top pos of src area. \\
+\hline
+{\em from\+Top\+Left\+Y} & y value of left top pos of src area. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_aaf9a7159f5033e892e858ea6f03ca1ff}{}\index{graphic.\+c@{graphic.\+c}!draw\+\_\+console\+\_\+wnd@{draw\+\_\+console\+\_\+wnd}}
+\index{draw\+\_\+console\+\_\+wnd@{draw\+\_\+console\+\_\+wnd}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{draw\+\_\+console\+\_\+wnd}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+console\+\_\+wnd (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{int8 $\ast$}]{title, }
+\item[{uint8 $\ast$}]{icon, }
+\item[{int32}]{top\+Left\+X, }
+\item[{int32}]{top\+Left\+Y, }
+\item[{int32}]{bottom\+Right\+X, }
+\item[{int32}]{bottom\+Right\+Y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_aaf9a7159f5033e892e858ea6f03ca1ff}
+
+
+draw a console window on given sheet with specific title ,icon and position. 
+
+draw a window similar to Microsoft Window\textquotesingle{}s cmd. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em title} & the title draw on the window title bar. \\
+\hline
+{\em icon} & the icon of the window, would be drawn on top left of the window. \\
+\hline
+{\em top\+Left\+X} & x value of left top pos. \\
+\hline
+{\em top\+Left\+Y} & y value of left top pos. \\
+\hline
+{\em bottom\+Right\+X} & x value of right bottom pos. \\
+\hline
+{\em bottom\+Right\+Y} & y value of right bottom pos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a91771d8f5800b9458f3500c147646da5}{}\index{graphic.\+c@{graphic.\+c}!draw\+\_\+default\+\_\+wnd@{draw\+\_\+default\+\_\+wnd}}
+\index{draw\+\_\+default\+\_\+wnd@{draw\+\_\+default\+\_\+wnd}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{draw\+\_\+default\+\_\+wnd}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+default\+\_\+wnd (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{int8 $\ast$}]{title, }
+\item[{uint8 $\ast$}]{icon, }
+\item[{int32}]{top\+Left\+X, }
+\item[{int32}]{top\+Left\+Y, }
+\item[{int32}]{bottom\+Right\+X, }
+\item[{int32}]{bottom\+Right\+Y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a91771d8f5800b9458f3500c147646da5}
+
+
+draw a window on given sheet with specific title ,icon and position. 
+
+draw a window similar to Microsoft Window\textquotesingle{}s about window. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em title} & the title draw on the window title bar. \\
+\hline
+{\em icon} & the icon of the window, would be drawn on top left of the window. \\
+\hline
+{\em top\+Left\+X} & x value of left top pos. \\
+\hline
+{\em top\+Left\+Y} & y value of left top pos. \\
+\hline
+{\em bottom\+Right\+X} & x value of right bottom pos. \\
+\hline
+{\em bottom\+Right\+Y} & y value of right bottom pos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a436a7be5f21a5aa13601c5e1915815b1}{}\index{graphic.\+c@{graphic.\+c}!draw\+\_\+line@{draw\+\_\+line}}
+\index{draw\+\_\+line@{draw\+\_\+line}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{draw\+\_\+line}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+line (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{int32}]{x0, }
+\item[{int32}]{y0, }
+\item[{int32}]{x1, }
+\item[{int32}]{y1, }
+\item[{uint8}]{color}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a436a7be5f21a5aa13601c5e1915815b1}
+
+
+draw a line on specific position. 
+
+Draw a line with assigned color and assigned pos on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em x0} & x value of one end. \\
+\hline
+{\em y0} & y value of one end. \\
+\hline
+{\em x1} & x value of the other end. \\
+\hline
+{\em y1} & y value of the other end. \\
+\hline
+{\em color} & The index of color in palette. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_afb0e918ec3f47f523e177e16df122f83}{}\index{graphic.\+c@{graphic.\+c}!draw\+\_\+point@{draw\+\_\+point}}
+\index{draw\+\_\+point@{draw\+\_\+point}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{draw\+\_\+point}]{\setlength{\rightskip}{0pt plus 5cm}void draw\+\_\+point (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{int32}]{x, }
+\item[{int32}]{y, }
+\item[{uint8}]{color}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_afb0e918ec3f47f523e177e16df122f83}
+
+
+draw a point on specific position. 
+
+Draw a dot with assigned color and assigned pos on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em x} & x value of left top position. \\
+\hline
+{\em y} & y value of left top position. \\
+\hline
+{\em color} & The index of color in palette. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a15a51b4145d9fed0bc2383d42048c505}{}\index{graphic.\+c@{graphic.\+c}!fill\+\_\+box@{fill\+\_\+box}}
+\index{fill\+\_\+box@{fill\+\_\+box}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{fill\+\_\+box}]{\setlength{\rightskip}{0pt plus 5cm}void fill\+\_\+box (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{uint8}]{color, }
+\item[{int32}]{xtop\+Left, }
+\item[{int32}]{ytop\+Left, }
+\item[{int32}]{x\+Bottom\+Right, }
+\item[{int32}]{y\+Bottom\+Right}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a15a51b4145d9fed0bc2383d42048c505}
+
+
+draw a rectangle. 
+
+Draw a rectangle with assigned color and assigned area on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em color} & The index of color in palette. \\
+\hline
+{\em xtop\+Left} & x value of left top position. \\
+\hline
+{\em ytop\+Left} & y value of left top position. \\
+\hline
+{\em x\+Bottom\+Right} & x value of right bottom position. \\
+\hline
+{\em y\+Bottom\+R\+Ight} & y value of right bottom position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_ad6234cf55f926d30484f7eed8fab1c5e}{}\index{graphic.\+c@{graphic.\+c}!fill\+\_\+box\+\_\+with\+\_\+buf@{fill\+\_\+box\+\_\+with\+\_\+buf}}
+\index{fill\+\_\+box\+\_\+with\+\_\+buf@{fill\+\_\+box\+\_\+with\+\_\+buf}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{fill\+\_\+box\+\_\+with\+\_\+buf}]{\setlength{\rightskip}{0pt plus 5cm}void fill\+\_\+box\+\_\+with\+\_\+buf (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{uint8 $\ast$}]{buf, }
+\item[{int32}]{xtop\+Left, }
+\item[{int32}]{ytop\+Left, }
+\item[{int32}]{x\+Bottom\+Right, }
+\item[{int32}]{y\+Bottom\+Right}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_ad6234cf55f926d30484f7eed8fab1c5e}
+
+
+draw a rectangle with given buf. 
+
+Draw a rectangle with assigned buf and assigned area on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em buf} & The buffer instead of color index, That could be used draw some picture on sheet. \\
+\hline
+{\em xtop\+Left} & x value of left top position. \\
+\hline
+{\em ytop\+Left} & y value of left top position. \\
+\hline
+{\em x\+Bottom\+Right} & x value of right bottom position. \\
+\hline
+{\em y\+Bottom\+R\+Ight} & y value of right bottom position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a42a564ae1340c89e85f7ef58c6f8e46e}{}\index{graphic.\+c@{graphic.\+c}!init\+\_\+palette@{init\+\_\+palette}}
+\index{init\+\_\+palette@{init\+\_\+palette}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{init\+\_\+palette}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+palette (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a42a564ae1340c89e85f7ef58c6f8e46e}
+
+
+init palette. 
+
+After the palette is initialized. we could draw the color with index in the palette directly. Only 16 color available in current environment. 
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a2e34150c7e68e0d3e6dbd28191d302d2}{}\index{graphic.\+c@{graphic.\+c}!pos\+\_\+inside\+\_\+rect@{pos\+\_\+inside\+\_\+rect}}
+\index{pos\+\_\+inside\+\_\+rect@{pos\+\_\+inside\+\_\+rect}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{pos\+\_\+inside\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}boolean pos\+\_\+inside\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf R\+E\+C\+T} $\ast$}]{rect, }
+\item[{I\+N {\bf P\+O\+S} $\ast$}]{pos}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a2e34150c7e68e0d3e6dbd28191d302d2}
+
+
+test if a point is in a rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rect} & the rectangle. \\
+\hline
+{\em \hyperlink{struct_p_o_s}{P\+O\+S}} & the position of pos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the point is in the rectangle, T\+R\+U\+E if in else F\+A\+L\+S\+E; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a3473d9d6db4f8034f42fb16294638269}{}\index{graphic.\+c@{graphic.\+c}!put\+\_\+ascii@{put\+\_\+ascii}}
+\index{put\+\_\+ascii@{put\+\_\+ascii}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{put\+\_\+ascii}]{\setlength{\rightskip}{0pt plus 5cm}void put\+\_\+ascii (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{uint8}]{ascii, }
+\item[{uint8}]{color\+Num, }
+\item[{int32}]{x, }
+\item[{int32}]{y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a3473d9d6db4f8034f42fb16294638269}
+
+
+print a ascii character on specific position. 
+
+Draw a ascii character with assigned color and assigned pos on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em ascii} & The ascii character to draw. \\
+\hline
+{\em color\+Num} & The index of color in palette. \\
+\hline
+{\em x} & x value of left top position. \\
+\hline
+{\em y} & y value of left top position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a63709ef370e647226f826b80d0f65130}{}\index{graphic.\+c@{graphic.\+c}!put\+\_\+gbk@{put\+\_\+gbk}}
+\index{put\+\_\+gbk@{put\+\_\+gbk}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{put\+\_\+gbk}]{\setlength{\rightskip}{0pt plus 5cm}void put\+\_\+gbk (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{uint16}]{gbk, }
+\item[{uint8}]{color\+Num, }
+\item[{int32}]{x, }
+\item[{int32}]{y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a63709ef370e647226f826b80d0f65130}
+
+
+print a chinese gbk character on specific position. 
+
+Draw a chinese gbk character with assigned color and assigned pos on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em gbk} & The chinese character to draw. \\
+\hline
+{\em color\+Num} & The index of color in palette. \\
+\hline
+{\em x} & x value of left top position. \\
+\hline
+{\em y} & y value of left top position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_aad699d88e56a51e76de2e7d15d774418}{}\index{graphic.\+c@{graphic.\+c}!puts\+\_\+str@{puts\+\_\+str}}
+\index{puts\+\_\+str@{puts\+\_\+str}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{puts\+\_\+str}]{\setlength{\rightskip}{0pt plus 5cm}void puts\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{{\bf S\+H\+E\+E\+T} $\ast$}]{sheet, }
+\item[{uint8 $\ast$}]{str, }
+\item[{uint8}]{color\+Num, }
+\item[{int32}]{x, }
+\item[{int32}]{y}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_aad699d88e56a51e76de2e7d15d774418}
+
+
+print strings on specific position, the string could be mixture of gbk \& ascii. 
+
+Draw a string with assigned color and assigned pos on given sheet. \begin{DoxyNote}{Note}
+The sheet can not be invalid. That would cause unexpected error. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em sheet} & The sheet to draw on. Can get from sheet\+\_\+add. \\
+\hline
+{\em str} & The string to draw, the str could be mixture of gbk \& ascii. \\
+\hline
+{\em color\+Num} & The index of color in palette. \\
+\hline
+{\em x} & x value of left top position. \\
+\hline
+{\em y} & y value of left top position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_af58c750873ec1d9367fde190260008f5}{}\index{graphic.\+c@{graphic.\+c}!rect\+\_\+get\+\_\+area@{rect\+\_\+get\+\_\+area}}
+\index{rect\+\_\+get\+\_\+area@{rect\+\_\+get\+\_\+area}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{rect\+\_\+get\+\_\+area}]{\setlength{\rightskip}{0pt plus 5cm}int32 rect\+\_\+get\+\_\+area (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf R\+E\+C\+T} $\ast$}]{rect}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_af58c750873ec1d9367fde190260008f5}
+
+
+get the area value of a rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rect} & the rectangle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the area value of the given rectangle; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_a05cf57d9078877f998474073a36fcdfe}{}\index{graphic.\+c@{graphic.\+c}!rect\+\_\+inside\+\_\+rect@{rect\+\_\+inside\+\_\+rect}}
+\index{rect\+\_\+inside\+\_\+rect@{rect\+\_\+inside\+\_\+rect}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{rect\+\_\+inside\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}boolean rect\+\_\+inside\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf R\+E\+C\+T} $\ast$}]{small\+Rect, }
+\item[{I\+N {\bf R\+E\+C\+T} $\ast$}]{big\+Rect}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_a05cf57d9078877f998474073a36fcdfe}
+
+
+test if a rectangle is in another rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em small\+Rect} & the rectangle. \\
+\hline
+{\em big\+Rect} & the rectangle probably contain the small one. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the small rect is in the big rect, T\+R\+U\+E if in else F\+A\+L\+S\+E; 
+\end{DoxyReturn}
+\hypertarget{graphic_8c_aa03047a07f0e57f8490f995f95f887a4}{}\index{graphic.\+c@{graphic.\+c}!set\+\_\+palette@{set\+\_\+palette}}
+\index{set\+\_\+palette@{set\+\_\+palette}!graphic.\+c@{graphic.\+c}}
+\subsubsection[{set\+\_\+palette}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+palette (
+\begin{DoxyParamCaption}
+\item[{int32}]{start, }
+\item[{int32}]{end, }
+\item[{uint8 $\ast$}]{rgb}
+\end{DoxyParamCaption}
+)}\label{graphic_8c_aa03047a07f0e57f8490f995f95f887a4}
+
+
+set palette. 
+
+Set the palette from start to end with the value of rgb. \begin{DoxyNote}{Note}
+The length of array rgb should equals to 3 $\ast$ (end -\/ start). 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em start} & the start address of palette, could be int from 0 to 15. \\
+\hline
+{\em end} & the end address of palette, could be int from 0 to 15. \\
+\hline
+{\em rgb} & the rgb array used to put into the palette. watch out for the length of rgb, length of rgb should equals 3 $\ast$ (end -\/ start) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}

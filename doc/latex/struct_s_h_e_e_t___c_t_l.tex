@@ -1,0 +1,108 @@
+\hypertarget{struct_s_h_e_e_t___c_t_l}{}\section{S\+H\+E\+E\+T\+\_\+\+C\+T\+L Struct Reference}
+\label{struct_s_h_e_e_t___c_t_l}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+
+
+struct of sheet\+Ctl.  
+
+
+
+
+{\ttfamily \#include $<$sheet.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8 $\ast$ \hyperlink{struct_s_h_e_e_t___c_t_l_a2d8f8732b3dddffe2ada89ed06c8c4a2}{vram}
+\begin{DoxyCompactList}\small\item\em the real video ram. \end{DoxyCompactList}\item 
+uint8 $\ast$ \hyperlink{struct_s_h_e_e_t___c_t_l_a426b4ed9d4a90b8c1088b6985247dff8}{res\+Vram}
+\begin{DoxyCompactList}\small\item\em the buffer to draw before draw into real ram. \end{DoxyCompactList}\item 
+int32 \hyperlink{struct_s_h_e_e_t___c_t_l_a4a80677c76f07b597e276272bbace4d3}{width}
+\begin{DoxyCompactList}\small\item\em the width of the whole screen. \end{DoxyCompactList}\item 
+int32 \hyperlink{struct_s_h_e_e_t___c_t_l_a6587daa4ab0e04350d417a8daf705dbb}{height}
+\begin{DoxyCompactList}\small\item\em the height of the whole screen. \end{DoxyCompactList}\item 
+int32 \hyperlink{struct_s_h_e_e_t___c_t_l_a9c553d8295dd7a77fbee4f8a2e019a5e}{top\+Z}
+\begin{DoxyCompactList}\small\item\em the biggest value of z among current sheets. \end{DoxyCompactList}\item 
+\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} $\ast$ \hyperlink{struct_s_h_e_e_t___c_t_l_a2a5cb880dfb60f67ff6199210d6541e3}{sorted\+Sheet} \mbox{[}M\+A\+X\+\_\+\+S\+H\+E\+E\+T\+\_\+\+N\+U\+M\mbox{]}
+\begin{DoxyCompactList}\small\item\em the sheets in ascendent order. \end{DoxyCompactList}\item 
+\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} \hyperlink{struct_s_h_e_e_t___c_t_l_a2d2f4af17fdf61831f36efd2e0024698}{sheets} \mbox{[}M\+A\+X\+\_\+\+S\+H\+E\+E\+T\+\_\+\+N\+U\+M\mbox{]}
+\begin{DoxyCompactList}\small\item\em all the sheets. \end{DoxyCompactList}\item 
+\hyperlink{struct_s_h_e_e_t}{S\+H\+E\+E\+T} \hyperlink{struct_s_h_e_e_t___c_t_l_ac08483959e673b709053cab3add98122}{mouse\+Sheet}
+\begin{DoxyCompactList}\small\item\em mouse sheet. \end{DoxyCompactList}\item 
+\hyperlink{struct_r_e_c_t}{R\+E\+C\+T} \hyperlink{struct_s_h_e_e_t___c_t_l_a9bbc0e9f83ecc2809d2dda7128569161}{redraw\+\_\+rect}
+\begin{DoxyCompactList}\small\item\em the redraw region requested by user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct of sheet\+Ctl. 
+
+O\+S use this structure to manage all sheets. This struct contains mouse sheet, normal sheets, redraw regions and so on. 
+
+\subsection{Member Data Documentation}
+\hypertarget{struct_s_h_e_e_t___c_t_l_a6587daa4ab0e04350d417a8daf705dbb}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!height@{height}}
+\index{height@{height}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int32 S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::height}\label{struct_s_h_e_e_t___c_t_l_a6587daa4ab0e04350d417a8daf705dbb}
+
+
+the height of the whole screen. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_ac08483959e673b709053cab3add98122}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!mouse\+Sheet@{mouse\+Sheet}}
+\index{mouse\+Sheet@{mouse\+Sheet}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{mouse\+Sheet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+H\+E\+E\+T} S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::mouse\+Sheet}\label{struct_s_h_e_e_t___c_t_l_ac08483959e673b709053cab3add98122}
+
+
+mouse sheet. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_a9bbc0e9f83ecc2809d2dda7128569161}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!redraw\+\_\+rect@{redraw\+\_\+rect}}
+\index{redraw\+\_\+rect@{redraw\+\_\+rect}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{redraw\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf R\+E\+C\+T} S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::redraw\+\_\+rect}\label{struct_s_h_e_e_t___c_t_l_a9bbc0e9f83ecc2809d2dda7128569161}
+
+
+the redraw region requested by user. 
+
+It would be redraw when redraw\+\_\+daemon is running. \hypertarget{struct_s_h_e_e_t___c_t_l_a426b4ed9d4a90b8c1088b6985247dff8}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!res\+Vram@{res\+Vram}}
+\index{res\+Vram@{res\+Vram}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{res\+Vram}]{\setlength{\rightskip}{0pt plus 5cm}uint8$\ast$ S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::res\+Vram}\label{struct_s_h_e_e_t___c_t_l_a426b4ed9d4a90b8c1088b6985247dff8}
+
+
+the buffer to draw before draw into real ram. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_a2d2f4af17fdf61831f36efd2e0024698}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!sheets@{sheets}}
+\index{sheets@{sheets}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{sheets}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+H\+E\+E\+T} S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::sheets\mbox{[}M\+A\+X\+\_\+\+S\+H\+E\+E\+T\+\_\+\+N\+U\+M\mbox{]}}\label{struct_s_h_e_e_t___c_t_l_a2d2f4af17fdf61831f36efd2e0024698}
+
+
+all the sheets. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_a2a5cb880dfb60f67ff6199210d6541e3}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!sorted\+Sheet@{sorted\+Sheet}}
+\index{sorted\+Sheet@{sorted\+Sheet}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{sorted\+Sheet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+H\+E\+E\+T}$\ast$ S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::sorted\+Sheet\mbox{[}M\+A\+X\+\_\+\+S\+H\+E\+E\+T\+\_\+\+N\+U\+M\mbox{]}}\label{struct_s_h_e_e_t___c_t_l_a2a5cb880dfb60f67ff6199210d6541e3}
+
+
+the sheets in ascendent order. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_a9c553d8295dd7a77fbee4f8a2e019a5e}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!top\+Z@{top\+Z}}
+\index{top\+Z@{top\+Z}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{top\+Z}]{\setlength{\rightskip}{0pt plus 5cm}int32 S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::top\+Z}\label{struct_s_h_e_e_t___c_t_l_a9c553d8295dd7a77fbee4f8a2e019a5e}
+
+
+the biggest value of z among current sheets. 
+
+\hypertarget{struct_s_h_e_e_t___c_t_l_a2d8f8732b3dddffe2ada89ed06c8c4a2}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!vram@{vram}}
+\index{vram@{vram}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{vram}]{\setlength{\rightskip}{0pt plus 5cm}uint8$\ast$ S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::vram}\label{struct_s_h_e_e_t___c_t_l_a2d8f8732b3dddffe2ada89ed06c8c4a2}
+
+
+the real video ram. 
+
+draw in this address will display on the screen. \hypertarget{struct_s_h_e_e_t___c_t_l_a4a80677c76f07b597e276272bbace4d3}{}\index{S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}!width@{width}}
+\index{width@{width}!S\+H\+E\+E\+T\+\_\+\+C\+T\+L@{S\+H\+E\+E\+T\+\_\+\+C\+T\+L}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int32 S\+H\+E\+E\+T\+\_\+\+C\+T\+L\+::width}\label{struct_s_h_e_e_t___c_t_l_a4a80677c76f07b597e276272bbace4d3}
+
+
+the width of the whole screen. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/sheet.\+h\end{DoxyCompactItemize}

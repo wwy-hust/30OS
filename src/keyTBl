@@ -1,0 +1,8 @@
+﻿static char keytable[0x59] = {
+	0,   KEY_ESC,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', KEY_BACK, KEY_TAB,
+	'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', KEY_ENTER, KEY_LCTRL,  'A', 'S',
+	'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'','`', KEY_LSHIFT, '\\', 'Z', 'X', 'C', 'V',
+	'B', 'N', 'M', ',', '.', '/', KEY_RSHIFT, '*', KEY_LALT, ' ', KEY_CAPSLOCK, KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F5,
+	KEY_F6, KEY_F7, KEY_F8, KEY_F9, KEY_F10, KEY_NUMLOCK, KEY_SRL_LOCK, '7', '8', '9', '-', '4', '5', '6', '+', '1',
+	'2', '3', '0', '.', KEY_SYSRQ, 0, 0, KEY_F11, KEY_F12
+};
