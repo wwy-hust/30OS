@@ -1,9 +1,20 @@
+/** @file wnd.c
+ *  @brief basic functions related to windows management.
+ *
+ *  The wnd management including create wnd, move wnd, put wnd on top, etc.
+ */
 
 #include "wnd.h"
 #include "wnd_console.h"
 
-WND_CTL wndCtl;
+WND_CTL wndCtl;		///< global variable used to store information about windows.
 
+
+/** @brief init wndCtl.
+ *  Init wndCtl structure.
+ *  @param NULL
+ *  @return NULL
+ */
 void wnd_init()
 {
 	int8 i;
@@ -14,6 +25,16 @@ void wnd_init()
 	}
 }
 
+/** @brief create a window, with specified size, title, icon, draw function.
+ *  If create successful, the window would be put into sortedWnd[] of wndCtl.
+ *  @param wndSize RECT value of window size.
+ *  @param title the title of window, would display on title bar.
+ *  @param icon the icon of window, would display on top left of window's title bar. 
+ *  @param wnd the window handle, could be usd in future.
+ *  @param func the draw function used to draw this window, this could be drawed to a default window or console. 
+ *         you could add your own draw function to draw your own window.
+ *  @return whether the operation is successful. if yes, return TRUE els FALSE.
+ */
 boolean wnd_create(IN RECT wndSize, IN int8* title, IN int8* icon, OUT WND** wnd, draw_wnd func)
 {
 	int32 i, width, height;
@@ -70,6 +91,11 @@ boolean wnd_create(IN RECT wndSize, IN int8* title, IN int8* icon, OUT WND** wnd
 	return TRUE;
 }
 
+/** @brief delete window.
+ *  delete a window from sortedWindow[].
+ *  @param wnd the window handle you want to use.
+ *  @return whether the operation is successful. if yes, return TRUE els FALSE.
+ */
 boolean wnd_del(IN WND* wnd)
 {
 	int32 i;
@@ -97,6 +123,10 @@ boolean wnd_del(IN WND* wnd)
 	}
 }
 
+/** @brief test if user click in specified window.
+ *  @param wnd return the window handle you that user clicked on.
+ *  @return TRUE if user clicked on a wnd ,FALSE if user clicked on none wnd.
+ */
 boolean wnd_is_click_on_wnd(OUT WND** wnd)
 {
 	RECT tmpRect;
@@ -114,6 +144,10 @@ boolean wnd_is_click_on_wnd(OUT WND** wnd)
 	return FALSE;
 }
 
+/** @brief test if user click in title bar of specified window.
+ *  @param wnd return the window handle you that user clicked on.
+ *  @return TRUE if user clicked on a title bar ,FALSE if user clicked on none title bar.
+ */
 boolean wnd_is_click_on_title(OUT WND** wnd)
 {
 	RECT tmpRect;
@@ -137,6 +171,10 @@ boolean wnd_is_click_on_title(OUT WND** wnd)
 	}
 }
 
+/** @brief test if user click in close btn of specified window.
+ *  @param wnd return the window handle you that user clicked on.
+ *  @return TRUE if user clicked on a close btn ,FALSE if user clicked on none close btn.
+ */
 boolean wnd_is_click_on_close(OUT WND** wnd)
 {
 	RECT tmpRect;

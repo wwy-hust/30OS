@@ -1,18 +1,30 @@
+/** @file tim.c
+ *  @brief basic functions related to timer.
+ *
+ *  The timer including create timer, start timer, stop timer, delete timer. etc.
+ */
 
 #include "tim.h"
 
-TIM_CTL timerCtl;
-extern TIM* task_timer;
-extern TASK_CTL taskCtl;
+TIM_CTL timerCtl;	///< The struct used to hold all timers.
+extern TIM* task_timer;		///< the timer used to switch tasks.
+extern TASK_CTL taskCtl;	///< taskes control block used to control switch tasks.
 
+/** @brief timer interrupt.
+ *  Add global timecounter. check sortedTimer[] in timerCtl to see if there are some timers which are timeout.
+ *  Put the timeout timer to timerCtl.timeoutTimer[]. check sleep tasks list in taskCtl, if the task has sleep 
+ *  for enough time, wake up them and call scheduler.
+ *  @param esp stack pointer
+ *  @return NULL
+ */
 void interrupt_handler_0x20(int32 *esp)
 {
 	uint8 i, j;
-	io_out8(PIC0_OCW2, 0x60);		//°ÑIRQ-00ĞÅºÅ½ÓÊÕ½áÊøµÄĞÅÏ¢Í¨Öª¸øPIC
+	io_out8(PIC0_OCW2, 0x60);		///< æŠŠIRQ-00ä¿¡å·æ¥æ”¶ç»“æŸçš„ä¿¡æ¯é€šçŸ¥ç»™PIC
 
 	timerCtl.timecount++;
 
-	if(timerCtl.sortedEnd != 0 && timerCtl.timecount >= timerCtl.sortedTimer[0]->timeout) {	//ÓĞ¶¨Ê±Æ÷³¬Ê±
+	if(timerCtl.sortedEnd != 0 && timerCtl.timecount >= timerCtl.sortedTimer[0]->timeout) {	///< æœ‰å®šæ—¶å™¨è¶…æ—¶
 		for(i = 0; i < timerCtl.sortedEnd && timerCtl.timecount >= timerCtl.sortedTimer[i]->timeout; i++);
 		for(j = 0; j < i; j++) {
 			timerCtl.sortedTimer[j]->isTimeout = TRUE;
@@ -30,23 +42,28 @@ void interrupt_handler_0x20(int32 *esp)
 	}
 	
 	if(taskCtl.sleepTasksEnd > 0) {
-		// ÕÒµ½³¬Ê±µÄ sleep ¶ÓÁĞÖĞµÄÎ»ÖÃ
+		/// æ‰¾åˆ°è¶…æ—¶çš„ sleep é˜Ÿåˆ—ä¸­çš„ä½ç½®
 		for(i = 0; i < taskCtl.sleepTasksEnd && taskCtl.sleepTasks[i]->sleepTimeCnt_10ms <= timerCtl.timecount; i++);
-		// ½«ËùÓĞ³¬Ê±µÄÈÎÎñ·Åµ½ÔËĞĞ¶ÓÁĞÖĞ
+		/// å°†æ‰€æœ‰è¶…æ—¶çš„ä»»åŠ¡æ”¾åˆ°è¿è¡Œé˜Ÿåˆ—ä¸­
 		for(j = 0; j < i; j++) {
 			taskCtl.sleepTasks[j]->status = running;
 			taskCtl.runningTasks[taskCtl.runningTasksEnd++] = taskCtl.sleepTasks[j];
 		}
-		// ´Ó sleep ¶ÓÁĞÖĞÉ¾µôÕâĞ©ÈÎÎñ
+		/// ä» sleep é˜Ÿåˆ—ä¸­åˆ æ‰è¿™äº›ä»»åŠ¡
 		for(j = i; j < taskCtl.sleepTasksEnd; j++) {
 			taskCtl.sleepTasks[j - i] = taskCtl.sleepTasks[j];
 		}
-		// ½øĞĞµ÷¶È
+		/// è¿›è¡Œè°ƒåº¦
 		multiTask_switch();
 	}
 	
 }
 
+/** @brief init timerCtl.
+ *  Init timerCtl structure. Set hardware interrupt interval.
+ *  @param NULL
+ *  @return NULL
+ */
 void tim_init()
 {
 	int i = 0;
@@ -61,11 +78,17 @@ void tim_init()
 	}
 	
 	io_out8(PIT_CTRL, 0x34);
-	// ÉèÖÃÎª 0x2e9c, Ò»ÃëÔ¼ÖĞ¶Ï100´Î
+	// è®¾ç½®ä¸º 0x2e9c, ä¸€ç§’çº¦ä¸­æ–­100æ¬¡
 	io_out8(PIT_CNT0, 0x9c);
 	io_out8(PIT_CNT0, 0x2e);
 }
 
+/** @brief create a timer, add the timer into sortedTimer list.
+ *  input timeout value. unit of timeout is 10ms.
+ *  @param timeout the timeout value in 10ms.
+ *  @param timer the timer handle you can used to reset timeout, stop timer, del timer.
+ *  @return whether add operation is successful. if yes, return TRUE els FALSE.
+ */
 boolean timer_add(IN uint32 timeout, OUT TIM** timer)
 {
 	if(timerCtl.sortedEnd >= MAX_TIMER) {
@@ -89,6 +112,12 @@ boolean timer_add(IN uint32 timeout, OUT TIM** timer)
 	return TRUE;
 }
 
+/** @brief reset timeout value of timer.
+ *  input timer handle and timeout value. unit of timeout is 10ms.
+ *  @param timer timer handle of the timer you want to set.
+ *  @param timeout the timeout value in 10ms.
+ *  @return whether operation is successful. if yes, return TRUE els FALSE.
+ */
 boolean timer_set_timeout(IN TIM* timer, IN uint32 timeout)
 {
 	int32 i, j;
@@ -98,16 +127,16 @@ boolean timer_set_timeout(IN TIM* timer, IN uint32 timeout)
 	for(i = 0; i < timerCtl.timeoutEnd && timer != timerCtl.timeoutTimer[i]; i++);
 	if(i >= timerCtl.timeoutEnd) {
 		for(i = 0; i < timerCtl.sortedEnd && timer != timerCtl.sortedTimer[i]; i++);
-		if(i >= timerCtl.sortedEnd)		//Î´ÕÒµ½¸Ã ¶¨Ê±Æ÷
+		if(i >= timerCtl.sortedEnd)		//æœªæ‰¾åˆ°è¯¥ å®šæ—¶å™¨
 			return FALSE;
-		//µ÷Õû¶¨Ê±Æ÷²ÎÊı¼´¿É
+		//è°ƒæ•´å®šæ—¶å™¨å‚æ•°å³å¯
 		timer->timeout = timeout + timerCtl.timecount;
 		if(timer->timeout < timerCtl.timecount) {
 			tim_revise();
 		}
 		tim_sort();
 	}
-	else {		//ÔÚ³¬Ê±µÄ¶ÓÁĞÖĞÕÒµ½ÁË¸Ã ¶¨Ê±Æ÷(Î»ÖÃÎª i)£¬½«Æä´Ó³¬Ê±¶ÓÁĞÒÆ¶¯µ½ÅÅĞò¶ÓÁĞ
+	else {		//åœ¨è¶…æ—¶çš„é˜Ÿåˆ—ä¸­æ‰¾åˆ°äº†è¯¥ å®šæ—¶å™¨(ä½ç½®ä¸º i)ï¼Œå°†å…¶ä»è¶…æ—¶é˜Ÿåˆ—ç§»åŠ¨åˆ°æ’åºé˜Ÿåˆ—
 		for(j = i + 1; j < timerCtl.timeoutEnd; j++) {
 			timerCtl.timeoutTimer[j - 1] = timerCtl.timeoutTimer[j];
 		}
@@ -124,6 +153,11 @@ boolean timer_set_timeout(IN TIM* timer, IN uint32 timeout)
 	return TRUE;
 }
 
+/** @brief delete one timer.
+ *  input timer handle to delete the timer.
+ *  @param timer timer handle of the timer you want to delete.
+ *  @return whether operation is successful. if yes, return TRUE els FALSE.
+ */
 boolean timer_del(IN TIM* timer)
 {
 	int i;
@@ -138,6 +172,11 @@ boolean timer_del(IN TIM* timer)
 	return TRUE;
 }
 
+/** @brief test whether the timer is valid.
+ *  input timer handle of the timer.
+ *  @param timer timer handle of the timer you want to test.
+ *  @return whether the timer is valid.
+ */
 boolean timer_is_valid(IN TIM* timer)
 {
 	int32 i;
@@ -148,11 +187,20 @@ boolean timer_is_valid(IN TIM* timer)
 		return FALSE;
 }
 
+/** @brief get current time counter.
+ *  @param NULL
+ *  @return the time counter value.
+ */
 uint32	timer_getcount()
 {
 	return timerCtl.timecount;
 }
 
+/** @brief internal called function. 
+ *  if the counter is overflow. then set time counter to 0 and revise every timer existed.
+ *  @param NULL
+ *  @return NULL
+ */
 void tim_revise()
 {
 	uint32 t, i;
@@ -165,6 +213,10 @@ void tim_revise()
 	io_sti();
 }
 
+/** @brief sort the timer in sortedTimer[] list. 
+ *  @param NULL
+ *  @return NULL
+ */
 void tim_sort()
 {
 	int i, j;

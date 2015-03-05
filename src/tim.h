@@ -7,25 +7,27 @@
 #include "funcUtils.h"
 #include "multiTask.h"
 
-#define PIT_CTRL	0x0043
-#define PIT_CNT0	0x0040
+#define PIT_CTRL	0x0043	///< BIOS used, related to timer
+#define PIT_CNT0	0x0040	///< BIOS used, related to timer
 
-#define MAX_TIMER 256
+#define MAX_TIMER 256		///< max number of timer can be created.
 
+/** @brief structure of one timer. */
 typedef struct TIM{
-	uint32 	timeout;
-	boolean	isUsing;
-	boolean	isTimeout;
+	uint32 	timeout;		///< the timecount value then the timer is timeout.
+	boolean	isUsing;		///< Whether the timer is under used.
+	boolean	isTimeout;		///< whether the timer is timeout.
 }TIM;
 
+/** @brief structure of global timerCtl. */
 typedef struct TIM_CTL{
-	uint32	timecount;				//时间基准，中断中累加
-	int16 	sortedEnd;
-	int16		timeoutEnd;
-	int16		timerPos;
-	TIM*		sortedTimer[MAX_TIMER];
-	TIM*		timeoutTimer[MAX_TIMER];
-	TIM			timers[MAX_TIMER];
+	uint32	timecount;		///< global timecount value. when time interrupt happens, this value will increase one.
+	int16 	sortedEnd;		///< End pos of sortedTimer[]. also the length of sortedTimer[].
+	int16		timeoutEnd;	///< End pos of timeoutTimer[]. also the length of timeoutTimer[].
+	int16		timerPos;	///< End pos of timers[]. also the count of created timer.
+	TIM*		sortedTimer[MAX_TIMER];		///< sortedTimer[] list, order by timeout in TIM.
+	TIM*		timeoutTimer[MAX_TIMER];	///< timeoutTimer[] list
+	TIM			timers[MAX_TIMER];		///< store all timers in this list, no matter it was used or not.
 }TIM_CTL;
 
 // Timer interrupt handler
