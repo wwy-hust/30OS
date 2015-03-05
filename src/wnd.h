@@ -11,25 +11,31 @@
 
 #define WND_ARRAY_SIZE	64
 
+/** @brief struct of one wnd. */
 typedef struct WND{
-	boolean	isUsing;
-	int32		z;
-	int8*		title;
-	int8* 	icon;
-	RECT		wndRect;
-	RECT		titleRect;		//relative
-	RECT		closeRect;		//relative
-	RECT		contentRect;	//relative
-	SHEET*	wndSheet;
-	LoopArray*	keyboardBuffer;
+	boolean	isUsing;			///< is the WND used
+	int32		z;				///< z layer value, top or between wnds
+	int8*		title;			///< windows title
+	int8* 	icon;				///< windows icon
+	RECT		wndRect;		///< windows rectangle, can not be changed currently
+	RECT		titleRect;		///< relative rect with wndRect
+	RECT		closeRect;		///< relative rect with wndRect
+	RECT		contentRect;	///< relative rect with wndRect
+	SHEET*	wndSheet;			///< sheet handle which hold the pixel of the window
+	LoopArray*	keyboardBuffer;	///< keyboard buffer to receive input
 }WND;
 
+/** @brief struct of window management system. */
 typedef struct WND_CTL {
-	int32 wndCnt;
-	WND*	sortedWnd[WND_ARRAY_SIZE];
-	WND		wnd[WND_ARRAY_SIZE];
+	int32 wndCnt;						///< num of window
+	WND*	sortedWnd[WND_ARRAY_SIZE];	///< windows sorted by z
+	WND		wnd[WND_ARRAY_SIZE];		///< store all WND structure.
 }WND_CTL;
 
+/** @brief this typedef simplify the draw function. 
+ *  So, in order to use this simplicity, you need to write a wraper. 
+ *  examples are in wnd.c draw_wnd1(), draw_wnd2().
+ */
 typedef void (draw_wnd)(WND* wnd);
 
 void wnd_init();

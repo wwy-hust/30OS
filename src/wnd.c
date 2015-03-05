@@ -203,6 +203,12 @@ boolean wnd_is_click_on_close(OUT WND** wnd)
 	}
 }
 
+/** @brief move window with (x, y).
+ *  @param wnd the window you want move.
+ *  @param x x offset to move. negative number mean move left, positive means move right.
+ *  @param y y offset to move. negative number mean move up, positive means move down.
+ *  @return TRUE if move successful, FALSE if failed.
+ */
 boolean wnd_move(IN WND* wnd, int32 x, int32 y)
 {
 	if(wnd == NULL)
@@ -218,6 +224,10 @@ boolean wnd_move(IN WND* wnd, int32 x, int32 y)
 	return TRUE;
 }
 
+/** @brief put wnd on top.
+ *  @param wnd the window you want put in front of.
+ *  @return TRUE if successful, FALSE if failed.
+ */
 boolean wnd_pin_top(IN WND* wnd)
 {
 	int32 i, j;
@@ -237,6 +247,10 @@ boolean wnd_pin_top(IN WND* wnd)
 	return FALSE;
 }
 
+/** @brief test if wnd is valid.
+ *  @param wnd the window you want use.
+ *  @return TRUE if successful, FALSE if failed.
+ */
 boolean wnd_is_valid(IN WND* wnd)
 {
 	int32 i;
@@ -247,6 +261,10 @@ boolean wnd_is_valid(IN WND* wnd)
 		return FALSE;
 }
 
+/** @brief get the wnd on top.
+ *  @param NULL.
+ *  @return the window which on top of screen.
+ */
 WND* wnd_get_top()
 {
 	if(wndCtl.wndCnt == 0) {
@@ -255,11 +273,19 @@ WND* wnd_get_top()
 	return wndCtl.sortedWnd[wndCtl.wndCnt - 1];
 }
 
+/** @brief draw window with default style.
+ *  @param wnd the window handle you want to use.
+ *  @return NULL
+ */
 void draw_wnd1(WND* wnd)
 {
 	draw_default_wnd(wnd->wndSheet, wnd->title, wnd->icon, 0, 0, wnd->wndRect.bottomRightX - wnd->wndRect.topLeftX, wnd->wndRect.bottomRightY - wnd->wndRect.topLeftY);
 }
 
+/** @brief draw window with console style.
+ *  @param wnd the window handle you want to use.
+ *  @return NULL
+ */
 void draw_wnd2(WND *wnd)
 {
 	draw_console_wnd(wnd->wndSheet, wnd->title, wnd->icon, 0, 0, wnd->wndRect.bottomRightX - wnd->wndRect.topLeftX, wnd->wndRect.bottomRightY - wnd->wndRect.topLeftY);

@@ -7,7 +7,7 @@
 #include "funcUtils.h"
 #include "mem.h"
 
-#define NONE_COL		16		 /* 16:Í¸Ã÷É« */
+#define NONE_COL		16		 /**< 16:transparency*/
 #define MAX_SHEET_NUM			256
 #define REDRAW_LIST_LEN		1024
 

@@ -6,11 +6,14 @@
 
 // ***** Loop Array ***** //
 #define LOOP_ARRAY_SIZE 128
+
+/** @brief loop array structure */
 typedef struct LoopArray {
-	uint8 data[LOOP_ARRAY_SIZE + 1];	//用一个位置来标记满或者空
-	uint8 start;		//开始位置
-	uint8 end;			//结束位置
+	uint8 data[LOOP_ARRAY_SIZE + 1];	///< used to store data, +1 used to distinguish empty from full
+	uint8 start;		///< start pos
+	uint8 end;			///< end pos
 }LoopArray;
+
 void		InitLoopArray(LoopArray* array);
 boolean	IsLoopArrayEmpty(LoopArray* array);
 boolean	IsLoopArrayFull(LoopArray* array);

@@ -9,19 +9,21 @@
 
 #define MEM_INFO_BLK_SIZE		0x00000100
 
+/** @brief memory management structure */
 typedef struct MEM_INFO{
-	uint32 addr;
-	uint32 size;
+	uint32 addr;	///< start addr of memory block
+	uint32 size;	///< size of memory block
 }MEM_INFO;
 
+/** @brief memory management structure */
 typedef struct MEM_MANAGEMENT{
-	uint32 totalSize;
+	uint32 totalSize;		///< total memory size
 	uint32 freeSum;
 	uint32 usedSum;
-	uint8 free_cnt;
-	uint8 used_cnt;
-	MEM_INFO free[MEM_INFO_BLK_SIZE];
-	MEM_INFO used[MEM_INFO_BLK_SIZE];
+	uint8 free_cnt;			///< cnt of free MEM_INFO in free[]
+	uint8 used_cnt;			///< cnt of used MEM_INFO in used[]
+	MEM_INFO free[MEM_INFO_BLK_SIZE];	///< array to store free memory block
+	MEM_INFO used[MEM_INFO_BLK_SIZE];	///< array to store used memory block
 }MEM_MANAGEMENT;
 
 

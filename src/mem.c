@@ -1,8 +1,18 @@
-
+/** @file mem.c
+ *  @brief basic memory management.
+ *
+ *  This files contains basic memory management utils.
+ *  
+ */
+ 
 #include "mem.h"
 
 static MEM_MANAGEMENT mem;
 
+/** @brief test whether the cpu is exactly I386.
+ *  @param NULL.
+ *  @return TRUE or FALSE
+ */
 boolean isCpu_i386()
 {
 	uint32 eflag;
@@ -16,6 +26,10 @@ boolean isCpu_i386()
 	return TRUE;
 }
 
+/** @brief enable cache of CPU.
+ *  @param NULL.
+ *  @return NULL.
+ */
 void enableCache()
 {
 	uint32 cr0;
@@ -24,6 +38,10 @@ void enableCache()
 	store_cr0(cr0);
 }
 
+/** @brief disable cache of CPU.
+ *  @param NULL.
+ *  @return NULL.
+ */
 void disableCache()
 {
 	uint32 cr0;
@@ -32,6 +50,12 @@ void disableCache()
 	store_cr0(cr0);
 }
 
+/** @brief test the existed memory.
+ *  used assembly function to do actually test.
+ *  @param start start from this address to test.
+ *  @param end test end at this address.
+ *  @return the existed memory size in byte.
+ */
 uint32 memtest(uint32 start, uint32 end)
 {
 	uint32 re = 0;
@@ -48,7 +72,11 @@ uint32 memtest(uint32 start, uint32 end)
 }
 
 
-// ***** mem management *****
+/** @brief init memory management control block.
+ *  Should be called in front of all other component, after mem_init(), you could alloc mem.
+ *  @param NULL.
+ *  @return NULL.
+ */
 void mem_init()
 {
 	int32 i;
@@ -67,6 +95,11 @@ void mem_init()
 	mem.free[0].size = mem.freeSum;
 }
 
+/** @brief alloc memory.
+ *  @param size size in byte you want to get.
+ *  @param addr the start addr which hold size of bytes for you to use.
+ *  @return whether the alloc operation successful.
+ */
 boolean mem_alloc(IN uint32 size, OUT uint32* addr)
 {
 	uint8 i;
@@ -93,6 +126,11 @@ boolean mem_alloc(IN uint32 size, OUT uint32* addr)
 	return FALSE;		//没有找到一块可以用于分配的块
 }
 
+/** @brief free memory.
+ *  @param addr the start addr you want to free, it should be the addr get from mem_alloc().
+ *  @param size size in byte you want to return.
+ *  @return whether the free operation successful.
+ */
 boolean mem_free(IN uint32 addr, IN uint32 size)
 {
 	uint8 i, j;
@@ -158,16 +196,28 @@ boolean mem_free(IN uint32 addr, IN uint32 size)
 	return FALSE;
 }
 
+/** @brief get free memory size in byte.
+ *  @param NULL.
+ *  @return number free bytes.
+ */
 uint32	mem_getFreeSum()
 {
 	return mem.freeSum;
 }
 
+/** @brief get used memory size in byte.
+ *  @param NULL.
+ *  @return number used bytes.
+ */
 uint32	mem_getUsedSum()
 {
 	return mem.usedSum;
 }
 
+/** @brief get total memory size in byte.
+ *  @param NULL.
+ *  @return number of all bytes.
+ */
 uint32	mem_getTotalSize()
 {
 	return mem.totalSize;
@@ -175,6 +225,7 @@ uint32	mem_getTotalSize()
 
 
 
+/* not implemented now, mem used by application */
 void app_mem_init()
 {
 }
