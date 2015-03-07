@@ -1,3 +1,6 @@
+/** @file wnd_console.c
+ *  @brief advance wraper of window, the console could be used to interact with user.
+ */
 
 #include "wnd_console.h"
 
@@ -22,6 +25,14 @@ int32 interrupt_handler_0x0d(int32 esp)
 
 static uint8 wnd_console_printBuf[256];
 
+/** @brief create a console.
+ *  @param curTask put the console handle in the task control block.
+ *  @param wndSize rect size of console
+ *  @param title title of console 
+ *  @param icon icon of console
+ *  @param console the console handle created. You could use it for future use.
+ *  @return Whether the function successed.
+ */
 boolean wnd_console_create(IN TASK* curTask, IN RECT wndSize, IN int8* title, IN int8* icon, INOUT WND_CONSOLE* console)
 {
 	boolean re = FALSE;
@@ -52,6 +63,15 @@ boolean wnd_console_create(IN TASK* curTask, IN RECT wndSize, IN int8* title, IN
 	return TRUE;
 }
 
+/** @brief add a command to a console.
+ *  You should add the command you want to use before use it in console. It can also be delete.
+ *  console could have CONSOLE_INPUT_CMD_MAX commands in max.
+ *  @param console the console you want to add cmd to.
+ *  @param nameOfCmd the name of the command
+ *  @param cmdDetail detail information of the command
+ *  @param routine the function of the command, console would call this function if user type the command and exec it.
+ *  @return Whether the function successed.
+ */
 boolean wnd_console_add_cmd(WND_CONSOLE* console, int8* nameOfCmd, int8* cmdDetail, CONSOLE_CMD_FUNCTION routine)
 {
 	boolean re;
@@ -77,6 +97,12 @@ boolean wnd_console_add_cmd(WND_CONSOLE* console, int8* nameOfCmd, int8* cmdDeta
 	return TRUE;
 }
 
+/** @brief del a command from a console.
+ *  console could have CONSOLE_INPUT_CMD_MAX commands in max.
+ *  @param console the console you want to del cmd from.
+ *  @param nameOfCmd the name of the command
+ *  @return Whether the function successed.
+ */
 boolean wnd_console_del_cmd(WND_CONSOLE* console, int8* nameOfCmd)
 {
 	CMD_NODE* tmpNode = console->cmd_set;
@@ -101,6 +127,11 @@ boolean wnd_console_del_cmd(WND_CONSOLE* console, int8* nameOfCmd)
 	return FALSE;
 }
 
+/** @brief daemon of a console.
+ *  This function receive keyboard input, print info, exec command, interact with user.
+ *  @param console the console you want to del cmd from.
+ *  @return NULL
+ */
 void wnd_console_daemon(WND_CONSOLE* console)
 {
 	uint8 data;
@@ -208,6 +239,10 @@ void wnd_console_daemon(WND_CONSOLE* console)
 	wnd_console_free(console);
 }
 
+/** @brief free the buffer used in console.
+ *  @param console the console you want to del cmd from.
+ *  @return NULL
+ */
 void wnd_console_free(WND_CONSOLE* console)
 {
 	CMD_NODE* node = console->cmd_set;
@@ -224,18 +259,30 @@ void wnd_console_free(WND_CONSOLE* console)
 }
 
 
+/** @brief console utils, clear put current block with balck color.
+ *  @param console the console you want to del cmd from.
+ *  @return NULL
+ */
 void console_clear_current_block(WND_CONSOLE* console)
 {
 	WND* wnd = console->wnd;
 	fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1 + console->x, wnd->contentRect.topLeftY + 1 + console->y, wnd->contentRect.topLeftX + 1 + console->x + 8, wnd->contentRect.topLeftY + 1 + console->y + 16);
 }
 
+/** @brief console utils, clear current line.
+ *  @param console the console you want to del cmd from.
+ *  @return NULL
+ */
 void console_clear_current_line(WND_CONSOLE* console)
 {
 	WND* wnd = console->wnd;
 	fill_box(wnd->wndSheet, BLACK, wnd->contentRect.topLeftX + 1, wnd->contentRect.topLeftY + 1 + console->y, wnd->contentRect.topLeftX + 1 + console->xMax, wnd->contentRect.topLeftY + 1 + console->y + 16);
 }
 
+/** @brief console utils, rool back one line.
+ *  @param console the console you want to del cmd from.
+ *  @return NULL
+ */
 void console_check_rollback(WND_CONSOLE* console)
 {
 	WND* wnd = console->wnd;
@@ -247,6 +294,11 @@ void console_check_rollback(WND_CONSOLE* console)
 	}
 }
 
+/** @brief console utils, print ascii on console.
+ *  @param console the console you want to del cmd from.
+ *  @param data the data print on current pos.
+ *  @return NULL
+ */
 void console_put_ascii(WND_CONSOLE* console, uint8 data)
 {
 	WND* wnd = console->wnd;
@@ -276,6 +328,11 @@ void console_put_ascii(WND_CONSOLE* console, uint8 data)
 	}
 }
 
+/** @brief console utils, print gbk char on console.
+ *  @param console the console you want to del cmd from.
+ *  @param data the gbk data print on current pos.
+ *  @return NULL
+ */
 void console_put_gbk(WND_CONSOLE* console, uint16 data)
 {
 	WND* wnd = console->wnd;
@@ -290,6 +347,12 @@ void console_put_gbk(WND_CONSOLE* console, uint16 data)
 	}
 }
 
+/** @brief console utils, print string(compatible with GBK).
+ *  @param console the console you want to del cmd from.
+ *  @param format the output format.
+ *  @param ... the variable used in printing.
+ *  @return NULL
+ */
 void console_puts(WND_CONSOLE* console, const char* format, ...)
 {
 	va_list arg_list;
@@ -320,6 +383,11 @@ void console_puts(WND_CONSOLE* console, const char* format, ...)
 	}
 }
 
+/** @brief console utils, print string on console directly(compatible with GBK).
+ *  @param console the console you want to del cmd from.
+ *  @param str the string
+ *  @return NULL
+ */
 void console_puts1(WND_CONSOLE* console, uint8* str)
 {
 	int32 rowLetterCnt, i = 0;
@@ -345,7 +413,13 @@ void console_puts1(WND_CONSOLE* console, uint8* str)
 	}
 }
 
-void console_put_n_chars(WND_CONSOLE* console, const char* format, int32 size)
+/** @brief console utils, print n chars.
+ *  @param console the console you want to del cmd from.
+ *  @param str string to print
+ *  @param size number of chars to put
+ *  @return NULL
+ */
+void console_put_n_chars(WND_CONSOLE* console, const char* str, int32 size)
 {
 	int32 i;
 	if(console->x >= console->xMax) {
@@ -354,7 +428,7 @@ void console_put_n_chars(WND_CONSOLE* console, const char* format, int32 size)
 		console_check_rollback(console);
 	}
 	for(i = 0; i < size; i++) {
-			console_put_ascii(console, format[i]);
+			console_put_ascii(console, str[i]);
 	}
 }
 
@@ -363,8 +437,6 @@ void console_put_n_chars(WND_CONSOLE* console, const char* format, int32 size)
 	¹¦ÄÜºÅ2 ÏÔÊ¾×Ö·û´®0 £¨EBX=×Ö·û´®µØÖ·£©
 	¹¦ÄÜºÅ3 ÏÔÊ¾×Ö·û´®1 £¨EBX=×Ö·û´®µØÖ·£¬ECX=×Ö·û´®³¤¶È£©
 */
-extern uint8 icon_heart[256];
-
 static API_ROUNTINE api_routine_array[25] = 
 {
 /*0*/	NULL,
@@ -394,6 +466,18 @@ static API_ROUNTINE api_routine_array[25] =
 /*24*/	API_file_size,
 };
 
+/** @brief call os api in console. 
+ *  This function is called by third party application.
+ *  @param edi register in assembly
+ *  @param esi register in assembly
+ *  @param ebp register in assembly
+ *  @param esp register in assembly
+ *  @param ebx register in assembly
+ *  @param edx register in assembly
+ *  @param ecx register in assembly
+ *  @param eax register in assembly
+ *  @return return function address or NULL.
+ */
 int32 os_console_api(int32 edi, int32 esi, int32 ebp, int32 esp, int32 ebx, int32 edx, int32 ecx, int32 eax)
 {
 	WND_CONSOLE* console = (WND_CONSOLE*)*((int32*)0x0FEC);

@@ -1,8 +1,20 @@
-
+/** @file cmd.h
+ *  @brief cmd you could used in windows console.
+ *
+ *  This file implemented some useful command for use in console. There are top, mem, help, ls, type, hex etc.
+ */
+ 
 #include "cmd.h"
 
-
 extern TASK_CTL taskCtl;
+
+/** @brief top as in Unix.
+ *  Show all tasks running on this OS.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean top(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	int32 i, j, nameLen;
@@ -32,6 +44,13 @@ boolean top(WND_CONSOLE* console, int32 argc, int8* argv[])
 
 extern WND_CTL wndCtl;
 extern SHEET_CTL sheetCtl;
+/** @brief show all windows existed.
+ *  Show existed windows information.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean showWnd(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	int32 i, nameLen;
@@ -43,6 +62,12 @@ boolean showWnd(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return TRUE;
 }
 
+/** @brief show memory useage info.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean mem(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	console_puts(console, "Mem totalSize :%d KB\n", mem_getTotalSize() / 1024);
@@ -52,6 +77,13 @@ boolean mem(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return TRUE;
 }
 
+/** @brief show help.
+ *  This command will list all available command.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean help(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	CMD_NODE* tmpNode;
@@ -80,6 +112,13 @@ boolean help(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return TRUE;
 }
 
+/** @brief same as ls in Unix.
+ *  Show the files in root directory. (Well, No concept of directory in current version of code)
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean ls(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	uint8 tmp, endPos, blankCnt;
@@ -108,6 +147,12 @@ boolean ls(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return TRUE;
 }
 
+/** @brief clear screen.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean clear(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	WND* wnd = console->wnd;
@@ -118,6 +163,13 @@ boolean clear(WND_CONSOLE* console, int32 argc, int8* argv[])
 }
 
 extern FAT_CTL fatCtl;
+/** @brief show content of a file.
+ *  Similar to cat under Unix. While the feature is limited. It supports GBK now.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean type(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	FILE_NODE* file;
@@ -136,6 +188,12 @@ boolean type(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return FALSE;
 }
 
+/** @brief show hex content of one file.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean hex(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	FILE_NODE* file;
@@ -160,12 +218,25 @@ boolean hex(WND_CONSOLE* console, int32 argc, int8* argv[])
 	return FALSE;
 }
 
+/** @brief close the console.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean exit(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	wnd_console_free(console);
 	return TRUE;
 }
 
+/** @brief exec one binary file as command.
+ *  This function would read the file and exec it as it was a binary file.
+ *  @param console the console handle which to display in.
+ *  @param argc param transfered to the command, effect same like argc in ordinary main.
+ *  @param argv param transfered to the command, effect same like argc in ordinary main.
+ *  @return the exec result of this command. Usually TRUE.
+ */
 boolean exec_bin(WND_CONSOLE* console, int32 argc, int8* argv[])
 {
 	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);

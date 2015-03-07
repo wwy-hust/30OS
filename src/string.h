@@ -1,4 +1,7 @@
-
+/** @file string.h
+ *  @brief basic functions related to string.
+ */
+ 
 #ifndef _STRING_H_
 #define _STRING_H_
 
