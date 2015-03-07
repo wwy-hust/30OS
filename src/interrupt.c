@@ -1,8 +1,16 @@
-
+/** @file interrupt.c
+ *  @brief interruption related.
+ *
+ */
+ 
 #include "interrupt.h"
 
-void init_pic(void)
+/** @brief init programed interrupt vector
+ *  @param NULL
+ *  @return NULL
+ */
 /* PIC（可编程中断控制器）初始化 */
+void init_pic(void)
 {
 	io_out8(PIC0_IMR,  0xff  ); /* 禁止所有中断 */
 	io_out8(PIC1_IMR,  0xff  ); /* 禁止所有中断 */

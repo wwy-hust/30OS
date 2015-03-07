@@ -1,3 +1,8 @@
+/** @file mouse_keyboard.h
+ *  @brief contains mouse and keyboard related information.
+ *
+ *  
+ */
 
 #ifndef _MOUSE_KEYBOARD_H_
 #define _MOUSE_KEYBOARD_H_
@@ -10,13 +15,20 @@
 #include "sheet.h"
 #include "wnd.h"
 
+/** @addtogroup keyboard_mousse
+ *  @brief this module contains function related to keyboard and mouse.
+ *  @{
+ */
+ 
+/** @addtogroup key_map
+ *  @brief this value represent the pos of these keyCodes in keytable.
+ *  @{
+ */
 // ASCII code Abbr
 #define ASC_BS			0x08
 #define ASC_HT			0x09
 #define ASC_CR			0x0D
 #define ASC_ESC			0x1B
-
-
 
 // pos in keytable of these keyCodes
 #define KEY_ESC					1			//1
@@ -69,7 +81,7 @@
 
 #define KEY_DEL_D				83		//0x53
 #define KEY_DEL_U				211		//0xD3
-
+/// @}
 
 #define KEYCMD_LED		0xed
 
@@ -123,10 +135,6 @@ typedef struct KEYBOARD_CTL{
 #define MOUSE_HEIGHT	10
 #define MOUSE_WIDTH		10
 
-void interrupt_handler_0x21(int32 *esp);	// Keyboard interrupt
-void interrupt_handler_0x27(int32 *esp);	// Mouse interrupt
-void interrupt_handler_0x2c(int32 *esp);
-
 void waitForKBCSendReady();
 void enableMouse();
 
@@ -141,7 +149,15 @@ void MouseGetKey(KEY_DOWN* keydown);
 // ***** Keyboard *****
 void InitKeyboard();
 int32 KeyboardGetChar(int8* buffer, int32 cnt);
+/// @}
 
+/** @addtogroup hal
+ *  @{
+ */
+void interrupt_handler_0x21(int32 *esp);	// Keyboard interrupt
+void interrupt_handler_0x27(int32 *esp);	// Mouse interrupt
+void interrupt_handler_0x2c(int32 *esp);
+/// @}
 
 #endif
 

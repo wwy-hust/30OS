@@ -1,3 +1,8 @@
+/** @file tim.h
+ *  @brief basic functions related to timer.
+ *
+ *  The timer including create timer, start timer, stop timer, delete timer. etc.
+ */
 
 #ifndef _TIM_H_
 #define _TIM_H_
@@ -7,9 +12,19 @@
 #include "funcUtils.h"
 #include "multiTask.h"
 
+/** @addtogroup hal
+ *  @{
+ */
 #define PIT_CTRL	0x0043	///< BIOS used, related to timer
 #define PIT_CNT0	0x0040	///< BIOS used, related to timer
+/// @}
 
+/** @addtogroup tim
+ *  @brief this module is in charge of the time recording and timer management.
+ *  The time is recorded in timerCtl.timecount. all timers restore in timerCtl.timers[]. 
+ *  You could refer to TIM_CTL for more information.
+ *  @{
+ */
 #define MAX_TIMER 256		///< max number of timer can be created.
 
 /** @brief structure of one timer. */
@@ -29,10 +44,16 @@ typedef struct TIM_CTL{
 	TIM*		timeoutTimer[MAX_TIMER];	///< timeoutTimer[] list
 	TIM			timers[MAX_TIMER];		///< store all timers in this list, no matter it was used or not.
 }TIM_CTL;
+///@}
+
 
 // Timer interrupt handler
 void interrupt_handler_0x20(int32 *esp);
 
+
+/** @addtogroup tim
+ *  @{
+ */
 void tim_init();
 boolean timer_add(IN uint32 timeout, OUT TIM** timer);
 boolean timer_set_timeout(IN TIM* timer, IN uint32 timeout);
@@ -40,9 +61,10 @@ boolean timer_del(IN TIM* timer);
 boolean timer_is_valid(IN TIM* timer);
 uint32	timer_getcount();
 
-//used only in tim model
+//used only inside tim model
 void tim_revise();
 void tim_sort();
+///@}
 
 #endif
 

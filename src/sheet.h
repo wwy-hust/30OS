@@ -1,4 +1,14 @@
-
+/** @file sheet.h
+ *  @brief basic functions related to sheet.
+ *
+ *  All drawing action operate on sheet. The sheet is similiar to Layer. It can hold pixels.
+ *  All movement of action also based on sheet, The sheet is managed by SHEET_CTL. These file contains
+ *  some utils functions used to operate the sheet. 
+ *  There are two ways to redraw the screen. 1st, directly call sheet_draw_sub(), sheet_draw_all() or sheet_draw_sub_withoutMouse().
+ *  That would be redrawn immediately. 2nd, call sheet_add_redraw_region_rect() or sheet_add_redraw_region() to add redraw request.
+ *  That would be redrawn by sheet_daemon when CPU is idle. 
+ */
+ 
 #ifndef _SHEET_H_
 #define _SHEET_H_
 
@@ -7,6 +17,10 @@
 #include "funcUtils.h"
 #include "mem.h"
 
+/** @addtogroup sheet
+ *  @brief this module manage the sheets on screen. with this module, you could paint on different sheet, move and do other operation.
+ *  @{
+ */
 #define NONE_COL		16		 /**< 16:transparency*/
 #define MAX_SHEET_NUM			256
 #define REDRAW_LIST_LEN		1024
@@ -51,5 +65,6 @@ void sheet_draw_sub_withoutMouse(IN int32 topLeftX, IN int32 topLeftY, IN int32 
 boolean sheet_add_redraw_region(IN int32 topLeftX, IN int32 topLeftY, IN int32 bottomRightX, IN int32 bottomRightY);
 boolean sheet_add_redraw_region_rect(IN RECT rect);
 void sheet_draw_deamon();
+/// @}
 
 #endif

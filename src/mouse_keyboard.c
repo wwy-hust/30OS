@@ -6,17 +6,19 @@
 
 #include "mouse_keyboard.h"
 
+extern SHEET* bgSheet;
 
-// ** keyboard & mouse control block **
-MOUSE_CTL mouseCtl;
-KEYBOARD_CTL keyboardCtl;
+/** @addtogroup keyboard_mousse
+ *  @{
+ */
+MOUSE_CTL mouseCtl;			///< mouse control block
+KEYBOARD_CTL keyboardCtl;	///< keyboard control block
 
 LoopArray keyboardLoopArray;
 LoopArray mouseLoopArray;
 
-extern SHEET* bgSheet;
-
 #define KEY_TBL_SIZE		0x59
+/// display ascii code of every keycode on keyboard. This is lower-case version
 static char keytable0[KEY_TBL_SIZE] = {
 	0,   ASC_ESC,  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', ASC_BS, ASC_HT,
 	'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', ASC_CR, 0,  'a', 's',
@@ -25,6 +27,8 @@ static char keytable0[KEY_TBL_SIZE] = {
 	0, 0, 0, 0, 0, 0, 0, '7', '8', '9', '-', '4', '5', '6', '+', '1',
 	'2', '3', '0', '.', 0, 0, 0, 0, 0
 };
+
+/// display ascii code of every keycode on keyboard. This is upper-case version
 static char keytable1[KEY_TBL_SIZE] = {
 	0,   ASC_ESC,  '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', ASC_BS, ASC_HT,
 	'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', ASC_CR, 0,  'A', 'S',
@@ -33,6 +37,7 @@ static char keytable1[KEY_TBL_SIZE] = {
 	0, 0, 0, 0, 0, 0, 0, '7', '8', '9', '-', '4', '5', '6', '+', '1',
 	'2', '3', '0', '.', 0, 0, 0, 0, 0
 };
+/// @}
 
 /** @brief interrupt routine of keyboard.
  *  
@@ -62,7 +67,7 @@ void interrupt_handler_0x2c(int32 *esp)
 	PutIntoLoopArray(&mouseLoopArray, data);
 }
 
-/** @brief interrupt routine used to make code workd
+/** @brief interrupt routine used for compatible and make code work.
  *  
  *  @param esp value something I do not know.
  *  @return NULL

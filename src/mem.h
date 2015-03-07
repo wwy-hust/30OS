@@ -1,12 +1,18 @@
-
+/** @file mem.h
+ *  @brief basic memory management.
+ *
+ *  This files contains basic memory management utils.
+ *  
+ */
 #ifndef _MEM_H_
 #define _MEM_H_
 
 #include "funcUtils.h"
 
-#define EFLAGS_AC_BITS			0x00040000
-#define CR0_CACHE_DISABLE		0x60000000
-
+/** @addtogroup mem
+ *  @brief this module provide basic function related to memory management.
+ *  @{
+ */
 #define MEM_INFO_BLK_SIZE		0x00000100
 
 /** @brief memory management structure */
@@ -26,12 +32,6 @@ typedef struct MEM_MANAGEMENT{
 	MEM_INFO used[MEM_INFO_BLK_SIZE];	///< array to store used memory block
 }MEM_MANAGEMENT;
 
-
-boolean isCpu_i386();
-void enableCache();
-void disableCache();
-uint32 memtest(uint32 start, uint32 end);		//返回当前内存数目
-
 // ***** mem management *****
 void mem_init();
 boolean mem_alloc(IN uint32 size, OUT uint32* addr);
@@ -43,5 +43,17 @@ uint32	mem_getTotalSize();
 void app_mem_init();
 void* app_mem_alloc(IN uint32 size);
 void app_mem_free(IN void* base);
+/// @}
+
+/// @addtogroup hal
+/// @{
+#define EFLAGS_AC_BITS			0x00040000
+#define CR0_CACHE_DISABLE		0x60000000
+
+boolean isCpu_i386();
+void enableCache();
+void disableCache();
+uint32 memtest(uint32 start, uint32 end);		//返回当前内存数目
+/// @}
 
 #endif

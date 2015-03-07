@@ -6,7 +6,12 @@
 
 #include "tim.h"
 
+/** @addtogroup tim
+ *  @{
+ */
 TIM_CTL timerCtl;	///< The struct used to hold all timers.
+/// @}
+
 extern TIM* task_timer;		///< the timer used to switch tasks.
 extern TASK_CTL taskCtl;	///< taskes control block used to control switch tasks.
 
@@ -58,6 +63,7 @@ void interrupt_handler_0x20(int32 *esp)
 	}
 	
 }
+
 
 /** @brief init timerCtl.
  *  Init timerCtl structure. Set hardware interrupt interval.
@@ -231,3 +237,4 @@ void tim_sort()
 		}
 	}
 }
+

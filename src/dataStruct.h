@@ -1,4 +1,10 @@
-
+/** @file dataStruct.h
+ *  @brief basic data structure.
+ *
+ *  This files contains basic data structure utils.
+ *  now just include LoopArray. will extend in future.
+ */
+ 
 #ifndef _DATA_STRUCT_H_
 #define _DATA_STRUCT_H_
 

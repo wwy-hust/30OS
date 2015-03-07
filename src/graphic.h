@@ -1,4 +1,9 @@
-
+/** @file graphic.h
+ *  @brief basic functions related to painting.
+ *
+ *  The graphic include init palette, print rectangle, print characters, draw point & line.
+ */
+ 
 #ifndef _GRAPHIC_H_
 #define _GRAPHIC_H_
 
@@ -9,24 +14,33 @@
 #include "multiTask.h"
 #include "fat.h"
 
-/** @brief Color used in drawing, only 16 kinds of color */
-#define BLACK 			0      /*  0:ºÚ */      
-#define RED					1      /*  1:ÁÁºì */    
-#define GREEN				2      /*  2:ÁÁÂÌ */    
-#define YELLOW			3      /*  3:ÁÁ»Æ */    
-#define BLUE				4      /*  4:ÁÁÀ¶ */    
-#define PURPLE			5      /*  5:ÁÁ×Ï */    
-#define LIGHTBLUE		6      /*  6:Ç³ÁÁÀ¶ */  
-#define WHITE				7      /*  7:°× */      
-#define LIGHTGREY		8      /*  8:ÁÁ»Ò */    
-#define DARKRED			9      /*  9:°µºì */    
-#define DARKGREEN		10     /* 10:°µÂÌ */    
-#define DARKYELLOW	11     /* 11:°µ»Æ */    
-#define DARKBLUE		12     /* 12:°µÀ¶ */    
-#define DARKPURPLE	13     /* 13:°µ×Ï */    
-#define DARKGRASS		14     /* 14:°µÇà */  
-#define GREY				15     /* 15:°µ»Ò */
-#define NONE_COL		16		 /* 16:Í¸Ã÷É« */
+/** @addtogroup graphic
+ *  @brief this module provide basic function related to painting. It can only paint on sheet.
+ *  @{
+ */
+
+/** @addtogroup palette
+ *  @brief Color index used in painting, only 16 kinds of color 
+ *  @{
+ */
+#define BLACK 			0 
+#define RED					1
+#define GREEN				2
+#define YELLOW			3
+#define BLUE				4
+#define PURPLE			5
+#define LIGHTBLUE		6
+#define WHITE				7
+#define LIGHTGREY		8
+#define DARKRED			9
+#define DARKGREEN		10
+#define DARKYELLOW	11
+#define DARKBLUE		12
+#define DARKPURPLE	13
+#define DARKGRASS		14
+#define GREY				15
+#define NONE_COL		16
+/// @}
 
 void init_palette(void);
 void set_palette(int32 start, int32 end, uint8 *rgb);
@@ -48,6 +62,6 @@ void draw_console_wnd(SHEET* sheet, int8* title, uint8* icon, int32 topLeftX, in
 boolean pos_inside_rect(IN RECT* rect, IN POS* pos);
 boolean rect_inside_rect(IN RECT* smallRect, IN RECT* bigRect);
 int32 rect_get_area(IN RECT* rect);
-
+/// @}
 
 #endif

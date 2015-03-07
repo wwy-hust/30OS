@@ -7,8 +7,11 @@
 #include "wnd.h"
 #include "wnd_console.h"
 
-WND_CTL wndCtl;		///< global variable used to store information about windows.
 
+/// @addtogroup windows
+/// @{
+WND_CTL wndCtl;		///< global variable used to store information about windows.
+/// @}
 
 /** @brief init wndCtl.
  *  Init wndCtl structure.
@@ -132,7 +135,7 @@ boolean wnd_is_click_on_wnd(OUT WND** wnd)
 	RECT tmpRect;
 	POS pos;
 	int32 i;
-	
+	@{
 	MouseGetPos(&pos);
 	for(i = wndCtl.wndCnt - 1; i >= 0; i--) {
 		tmpRect = wndCtl.sortedWnd[i]->wndRect;

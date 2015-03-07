@@ -11,7 +11,10 @@
 
 #include "sheet.h"
 
+/// @addtogroup sheet
+/// @{
 SHEET_CTL sheetCtl; /**< The Struct contain all the sheets */
+/// @}
 
 /** @brief init sheetCtl.
  *  Called by OS to initialize sheet module, double buffer scheme is used to assure anti-shake.

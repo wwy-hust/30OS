@@ -1,4 +1,8 @@
-
+/** @file interrupt.h
+ *  @brief interruption related.
+ *
+ */
+ 
 #ifndef _INTERRUPT_H_
 #define _INTERRUPT_H_
 
@@ -6,8 +10,10 @@
 #include "asmhead.h"
 #include "funcUtils.h"
 
-
-
+/** @addtogroup hal
+ *  @{
+ */
+ 
 #define PIC0_ICW1		0x0020
 #define PIC0_OCW2		0x0020
 #define PIC0_IMR		0x0021
@@ -35,6 +41,7 @@
 
 void init_pic(void);
 
+/// @}
 
 #endif
 

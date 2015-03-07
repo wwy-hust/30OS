@@ -1,4 +1,9 @@
-
+/** @file wnd.h
+ *  @brief basic functions related to windows management.
+ *
+ *  The wnd management including create wnd, move wnd, put wnd on top, etc.
+ */
+ 
 #ifndef _WND_H_
 #define _WND_H_
 
@@ -9,6 +14,10 @@
 #include "mouse_keyboard.h"
 #include "dataStruct.h"
 
+/** @addtogroup windows
+ *  @brief this module manage the windows. It depends on many modules, graphic, mem, sheet, etc.
+ *  @{
+ */
 #define WND_ARRAY_SIZE	64
 
 /** @brief struct of one wnd. */
@@ -52,5 +61,7 @@ WND* wnd_get_top();
 // draw Wnd method
 void draw_wnd1(WND* wnd);		// draw a default window
 void draw_wnd2(WND* wnd);		// draw a console window
+
+/// @}
 
 #endif
