@@ -1,0 +1,396 @@
+\hypertarget{group__console}{}\section{Console}
+\label{group__console}\index{Console@{Console}}
+
+
+a wrapper of window  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_c_m_d}{C\+M\+D}
+\begin{DoxyCompactList}\small\item\em command info. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_c_m_d___n_o_d_e}{C\+M\+D\+\_\+\+N\+O\+D\+E}
+\begin{DoxyCompactList}\small\item\em command node in console, managed as list. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}
+\begin{DoxyCompactList}\small\item\em console info. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__console_ga38da311ae2ef865d00636af539e99ad6}{}\#define {\bfseries C\+O\+N\+S\+O\+L\+E\+\_\+\+C\+U\+R\+S\+O\+R\+\_\+\+B\+L\+I\+N\+K\+\_\+\+T\+I\+M}~100\label{group__console_ga38da311ae2ef865d00636af539e99ad6}
+
+\item 
+\hypertarget{group__console_ga29502e1ba98695b65bd008acb6559b33}{}\#define {\bfseries C\+O\+N\+S\+O\+L\+E\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+M\+D\+N\+A\+M\+E\+\_\+\+L\+E\+N}~32\label{group__console_ga29502e1ba98695b65bd008acb6559b33}
+
+\item 
+\hypertarget{group__console_ga954ba8f36483cc2de5600d7ffc2fb50e}{}\#define {\bfseries C\+O\+N\+S\+O\+L\+E\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+M\+D\+\_\+\+M\+A\+X}~128\label{group__console_ga954ba8f36483cc2de5600d7ffc2fb50e}
+
+\item 
+\hypertarget{group__console_gab0a41d2846f556ee083332d32de1f53c}{}\#define {\bfseries C\+O\+N\+S\+O\+L\+E\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+M\+D\+\_\+\+M\+A\+X\+\_\+\+P\+A\+R\+M}~32\label{group__console_gab0a41d2846f556ee083332d32de1f53c}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__console_ga478e7095fade919c1056a1279be2454c}{}typedef boolean($\ast$ {\bfseries C\+O\+N\+S\+O\+L\+E\+\_\+\+C\+M\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N}) (void $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})\label{group__console_ga478e7095fade919c1056a1279be2454c}
+
+\item 
+typedef struct \hyperlink{struct_c_m_d}{C\+M\+D} \hyperlink{group__console_ga9bdb805ff76fea569f65a522f969af43}{C\+M\+D}
+\begin{DoxyCompactList}\small\item\em command info. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct_c_m_d___n_o_d_e}{C\+M\+D\+\_\+\+N\+O\+D\+E} \hyperlink{group__console_gabbfca59e8c7e8712bd8ed280f5c5de2b}{C\+M\+D\+\_\+\+N\+O\+D\+E}
+\begin{DoxyCompactList}\small\item\em command node in console, managed as list. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} \hyperlink{group__console_ga23e39e75eb31966dd226f03db68a6aae}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}
+\begin{DoxyCompactList}\small\item\em console info. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+boolean \hyperlink{group__console_gaeb190f8bbb3304aa604e69ad66276eab}{wnd\+\_\+console\+\_\+create} (I\+N \hyperlink{struct_t_a_s_k}{T\+A\+S\+K} $\ast$cur\+Task, I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} wnd\+Size, I\+N int8 $\ast$title, I\+N int8 $\ast$icon, I\+N\+O\+U\+T \hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em create a console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__console_ga9d11f62ec412e269ceda6b3ea8b74d5b}{wnd\+\_\+console\+\_\+add\+\_\+cmd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int8 $\ast$name\+Of\+Cmd, int8 $\ast$cmd\+Detail, C\+O\+N\+S\+O\+L\+E\+\_\+\+C\+M\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N routine)
+\begin{DoxyCompactList}\small\item\em add a command to a console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__console_ga303200d087e0d4b5f3118fb29f11a391}{wnd\+\_\+console\+\_\+del\+\_\+cmd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int8 $\ast$name\+Of\+Cmd)
+\begin{DoxyCompactList}\small\item\em del a command from a console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga0117cb75760ad806b358dea1542ca1c2}{wnd\+\_\+console\+\_\+daemon} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em daemon of a console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga9540e729abaa101668baf627e70ef797}{wnd\+\_\+console\+\_\+free} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em free the buffer used in console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gae7d5fc56ae82413411acf5d49dcde21c}{console\+\_\+clear\+\_\+current\+\_\+block} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, clear put current block with balck color. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gad7b5e0b9300402af3be70c4c8e328dc1}{console\+\_\+clear\+\_\+current\+\_\+line} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, clear current line. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga8745795280bc980ee7e5b0876445013b}{console\+\_\+check\+\_\+rollback} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, rool back one line. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga3be17914b8a0cd7b400d75e12f86ab8f}{console\+\_\+put\+\_\+ascii} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint8 data)
+\begin{DoxyCompactList}\small\item\em console utils, print ascii on console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gaf993d6f7c0c529c279ef0ac414e5dcba}{console\+\_\+put\+\_\+gbk} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint16 data)
+\begin{DoxyCompactList}\small\item\em console utils, print gbk char on console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga6f81d28b215725ec7fe2fc0b2ccf7900}{console\+\_\+puts} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em console utils, print string(compatible with G\+B\+K). \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga92fd0ff29a72ec8cb00ddf0d44d65ebf}{console\+\_\+puts1} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint8 $\ast$str)
+\begin{DoxyCompactList}\small\item\em console utils, print string on console directly(compatible with G\+B\+K). \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gad344cb1ed92edc1b1b3822bd261f5334}{console\+\_\+put\+\_\+n\+\_\+chars} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, const char $\ast$format, int32 size)
+\begin{DoxyCompactList}\small\item\em console utils, print n chars. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+a wrapper of window 
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{group__console_ga9bdb805ff76fea569f65a522f969af43}{}\index{Console@{Console}!C\+M\+D@{C\+M\+D}}
+\index{C\+M\+D@{C\+M\+D}!Console@{Console}}
+\subsubsection[{C\+M\+D}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf C\+M\+D} {\bf C\+M\+D}}\label{group__console_ga9bdb805ff76fea569f65a522f969af43}
+
+
+command info. 
+
+\hypertarget{group__console_gabbfca59e8c7e8712bd8ed280f5c5de2b}{}\index{Console@{Console}!C\+M\+D\+\_\+\+N\+O\+D\+E@{C\+M\+D\+\_\+\+N\+O\+D\+E}}
+\index{C\+M\+D\+\_\+\+N\+O\+D\+E@{C\+M\+D\+\_\+\+N\+O\+D\+E}!Console@{Console}}
+\subsubsection[{C\+M\+D\+\_\+\+N\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf C\+M\+D\+\_\+\+N\+O\+D\+E} {\bf C\+M\+D\+\_\+\+N\+O\+D\+E}}\label{group__console_gabbfca59e8c7e8712bd8ed280f5c5de2b}
+
+
+command node in console, managed as list. 
+
+\hypertarget{group__console_ga23e39e75eb31966dd226f03db68a6aae}{}\index{Console@{Console}!W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E@{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}}
+\index{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E@{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}!Console@{Console}}
+\subsubsection[{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} {\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E}}\label{group__console_ga23e39e75eb31966dd226f03db68a6aae}
+
+
+console info. 
+
+wrapper of windows, you could use this structure directly to show a console on screen. 
+
+\subsection{Function Documentation}
+\hypertarget{group__console_ga8745795280bc980ee7e5b0876445013b}{}\index{Console@{Console}!console\+\_\+check\+\_\+rollback@{console\+\_\+check\+\_\+rollback}}
+\index{console\+\_\+check\+\_\+rollback@{console\+\_\+check\+\_\+rollback}!Console@{Console}}
+\subsubsection[{console\+\_\+check\+\_\+rollback}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+check\+\_\+rollback (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_ga8745795280bc980ee7e5b0876445013b}
+
+
+console utils, rool back one line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_gae7d5fc56ae82413411acf5d49dcde21c}{}\index{Console@{Console}!console\+\_\+clear\+\_\+current\+\_\+block@{console\+\_\+clear\+\_\+current\+\_\+block}}
+\index{console\+\_\+clear\+\_\+current\+\_\+block@{console\+\_\+clear\+\_\+current\+\_\+block}!Console@{Console}}
+\subsubsection[{console\+\_\+clear\+\_\+current\+\_\+block}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+clear\+\_\+current\+\_\+block (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_gae7d5fc56ae82413411acf5d49dcde21c}
+
+
+console utils, clear put current block with balck color. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_gad7b5e0b9300402af3be70c4c8e328dc1}{}\index{Console@{Console}!console\+\_\+clear\+\_\+current\+\_\+line@{console\+\_\+clear\+\_\+current\+\_\+line}}
+\index{console\+\_\+clear\+\_\+current\+\_\+line@{console\+\_\+clear\+\_\+current\+\_\+line}!Console@{Console}}
+\subsubsection[{console\+\_\+clear\+\_\+current\+\_\+line}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+clear\+\_\+current\+\_\+line (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_gad7b5e0b9300402af3be70c4c8e328dc1}
+
+
+console utils, clear current line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_ga3be17914b8a0cd7b400d75e12f86ab8f}{}\index{Console@{Console}!console\+\_\+put\+\_\+ascii@{console\+\_\+put\+\_\+ascii}}
+\index{console\+\_\+put\+\_\+ascii@{console\+\_\+put\+\_\+ascii}!Console@{Console}}
+\subsubsection[{console\+\_\+put\+\_\+ascii}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+put\+\_\+ascii (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{uint8}]{data}
+\end{DoxyParamCaption}
+)}\label{group__console_ga3be17914b8a0cd7b400d75e12f86ab8f}
+
+
+console utils, print ascii on console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em data} & the data print on current pos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_gaf993d6f7c0c529c279ef0ac414e5dcba}{}\index{Console@{Console}!console\+\_\+put\+\_\+gbk@{console\+\_\+put\+\_\+gbk}}
+\index{console\+\_\+put\+\_\+gbk@{console\+\_\+put\+\_\+gbk}!Console@{Console}}
+\subsubsection[{console\+\_\+put\+\_\+gbk}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+put\+\_\+gbk (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{uint16}]{data}
+\end{DoxyParamCaption}
+)}\label{group__console_gaf993d6f7c0c529c279ef0ac414e5dcba}
+
+
+console utils, print gbk char on console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em data} & the gbk data print on current pos. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_gad344cb1ed92edc1b1b3822bd261f5334}{}\index{Console@{Console}!console\+\_\+put\+\_\+n\+\_\+chars@{console\+\_\+put\+\_\+n\+\_\+chars}}
+\index{console\+\_\+put\+\_\+n\+\_\+chars@{console\+\_\+put\+\_\+n\+\_\+chars}!Console@{Console}}
+\subsubsection[{console\+\_\+put\+\_\+n\+\_\+chars}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+put\+\_\+n\+\_\+chars (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{const char $\ast$}]{str, }
+\item[{int32}]{size}
+\end{DoxyParamCaption}
+)}\label{group__console_gad344cb1ed92edc1b1b3822bd261f5334}
+
+
+console utils, print n chars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em str} & string to print \\
+\hline
+{\em size} & number of chars to put \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_ga6f81d28b215725ec7fe2fc0b2ccf7900}{}\index{Console@{Console}!console\+\_\+puts@{console\+\_\+puts}}
+\index{console\+\_\+puts@{console\+\_\+puts}!Console@{Console}}
+\subsubsection[{console\+\_\+puts}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+puts (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{const char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__console_ga6f81d28b215725ec7fe2fc0b2ccf7900}
+
+
+console utils, print string(compatible with G\+B\+K). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em format} & the output format. \\
+\hline
+{\em ...} & the variable used in printing. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_ga92fd0ff29a72ec8cb00ddf0d44d65ebf}{}\index{Console@{Console}!console\+\_\+puts1@{console\+\_\+puts1}}
+\index{console\+\_\+puts1@{console\+\_\+puts1}!Console@{Console}}
+\subsubsection[{console\+\_\+puts1}]{\setlength{\rightskip}{0pt plus 5cm}void console\+\_\+puts1 (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{uint8 $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\label{group__console_ga92fd0ff29a72ec8cb00ddf0d44d65ebf}
+
+
+console utils, print string on console directly(compatible with G\+B\+K). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em str} & the string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_ga9d11f62ec412e269ceda6b3ea8b74d5b}{}\index{Console@{Console}!wnd\+\_\+console\+\_\+add\+\_\+cmd@{wnd\+\_\+console\+\_\+add\+\_\+cmd}}
+\index{wnd\+\_\+console\+\_\+add\+\_\+cmd@{wnd\+\_\+console\+\_\+add\+\_\+cmd}!Console@{Console}}
+\subsubsection[{wnd\+\_\+console\+\_\+add\+\_\+cmd}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+console\+\_\+add\+\_\+cmd (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int8 $\ast$}]{name\+Of\+Cmd, }
+\item[{int8 $\ast$}]{cmd\+Detail, }
+\item[{C\+O\+N\+S\+O\+L\+E\+\_\+\+C\+M\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N}]{routine}
+\end{DoxyParamCaption}
+)}\label{group__console_ga9d11f62ec412e269ceda6b3ea8b74d5b}
+
+
+add a command to a console. 
+
+You should add the command you want to use before use it in console. It can also be delete. console could have C\+O\+N\+S\+O\+L\+E\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+M\+D\+\_\+\+M\+A\+X commands in max. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to add cmd to. \\
+\hline
+{\em name\+Of\+Cmd} & the name of the command \\
+\hline
+{\em cmd\+Detail} & detail information of the command \\
+\hline
+{\em routine} & the function of the command, console would call this function if user type the command and exec it. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the function successed. 
+\end{DoxyReturn}
+\hypertarget{group__console_gaeb190f8bbb3304aa604e69ad66276eab}{}\index{Console@{Console}!wnd\+\_\+console\+\_\+create@{wnd\+\_\+console\+\_\+create}}
+\index{wnd\+\_\+console\+\_\+create@{wnd\+\_\+console\+\_\+create}!Console@{Console}}
+\subsubsection[{wnd\+\_\+console\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+console\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf T\+A\+S\+K} $\ast$}]{cur\+Task, }
+\item[{I\+N {\bf R\+E\+C\+T}}]{wnd\+Size, }
+\item[{I\+N int8 $\ast$}]{title, }
+\item[{I\+N int8 $\ast$}]{icon, }
+\item[{I\+N\+O\+U\+T {\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_gaeb190f8bbb3304aa604e69ad66276eab}
+
+
+create a console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cur\+Task} & put the console handle in the task control block. \\
+\hline
+{\em wnd\+Size} & rect size of console \\
+\hline
+{\em title} & title of console \\
+\hline
+{\em icon} & icon of console \\
+\hline
+{\em console} & the console handle created. You could use it for future use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the function successed. 
+\end{DoxyReturn}
+\hypertarget{group__console_ga0117cb75760ad806b358dea1542ca1c2}{}\index{Console@{Console}!wnd\+\_\+console\+\_\+daemon@{wnd\+\_\+console\+\_\+daemon}}
+\index{wnd\+\_\+console\+\_\+daemon@{wnd\+\_\+console\+\_\+daemon}!Console@{Console}}
+\subsubsection[{wnd\+\_\+console\+\_\+daemon}]{\setlength{\rightskip}{0pt plus 5cm}void wnd\+\_\+console\+\_\+daemon (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_ga0117cb75760ad806b358dea1542ca1c2}
+
+
+daemon of a console. 
+
+This function receive keyboard input, print info, exec command, interact with user. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__console_ga303200d087e0d4b5f3118fb29f11a391}{}\index{Console@{Console}!wnd\+\_\+console\+\_\+del\+\_\+cmd@{wnd\+\_\+console\+\_\+del\+\_\+cmd}}
+\index{wnd\+\_\+console\+\_\+del\+\_\+cmd@{wnd\+\_\+console\+\_\+del\+\_\+cmd}!Console@{Console}}
+\subsubsection[{wnd\+\_\+console\+\_\+del\+\_\+cmd}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+console\+\_\+del\+\_\+cmd (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int8 $\ast$}]{name\+Of\+Cmd}
+\end{DoxyParamCaption}
+)}\label{group__console_ga303200d087e0d4b5f3118fb29f11a391}
+
+
+del a command from a console. 
+
+console could have C\+O\+N\+S\+O\+L\+E\+\_\+\+I\+N\+P\+U\+T\+\_\+\+C\+M\+D\+\_\+\+M\+A\+X commands in max. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+{\em name\+Of\+Cmd} & the name of the command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the function successed. 
+\end{DoxyReturn}
+\hypertarget{group__console_ga9540e729abaa101668baf627e70ef797}{}\index{Console@{Console}!wnd\+\_\+console\+\_\+free@{wnd\+\_\+console\+\_\+free}}
+\index{wnd\+\_\+console\+\_\+free@{wnd\+\_\+console\+\_\+free}!Console@{Console}}
+\subsubsection[{wnd\+\_\+console\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}void wnd\+\_\+console\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console}
+\end{DoxyParamCaption}
+)}\label{group__console_ga9540e729abaa101668baf627e70ef797}
+
+
+free the buffer used in console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console you want to del cmd from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}

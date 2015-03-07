@@ -1,0 +1,50 @@
+\hypertarget{wnd__console_8c}{}\section{src/wnd\+\_\+console.c File Reference}
+\label{wnd__console_8c}\index{src/wnd\+\_\+console.\+c@{src/wnd\+\_\+console.\+c}}
+
+
+advance wraper of window, the console could be used to interact with user.  
+
+
+{\ttfamily \#include \char`\"{}wnd\+\_\+console.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__hal_ga9a683e6357146e328c456aca95e63d6e}{}int32 {\bfseries interrupt\+\_\+handler\+\_\+0x0c} (int32 esp)\label{group__hal_ga9a683e6357146e328c456aca95e63d6e}
+
+\item 
+\hypertarget{group__hal_gaeaf250d4684fc072f0bf76de10411622}{}int32 {\bfseries interrupt\+\_\+handler\+\_\+0x0d} (int32 esp)\label{group__hal_gaeaf250d4684fc072f0bf76de10411622}
+
+\item 
+boolean \hyperlink{group__console_gaeb190f8bbb3304aa604e69ad66276eab}{wnd\+\_\+console\+\_\+create} (I\+N \hyperlink{struct_t_a_s_k}{T\+A\+S\+K} $\ast$cur\+Task, I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} wnd\+Size, I\+N int8 $\ast$title, I\+N int8 $\ast$icon, I\+N\+O\+U\+T \hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em create a console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__console_ga9d11f62ec412e269ceda6b3ea8b74d5b}{wnd\+\_\+console\+\_\+add\+\_\+cmd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int8 $\ast$name\+Of\+Cmd, int8 $\ast$cmd\+Detail, C\+O\+N\+S\+O\+L\+E\+\_\+\+C\+M\+D\+\_\+\+F\+U\+N\+C\+T\+I\+O\+N routine)
+\begin{DoxyCompactList}\small\item\em add a command to a console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__console_ga303200d087e0d4b5f3118fb29f11a391}{wnd\+\_\+console\+\_\+del\+\_\+cmd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int8 $\ast$name\+Of\+Cmd)
+\begin{DoxyCompactList}\small\item\em del a command from a console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga0117cb75760ad806b358dea1542ca1c2}{wnd\+\_\+console\+\_\+daemon} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em daemon of a console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga9540e729abaa101668baf627e70ef797}{wnd\+\_\+console\+\_\+free} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em free the buffer used in console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gae7d5fc56ae82413411acf5d49dcde21c}{console\+\_\+clear\+\_\+current\+\_\+block} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, clear put current block with balck color. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gad7b5e0b9300402af3be70c4c8e328dc1}{console\+\_\+clear\+\_\+current\+\_\+line} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, clear current line. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga8745795280bc980ee7e5b0876445013b}{console\+\_\+check\+\_\+rollback} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console)
+\begin{DoxyCompactList}\small\item\em console utils, rool back one line. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga3be17914b8a0cd7b400d75e12f86ab8f}{console\+\_\+put\+\_\+ascii} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint8 data)
+\begin{DoxyCompactList}\small\item\em console utils, print ascii on console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gaf993d6f7c0c529c279ef0ac414e5dcba}{console\+\_\+put\+\_\+gbk} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint16 data)
+\begin{DoxyCompactList}\small\item\em console utils, print gbk char on console. \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga6f81d28b215725ec7fe2fc0b2ccf7900}{console\+\_\+puts} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em console utils, print string(compatible with G\+B\+K). \end{DoxyCompactList}\item 
+void \hyperlink{group__console_ga92fd0ff29a72ec8cb00ddf0d44d65ebf}{console\+\_\+puts1} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, uint8 $\ast$str)
+\begin{DoxyCompactList}\small\item\em console utils, print string on console directly(compatible with G\+B\+K). \end{DoxyCompactList}\item 
+void \hyperlink{group__console_gad344cb1ed92edc1b1b3822bd261f5334}{console\+\_\+put\+\_\+n\+\_\+chars} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, const char $\ast$str, int32 size)
+\begin{DoxyCompactList}\small\item\em console utils, print n chars. \end{DoxyCompactList}\item 
+int32 \hyperlink{group__hal_ga943b20139b86756bb58ced0a5f7a71df}{os\+\_\+console\+\_\+api} (int32 edi, int32 esi, int32 ebp, int32 esp, int32 ebx, int32 edx, int32 ecx, int32 eax)
+\begin{DoxyCompactList}\small\item\em call os api in console. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+advance wraper of window, the console could be used to interact with user. 
+

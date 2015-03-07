@@ -1,0 +1,267 @@
+\hypertarget{group__windows}{}\section{Windows}
+\label{group__windows}\index{Windows@{Windows}}
+
+
+this module manage the windows.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_w_n_d}{W\+N\+D}
+\begin{DoxyCompactList}\small\item\em struct of one wnd. \end{DoxyCompactList}\item 
+struct \hyperlink{struct_w_n_d___c_t_l}{W\+N\+D\+\_\+\+C\+T\+L}
+\begin{DoxyCompactList}\small\item\em struct of window management system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__windows_ga5ac2320ffa8a8c6b1ce7e0c796636b80}{}\#define {\bfseries W\+N\+D\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+S\+I\+Z\+E}~64\label{group__windows_ga5ac2320ffa8a8c6b1ce7e0c796636b80}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct_w_n_d}{W\+N\+D} \hyperlink{group__windows_gae0c9d0c82c2d2fe9937ca50b8f18cbbe}{W\+N\+D}
+\begin{DoxyCompactList}\small\item\em struct of one wnd. \end{DoxyCompactList}\item 
+typedef struct \hyperlink{struct_w_n_d___c_t_l}{W\+N\+D\+\_\+\+C\+T\+L} \hyperlink{group__windows_gaccac09d5e99a04140ddb6e87e24988f8}{W\+N\+D\+\_\+\+C\+T\+L}
+\begin{DoxyCompactList}\small\item\em struct of window management system. \end{DoxyCompactList}\item 
+typedef void( \hyperlink{group__windows_gac65b8e04920935e2abbadbc41b8bec92}{draw\+\_\+wnd}) (\hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)
+\begin{DoxyCompactList}\small\item\em this typedef simplify the draw function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__windows_gab9bb98f62625e12079469355edf0b885}{wnd\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em init wnd\+Ctl. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_gafaba4905e81021f08b9eafbd53336657}{wnd\+\_\+create} (I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} wnd\+Size, I\+N int8 $\ast$title, I\+N int8 $\ast$icon, O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd, \hyperlink{group__windows_gac65b8e04920935e2abbadbc41b8bec92}{draw\+\_\+wnd} func)
+\begin{DoxyCompactList}\small\item\em create a window, with specified size, title, icon, draw function. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_ga64032548942cae1432a56d606d424095}{wnd\+\_\+del} (I\+N \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)
+\begin{DoxyCompactList}\small\item\em delete window. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_gaf7ffbd5bbf997941897721876e2bc01a}{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd} (O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd)
+\begin{DoxyCompactList}\small\item\em test if user click in specified window. \end{DoxyCompactList}\item 
+\hypertarget{group__windows_ga5e9842d8ea10a72c86cc78e1724d3c6d}{}boolean {\bfseries wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+title} (O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd)\label{group__windows_ga5e9842d8ea10a72c86cc78e1724d3c6d}
+
+\item 
+\hypertarget{group__windows_ga67602b72aa224b56bbf8154d4a8bf5e2}{}boolean {\bfseries wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+close} (O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd)\label{group__windows_ga67602b72aa224b56bbf8154d4a8bf5e2}
+
+\item 
+\hypertarget{group__windows_ga2a1d4255c0ff0558f22c9d7f2d37817b}{}boolean {\bfseries wnd\+\_\+move} (I\+N \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd, int32 x, int32 y)\label{group__windows_ga2a1d4255c0ff0558f22c9d7f2d37817b}
+
+\item 
+\hypertarget{group__windows_ga6547c15d0ede386646d9938ebe27e862}{}boolean {\bfseries wnd\+\_\+pin\+\_\+top} (I\+N \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)\label{group__windows_ga6547c15d0ede386646d9938ebe27e862}
+
+\item 
+\hypertarget{group__windows_gac4500916fe29250879217cda26f8c3ab}{}boolean {\bfseries wnd\+\_\+is\+\_\+valid} (I\+N \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)\label{group__windows_gac4500916fe29250879217cda26f8c3ab}
+
+\item 
+\hypertarget{group__windows_gaed74b818c006388888e95ee0a5c33efc}{}\hyperlink{struct_w_n_d}{W\+N\+D} $\ast$ {\bfseries wnd\+\_\+get\+\_\+top} ()\label{group__windows_gaed74b818c006388888e95ee0a5c33efc}
+
+\item 
+\hypertarget{group__windows_ga2bcbb122f1267b120d4910b658169db5}{}void {\bfseries draw\+\_\+wnd1} (\hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)\label{group__windows_ga2bcbb122f1267b120d4910b658169db5}
+
+\item 
+\hypertarget{group__windows_gae309fc2e8fcd8eab4ae2c1966a994119}{}void {\bfseries draw\+\_\+wnd2} (\hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)\label{group__windows_gae309fc2e8fcd8eab4ae2c1966a994119}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_w_n_d___c_t_l}{W\+N\+D\+\_\+\+C\+T\+L} \hyperlink{group__windows_ga09cb97df9687e1ed6c1d124cb94ed6d5}{wnd\+Ctl}
+\begin{DoxyCompactList}\small\item\em global variable used to store information about windows. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+this module manage the windows. 
+
+It depends on many modules, graphic, mem, sheet, etc. 
+
+\subsection{Typedef Documentation}
+\hypertarget{group__windows_gac65b8e04920935e2abbadbc41b8bec92}{}\index{Windows@{Windows}!draw\+\_\+wnd@{draw\+\_\+wnd}}
+\index{draw\+\_\+wnd@{draw\+\_\+wnd}!Windows@{Windows}}
+\subsubsection[{draw\+\_\+wnd}]{\setlength{\rightskip}{0pt plus 5cm}typedef void( draw\+\_\+wnd) ({\bf W\+N\+D} $\ast$wnd)}\label{group__windows_gac65b8e04920935e2abbadbc41b8bec92}
+
+
+this typedef simplify the draw function. 
+
+So, in order to use this simplicity, you need to write a wraper. examples are in \hyperlink{wnd_8c}{wnd.\+c} draw\+\_\+wnd1(), draw\+\_\+wnd2(). \hypertarget{group__windows_gae0c9d0c82c2d2fe9937ca50b8f18cbbe}{}\index{Windows@{Windows}!W\+N\+D@{W\+N\+D}}
+\index{W\+N\+D@{W\+N\+D}!Windows@{Windows}}
+\subsubsection[{W\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf W\+N\+D} {\bf W\+N\+D}}\label{group__windows_gae0c9d0c82c2d2fe9937ca50b8f18cbbe}
+
+
+struct of one wnd. 
+
+\hypertarget{group__windows_gaccac09d5e99a04140ddb6e87e24988f8}{}\index{Windows@{Windows}!W\+N\+D\+\_\+\+C\+T\+L@{W\+N\+D\+\_\+\+C\+T\+L}}
+\index{W\+N\+D\+\_\+\+C\+T\+L@{W\+N\+D\+\_\+\+C\+T\+L}!Windows@{Windows}}
+\subsubsection[{W\+N\+D\+\_\+\+C\+T\+L}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf W\+N\+D\+\_\+\+C\+T\+L} {\bf W\+N\+D\+\_\+\+C\+T\+L}}\label{group__windows_gaccac09d5e99a04140ddb6e87e24988f8}
+
+
+struct of window management system. 
+
+
+
+\subsection{Function Documentation}
+\hypertarget{group__windows_gafaba4905e81021f08b9eafbd53336657}{}\index{Windows@{Windows}!wnd\+\_\+create@{wnd\+\_\+create}}
+\index{wnd\+\_\+create@{wnd\+\_\+create}!Windows@{Windows}}
+\subsubsection[{wnd\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf R\+E\+C\+T}}]{wnd\+Size, }
+\item[{I\+N int8 $\ast$}]{title, }
+\item[{I\+N int8 $\ast$}]{icon, }
+\item[{O\+U\+T {\bf W\+N\+D} $\ast$$\ast$}]{wnd, }
+\item[{{\bf draw\+\_\+wnd}}]{func}
+\end{DoxyParamCaption}
+)}\label{group__windows_gafaba4905e81021f08b9eafbd53336657}
+
+
+create a window, with specified size, title, icon, draw function. 
+
+If create successful, the window would be put into sorted\+Wnd\mbox{[}\mbox{]} of wnd\+Ctl. 
+\begin{DoxyParams}{Parameters}
+{\em wnd\+Size} & \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} value of window size. \\
+\hline
+{\em title} & the title of window, would display on title bar. \\
+\hline
+{\em icon} & the icon of window, would display on top left of window\textquotesingle{}s title bar. \\
+\hline
+{\em wnd} & the window handle, could be usd in future. \\
+\hline
+{\em func} & the draw function used to draw this window, this could be drawed to a default window or console. you could add your own draw function to draw your own window. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the operation is successful. if yes, return T\+R\+U\+E els F\+A\+L\+S\+E. 
+\end{DoxyReturn}
+\hypertarget{group__windows_ga64032548942cae1432a56d606d424095}{}\index{Windows@{Windows}!wnd\+\_\+del@{wnd\+\_\+del}}
+\index{wnd\+\_\+del@{wnd\+\_\+del}!Windows@{Windows}}
+\subsubsection[{wnd\+\_\+del}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+del (
+\begin{DoxyParamCaption}
+\item[{I\+N {\bf W\+N\+D} $\ast$}]{wnd}
+\end{DoxyParamCaption}
+)}\label{group__windows_ga64032548942cae1432a56d606d424095}
+
+
+delete window. 
+
+delete a window from sorted\+Window\mbox{[}\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window handle you want to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the operation is successful. if yes, return T\+R\+U\+E els F\+A\+L\+S\+E. 
+\end{DoxyReturn}
+\hypertarget{group__windows_gab9bb98f62625e12079469355edf0b885}{}\index{Windows@{Windows}!wnd\+\_\+init@{wnd\+\_\+init}}
+\index{wnd\+\_\+init@{wnd\+\_\+init}!Windows@{Windows}}
+\subsubsection[{wnd\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void wnd\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group__windows_gab9bb98f62625e12079469355edf0b885}
+
+
+init wnd\+Ctl. 
+
+Init wnd\+Ctl structure. 
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L 
+\end{DoxyReturn}
+\hypertarget{group__windows_gaf7ffbd5bbf997941897721876e2bc01a}{}\index{Windows@{Windows}!wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd@{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd}}
+\index{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd@{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd}!Windows@{Windows}}
+\subsubsection[{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd}]{\setlength{\rightskip}{0pt plus 5cm}boolean wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd (
+\begin{DoxyParamCaption}
+\item[{O\+U\+T {\bf W\+N\+D} $\ast$$\ast$}]{wnd}
+\end{DoxyParamCaption}
+)}\label{group__windows_gaf7ffbd5bbf997941897721876e2bc01a}
+
+
+test if user click in specified window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wnd} & return the window handle you that user clicked on. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if user clicked on a wnd ,F\+A\+L\+S\+E if user clicked on none wnd. 
+\end{DoxyReturn}
+test if user click in title bar of specified window. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & return the window handle you that user clicked on. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if user clicked on a title bar ,F\+A\+L\+S\+E if user clicked on none title bar.
+\end{DoxyReturn}
+test if user click in close btn of specified window. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & return the window handle you that user clicked on. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if user clicked on a close btn ,F\+A\+L\+S\+E if user clicked on none close btn.
+\end{DoxyReturn}
+move window with (x, y). 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window you want move. \\
+\hline
+{\em x} & x offset to move. negative number mean move left, positive means move right. \\
+\hline
+{\em y} & y offset to move. negative number mean move up, positive means move down. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if move successful, F\+A\+L\+S\+E if failed.
+\end{DoxyReturn}
+put wnd on top. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window you want put in front of. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if successful, F\+A\+L\+S\+E if failed.
+\end{DoxyReturn}
+test if wnd is valid. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window you want use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+U\+E if successful, F\+A\+L\+S\+E if failed.
+\end{DoxyReturn}
+get the wnd on top. 
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the window which on top of screen.
+\end{DoxyReturn}
+draw window with default style. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window handle you want to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L
+\end{DoxyReturn}
+draw window with console style. 
+\begin{DoxyParams}{Parameters}
+{\em wnd} & the window handle you want to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{group__windows_ga09cb97df9687e1ed6c1d124cb94ed6d5}{}\index{Windows@{Windows}!wnd\+Ctl@{wnd\+Ctl}}
+\index{wnd\+Ctl@{wnd\+Ctl}!Windows@{Windows}}
+\subsubsection[{wnd\+Ctl}]{\setlength{\rightskip}{0pt plus 5cm}{\bf W\+N\+D\+\_\+\+C\+T\+L} wnd\+Ctl}\label{group__windows_ga09cb97df9687e1ed6c1d124cb94ed6d5}
+
+
+global variable used to store information about windows. 
+

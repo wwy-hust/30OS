@@ -1,0 +1,31 @@
+\hypertarget{wnd_8c}{}\section{src/wnd.c File Reference}
+\label{wnd_8c}\index{src/wnd.\+c@{src/wnd.\+c}}
+
+
+basic functions related to windows management.  
+
+
+{\ttfamily \#include \char`\"{}wnd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wnd\+\_\+console.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__windows_gab9bb98f62625e12079469355edf0b885}{wnd\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em init wnd\+Ctl. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_gafaba4905e81021f08b9eafbd53336657}{wnd\+\_\+create} (I\+N \hyperlink{struct_r_e_c_t}{R\+E\+C\+T} wnd\+Size, I\+N int8 $\ast$title, I\+N int8 $\ast$icon, O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd, \hyperlink{group__windows_gac65b8e04920935e2abbadbc41b8bec92}{draw\+\_\+wnd} func)
+\begin{DoxyCompactList}\small\item\em create a window, with specified size, title, icon, draw function. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_ga64032548942cae1432a56d606d424095}{wnd\+\_\+del} (I\+N \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$wnd)
+\begin{DoxyCompactList}\small\item\em delete window. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__windows_gaf7ffbd5bbf997941897721876e2bc01a}{wnd\+\_\+is\+\_\+click\+\_\+on\+\_\+wnd} (O\+U\+T \hyperlink{struct_w_n_d}{W\+N\+D} $\ast$$\ast$wnd)
+\begin{DoxyCompactList}\small\item\em test if user click in specified window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_w_n_d___c_t_l}{W\+N\+D\+\_\+\+C\+T\+L} \hyperlink{group__windows_ga09cb97df9687e1ed6c1d124cb94ed6d5}{wnd\+Ctl}
+\begin{DoxyCompactList}\small\item\em global variable used to store information about windows. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+basic functions related to windows management. 
+
+The wnd management including create wnd, move wnd, put wnd on top, etc. 

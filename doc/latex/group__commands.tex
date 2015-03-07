@@ -1,0 +1,288 @@
+\hypertarget{group__commands}{}\section{Commands}
+\label{group__commands}\index{Commands@{Commands}}
+
+
+useful commands in console, you can call it directly from console.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+boolean \hyperlink{group__commands_gacf620024990f1e8625d77afb6f6d1929}{top} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em top as in Unix. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga18862eae7ef940382d4375c83ea2db56}{mem} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show memory useage info. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga728efb39e35dac554ab8a0c16dc80f02}{help} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show help. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac010f1f8f032da0fe585c05152468b69}{ls} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em same as ls in Unix. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gae0a32c8c94189584c1bfa8971a4941c5}{clear} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em clear screen. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac8a8a245fc6a48d6b62d373025980690}{type} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show content of a file. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gae277888a30634f9e7c42e6b1dd89c549}{hex} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show hex content of one file. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga0b510371148f65ceeb6d9cde94967f78}{show\+Wnd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show all windows existed. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga3376486f448be38c2a36fdb29a499675}{exit} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em close the console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac272c9043cab22774891e2657130d0e0}{exec\+\_\+bin} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em exec one binary file as command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+useful commands in console, you can call it directly from console. 
+
+
+
+\subsection{Function Documentation}
+\hypertarget{group__commands_gae0a32c8c94189584c1bfa8971a4941c5}{}\index{Commands@{Commands}!clear@{clear}}
+\index{clear@{clear}!Commands@{Commands}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}boolean clear (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gae0a32c8c94189584c1bfa8971a4941c5}
+
+
+clear screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_gac272c9043cab22774891e2657130d0e0}{}\index{Commands@{Commands}!exec\+\_\+bin@{exec\+\_\+bin}}
+\index{exec\+\_\+bin@{exec\+\_\+bin}!Commands@{Commands}}
+\subsubsection[{exec\+\_\+bin}]{\setlength{\rightskip}{0pt plus 5cm}boolean exec\+\_\+bin (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gac272c9043cab22774891e2657130d0e0}
+
+
+exec one binary file as command. 
+
+This function would read the file and exec it as it was a binary file. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_ga3376486f448be38c2a36fdb29a499675}{}\index{Commands@{Commands}!exit@{exit}}
+\index{exit@{exit}!Commands@{Commands}}
+\subsubsection[{exit}]{\setlength{\rightskip}{0pt plus 5cm}boolean exit (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_ga3376486f448be38c2a36fdb29a499675}
+
+
+close the console. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_ga728efb39e35dac554ab8a0c16dc80f02}{}\index{Commands@{Commands}!help@{help}}
+\index{help@{help}!Commands@{Commands}}
+\subsubsection[{help}]{\setlength{\rightskip}{0pt plus 5cm}boolean help (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_ga728efb39e35dac554ab8a0c16dc80f02}
+
+
+show help. 
+
+This command will list all available command. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_gae277888a30634f9e7c42e6b1dd89c549}{}\index{Commands@{Commands}!hex@{hex}}
+\index{hex@{hex}!Commands@{Commands}}
+\subsubsection[{hex}]{\setlength{\rightskip}{0pt plus 5cm}boolean hex (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gae277888a30634f9e7c42e6b1dd89c549}
+
+
+show hex content of one file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_gac010f1f8f032da0fe585c05152468b69}{}\index{Commands@{Commands}!ls@{ls}}
+\index{ls@{ls}!Commands@{Commands}}
+\subsubsection[{ls}]{\setlength{\rightskip}{0pt plus 5cm}boolean ls (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gac010f1f8f032da0fe585c05152468b69}
+
+
+same as ls in Unix. 
+
+Show the files in root directory. (Well, No concept of directory in current version of code) 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_ga18862eae7ef940382d4375c83ea2db56}{}\index{Commands@{Commands}!mem@{mem}}
+\index{mem@{mem}!Commands@{Commands}}
+\subsubsection[{mem}]{\setlength{\rightskip}{0pt plus 5cm}boolean mem (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_ga18862eae7ef940382d4375c83ea2db56}
+
+
+show memory useage info. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_ga0b510371148f65ceeb6d9cde94967f78}{}\index{Commands@{Commands}!show\+Wnd@{show\+Wnd}}
+\index{show\+Wnd@{show\+Wnd}!Commands@{Commands}}
+\subsubsection[{show\+Wnd}]{\setlength{\rightskip}{0pt plus 5cm}boolean show\+Wnd (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_ga0b510371148f65ceeb6d9cde94967f78}
+
+
+show all windows existed. 
+
+Show existed windows information. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_gacf620024990f1e8625d77afb6f6d1929}{}\index{Commands@{Commands}!top@{top}}
+\index{top@{top}!Commands@{Commands}}
+\subsubsection[{top}]{\setlength{\rightskip}{0pt plus 5cm}boolean top (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gacf620024990f1e8625d77afb6f6d1929}
+
+
+top as in Unix. 
+
+Show all tasks running on this O\+S. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}
+\hypertarget{group__commands_gac8a8a245fc6a48d6b62d373025980690}{}\index{Commands@{Commands}!type@{type}}
+\index{type@{type}!Commands@{Commands}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}boolean type (
+\begin{DoxyParamCaption}
+\item[{{\bf W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$}]{console, }
+\item[{int32}]{argc, }
+\item[{int8 $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{group__commands_gac8a8a245fc6a48d6b62d373025980690}
+
+
+show content of a file. 
+
+Similar to cat under Unix. While the feature is limited. It supports G\+B\+K now. 
+\begin{DoxyParams}{Parameters}
+{\em console} & the console handle which to display in. \\
+\hline
+{\em argc} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+{\em argv} & param transfered to the command, effect same like argc in ordinary main. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the exec result of this command. Usually T\+R\+U\+E. 
+\end{DoxyReturn}

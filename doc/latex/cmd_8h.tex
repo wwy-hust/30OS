@@ -1,0 +1,42 @@
+\hypertarget{cmd_8h}{}\section{src/cmd.h File Reference}
+\label{cmd_8h}\index{src/cmd.\+h@{src/cmd.\+h}}
+
+
+cmd you could used in windows console.  
+
+
+{\ttfamily \#include \char`\"{}typedef.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}func\+Utils.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}asmhead.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global\+Tbl.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wnd\+\_\+console.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}fat.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+boolean \hyperlink{group__commands_gacf620024990f1e8625d77afb6f6d1929}{top} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em top as in Unix. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga18862eae7ef940382d4375c83ea2db56}{mem} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show memory useage info. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga728efb39e35dac554ab8a0c16dc80f02}{help} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show help. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac010f1f8f032da0fe585c05152468b69}{ls} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em same as ls in Unix. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gae0a32c8c94189584c1bfa8971a4941c5}{clear} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em clear screen. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac8a8a245fc6a48d6b62d373025980690}{type} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show content of a file. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gae277888a30634f9e7c42e6b1dd89c549}{hex} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show hex content of one file. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga0b510371148f65ceeb6d9cde94967f78}{show\+Wnd} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em show all windows existed. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_ga3376486f448be38c2a36fdb29a499675}{exit} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em close the console. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__commands_gac272c9043cab22774891e2657130d0e0}{exec\+\_\+bin} (\hyperlink{struct_w_n_d___c_o_n_s_o_l_e}{W\+N\+D\+\_\+\+C\+O\+N\+S\+O\+L\+E} $\ast$console, int32 argc, int8 $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em exec one binary file as command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+cmd you could used in windows console. 
+
+This file implemented some useful command for use in console. There are top, mem, help, ls, type, hex etc. 

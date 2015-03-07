@@ -1,0 +1,181 @@
+\hypertarget{group__mem}{}\section{Mem}
+\label{group__mem}\index{Mem@{Mem}}
+
+
+this module provide basic function related to memory management.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_m_e_m___i_n_f_o}{M\+E\+M\+\_\+\+I\+N\+F\+O}
+\begin{DoxyCompactList}\small\item\em memory management structure \end{DoxyCompactList}\item 
+struct \hyperlink{struct_m_e_m___m_a_n_a_g_e_m_e_n_t}{M\+E\+M\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T}
+\begin{DoxyCompactList}\small\item\em memory management structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__mem_ga93fd439f0a488f606180d5b9a9371c40}{}\#define {\bfseries M\+E\+M\+\_\+\+I\+N\+F\+O\+\_\+\+B\+L\+K\+\_\+\+S\+I\+Z\+E}~0x00000100\label{group__mem_ga93fd439f0a488f606180d5b9a9371c40}
+
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{group__mem_ga5aa3c5fe63142706293c0d82e915a154}{}typedef struct \hyperlink{struct_m_e_m___i_n_f_o}{M\+E\+M\+\_\+\+I\+N\+F\+O} \hyperlink{group__mem_ga5aa3c5fe63142706293c0d82e915a154}{M\+E\+M\+\_\+\+I\+N\+F\+O}\label{group__mem_ga5aa3c5fe63142706293c0d82e915a154}
+
+\begin{DoxyCompactList}\small\item\em memory management structure \end{DoxyCompactList}\item 
+\hypertarget{group__mem_gae6f093f4aef9b182a961d395b2b9a9aa}{}typedef struct \hyperlink{struct_m_e_m___m_a_n_a_g_e_m_e_n_t}{M\+E\+M\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T} \hyperlink{group__mem_gae6f093f4aef9b182a961d395b2b9a9aa}{M\+E\+M\+\_\+\+M\+A\+N\+A\+G\+E\+M\+E\+N\+T}\label{group__mem_gae6f093f4aef9b182a961d395b2b9a9aa}
+
+\begin{DoxyCompactList}\small\item\em memory management structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group__mem_ga9ce51c33e96ef646614c4c93f271e316}{mem\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em init memory management control block. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__mem_ga7371db44cf8d20ebc39503cfb1fbcdfd}{mem\+\_\+alloc} (I\+N uint32 size, O\+U\+T uint32 $\ast$addr)
+\begin{DoxyCompactList}\small\item\em alloc memory. \end{DoxyCompactList}\item 
+boolean \hyperlink{group__mem_ga200c6b0001f8db0ed5705b2a20bf78c3}{mem\+\_\+free} (I\+N uint32 addr, I\+N uint32 size)
+\begin{DoxyCompactList}\small\item\em free memory. \end{DoxyCompactList}\item 
+uint32 \hyperlink{group__mem_ga40f09bfdd3312ed69f024ce8bea4b877}{mem\+\_\+get\+Free\+Sum} ()
+\begin{DoxyCompactList}\small\item\em get free memory size in byte. \end{DoxyCompactList}\item 
+uint32 \hyperlink{group__mem_gaf7f167858e1eb2aaf0b907a50c97e7e5}{mem\+\_\+get\+Used\+Sum} ()
+\begin{DoxyCompactList}\small\item\em get used memory size in byte. \end{DoxyCompactList}\item 
+uint32 \hyperlink{group__mem_gad8ee11b35e90d2427dc04293342cc0fb}{mem\+\_\+get\+Total\+Size} ()
+\begin{DoxyCompactList}\small\item\em get total memory size in byte. \end{DoxyCompactList}\item 
+\hypertarget{group__mem_ga0285f6b0d2098a2a6758acadf22a0456}{}void {\bfseries app\+\_\+mem\+\_\+init} ()\label{group__mem_ga0285f6b0d2098a2a6758acadf22a0456}
+
+\item 
+\hypertarget{group__mem_gaeea4bdecb7aca7074e0b9efc295c27d3}{}void $\ast$ {\bfseries app\+\_\+mem\+\_\+alloc} (I\+N uint32 size)\label{group__mem_gaeea4bdecb7aca7074e0b9efc295c27d3}
+
+\item 
+\hypertarget{group__mem_ga417ed8e8e9bc27f8ce6b644efa391025}{}void {\bfseries app\+\_\+mem\+\_\+free} (I\+N void $\ast$base)\label{group__mem_ga417ed8e8e9bc27f8ce6b644efa391025}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+this module provide basic function related to memory management. 
+
+
+
+\subsection{Function Documentation}
+\hypertarget{group__mem_ga7371db44cf8d20ebc39503cfb1fbcdfd}{}\index{Mem@{Mem}!mem\+\_\+alloc@{mem\+\_\+alloc}}
+\index{mem\+\_\+alloc@{mem\+\_\+alloc}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+alloc}]{\setlength{\rightskip}{0pt plus 5cm}boolean mem\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{I\+N uint32}]{size, }
+\item[{O\+U\+T uint32 $\ast$}]{addr}
+\end{DoxyParamCaption}
+)}\label{group__mem_ga7371db44cf8d20ebc39503cfb1fbcdfd}
+
+
+alloc memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & size in byte you want to get. \\
+\hline
+{\em addr} & the start addr which hold size of bytes for you to use. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the alloc operation successful. 
+\end{DoxyReturn}
+\hypertarget{group__mem_ga200c6b0001f8db0ed5705b2a20bf78c3}{}\index{Mem@{Mem}!mem\+\_\+free@{mem\+\_\+free}}
+\index{mem\+\_\+free@{mem\+\_\+free}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}boolean mem\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{I\+N uint32}]{addr, }
+\item[{I\+N uint32}]{size}
+\end{DoxyParamCaption}
+)}\label{group__mem_ga200c6b0001f8db0ed5705b2a20bf78c3}
+
+
+free memory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em addr} & the start addr you want to free, it should be the addr get from \hyperlink{group__mem_ga7371db44cf8d20ebc39503cfb1fbcdfd}{mem\+\_\+alloc()}. \\
+\hline
+{\em size} & size in byte you want to return. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+whether the free operation successful. 
+\end{DoxyReturn}
+\hypertarget{group__mem_ga40f09bfdd3312ed69f024ce8bea4b877}{}\index{Mem@{Mem}!mem\+\_\+get\+Free\+Sum@{mem\+\_\+get\+Free\+Sum}}
+\index{mem\+\_\+get\+Free\+Sum@{mem\+\_\+get\+Free\+Sum}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+get\+Free\+Sum}]{\setlength{\rightskip}{0pt plus 5cm}uint32 mem\+\_\+get\+Free\+Sum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group__mem_ga40f09bfdd3312ed69f024ce8bea4b877}
+
+
+get free memory size in byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number free bytes. 
+\end{DoxyReturn}
+\hypertarget{group__mem_gad8ee11b35e90d2427dc04293342cc0fb}{}\index{Mem@{Mem}!mem\+\_\+get\+Total\+Size@{mem\+\_\+get\+Total\+Size}}
+\index{mem\+\_\+get\+Total\+Size@{mem\+\_\+get\+Total\+Size}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+get\+Total\+Size}]{\setlength{\rightskip}{0pt plus 5cm}uint32 mem\+\_\+get\+Total\+Size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group__mem_gad8ee11b35e90d2427dc04293342cc0fb}
+
+
+get total memory size in byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of all bytes. 
+\end{DoxyReturn}
+\hypertarget{group__mem_gaf7f167858e1eb2aaf0b907a50c97e7e5}{}\index{Mem@{Mem}!mem\+\_\+get\+Used\+Sum@{mem\+\_\+get\+Used\+Sum}}
+\index{mem\+\_\+get\+Used\+Sum@{mem\+\_\+get\+Used\+Sum}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+get\+Used\+Sum}]{\setlength{\rightskip}{0pt plus 5cm}uint32 mem\+\_\+get\+Used\+Sum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group__mem_gaf7f167858e1eb2aaf0b907a50c97e7e5}
+
+
+get used memory size in byte. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number used bytes. 
+\end{DoxyReturn}
+\hypertarget{group__mem_ga9ce51c33e96ef646614c4c93f271e316}{}\index{Mem@{Mem}!mem\+\_\+init@{mem\+\_\+init}}
+\index{mem\+\_\+init@{mem\+\_\+init}!Mem@{Mem}}
+\subsubsection[{mem\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void mem\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group__mem_ga9ce51c33e96ef646614c4c93f271e316}
+
+
+init memory management control block. 
+
+Should be called in front of all other component, after \hyperlink{group__mem_ga9ce51c33e96ef646614c4c93f271e316}{mem\+\_\+init()}, you could alloc mem. 
+\begin{DoxyParams}{Parameters}
+{\em N\+U\+L\+L.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+N\+U\+L\+L. 
+\end{DoxyReturn}

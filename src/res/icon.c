@@ -1,6 +1,6 @@
 
-#include "typedef.h"
-#include "graphic.h"
+#include "../typedef.h"
+#include "../graphic.h"
 
 uint8 icon_heart[256] = 
 {
