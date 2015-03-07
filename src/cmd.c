@@ -1,4 +1,4 @@
-/** @file cmd.h
+/** @file cmd.c
  *  @brief cmd you could used in windows console.
  *
  *  This file implemented some useful command for use in console. There are top, mem, help, ls, type, hex etc.
