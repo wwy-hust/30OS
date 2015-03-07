@@ -202,7 +202,7 @@ void puts_str(SHEET* sheet, uint8* str, uint8 colorNum, int32 x, int32 y)
 	int32 i = 0, rowLetterCnt, xTmp;
 	uint16 wStr;
 	
-	rowLetterCnt = strlen(str);
+	rowLetterCnt = _strlen(str);
 	for(i = 0, xTmp = x; i < rowLetterCnt;) {
 		if(str[i] < 0xA1) {
 			put_ascii(sheet, str[i], colorNum, xTmp, y);
@@ -281,7 +281,7 @@ void draw_line(SHEET* sheet, int32 x0, int32 y0, int32 x1, int32 y1, uint8 color
  *  @param fromTopLeftY y value of left top pos of src area.
  *  @return NULL;
  */
-void copy_buf(SHEET* sheet, int32 width, int32 height, int32 toTopLeftX, int32 toTopLeftX, int32 fromTopLeftX, int32 fromTopLeftY)
+void copy_buf(SHEET* sheet, int32 width, int32 height, int32 toTopLeftX, int32 toTopLeftY, int32 fromTopLeftX, int32 fromTopLeftY)
 {
 	uint8* buf = sheet->buf;
 	int32 x, y, width1;

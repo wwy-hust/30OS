@@ -1,8 +1,10 @@
 #Makefile for MyOS
 
 #COMMAND USED
+APP_DIR     = ./app/
 TOOLPATH 		= ../z_tools/
 INCPATH  		= ../z_tools/haribote/
+OS_INCPATH  = ./
 
 RULEFILE 		= $(TOOLPATH)haribote/haribote.rul.OSMain
 RULEFILE_MAIN	= $(TOOLPATH)haribote/haribote.rul.main
@@ -10,6 +12,7 @@ OBJFILES		= funcUtils.obj icon.obj hankaku.obj string.obj graphic.obj bootpac.ob
 							globalTbl.obj interrupt.obj dataStruct.obj mouse_keyboard.obj mem.obj \
 							sheet.obj tim.obj multiTask.obj wnd.obj wnd_console.obj cmd.obj api.obj \
 							fat.obj
+
 
 CC					= $(TOOLPATH)cc1.exe -I$(INCPATH) -Os -Wall -quiet
 ASSEMBLER		= $(TOOLPATH)nask.exe
@@ -56,34 +59,34 @@ OS.img : OS.sys HZK16.fnt SYS_LST crack2.bin hello.bin color.bin read.bin tim.h 
 apilib.lib : app_funcUtils.obj app_funcUtils1.obj
 	$(GOLIB) app_funcUtils.obj app_funcUtils1.obj out:apilib.lib
 
-crack1.bin : crack1.c apilib.lib
-	$(CC) -o crack1.gas crack1.c
+crack1.bin : $(APP_DIR)crack1.c apilib.lib
+	$(CC) -o crack1.gas $(APP_DIR)crack1.c -I$(OS_INCPATH)
 	$(GAS2NASK) crack1.gas crack1.nas
 	$(ASSEMBLER) crack1.nas crack1.obj crack1.lst
 	$(OBJ2BIM) @$(RULEFILE_MAIN) out:crack1.bim map:crack1.map crack1.obj apilib.lib
 	$(BIM2HRB) crack1.bim crack1.bin 0
 	
-crack2.bin : crack2.nas
-	$(ASSEMBLER) crack2.nas crack2.obj crack2.lst
+crack2.bin : $(APP_DIR)crack2.nas
+	$(ASSEMBLER) $(APP_DIR)crack2.nas crack2.obj crack2.lst
 	$(OBJ2BIM) @$(RULEFILE_MAIN) out:crack2.bim map:crack2.map crack2.obj
 	$(BIM2HRB) crack2.bim crack2.bin 0
 
-hello.bin : hello.c apilib.lib
-	$(CC) -o hello.gas hello.c
+hello.bin : $(APP_DIR)hello.c apilib.lib
+	$(CC) -o hello.gas $(APP_DIR)hello.c -I$(OS_INCPATH)
 	$(GAS2NASK) hello.gas hello.nas
 	$(ASSEMBLER) hello.nas hello.obj hello.lst
 	$(OBJ2BIM) @$(RULEFILE_MAIN) out:hello.bim stack:1k map:hello.map hello.obj apilib.lib
 	$(BIM2HRB) hello.bim hello.bin 64k
 
-color.bin : color.c apilib.lib
-	$(CC) -o color.gas color.c
+color.bin : $(APP_DIR)color.c apilib.lib
+	$(CC) -o color.gas $(APP_DIR)color.c -I$(OS_INCPATH)
 	$(GAS2NASK) color.gas color.nas
 	$(ASSEMBLER) color.nas color.obj color.lst
 	$(OBJ2BIM) @$(RULEFILE_MAIN) out:color.bim stack:512k map:color.map color.obj apilib.lib
 	$(BIM2HRB) color.bim color.bin 64k
 
-read.bin : read.c apilib.lib
-	$(CC) -o read.gas read.c
+read.bin : $(APP_DIR)read.c apilib.lib
+	$(CC) -o read.gas $(APP_DIR)read.c -I$(OS_INCPATH)
 	$(GAS2NASK) read.gas read.nas
 	$(ASSEMBLER) read.nas read.obj read.lst
 	$(OBJ2BIM) @$(RULEFILE_MAIN) out:read.bim stack:1k map:read.map read.obj apilib.lib
@@ -117,4 +120,4 @@ OS.sys : bootpac.hrb SYS_LST
 	
 
 clean :
-	RM *.img *.bak *.sys *.lst *.bin *.map *.gas *.obj bootpac.nas *.hrb *.bim
+	RM *.img *.bak *.sys *.lst *.bin *.map *.gas *.obj bootpac.nas hello.nas color.nas crack1.nas read.nas *.hrb *.bim

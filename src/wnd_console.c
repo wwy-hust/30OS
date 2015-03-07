@@ -83,7 +83,7 @@ boolean wnd_console_add_cmd(WND_CONSOLE* console, int8* nameOfCmd, int8* cmdDeta
 	
 	console->cmd_cnt++;
 	cmdNode = (CMD_NODE*)addr;
-	strcpy(cmdNode->cmd.cmdName, nameOfCmd);
+	_strcpy(cmdNode->cmd.cmdName, nameOfCmd);
 	cmdNode->cmd.cmdRoutine = routine;
 	cmdNode->cmd.cmdDetail = cmdDetail;
 	cmdNode->nextCmd = NULL;

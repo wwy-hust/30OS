@@ -135,7 +135,7 @@ boolean wnd_is_click_on_wnd(OUT WND** wnd)
 	RECT tmpRect;
 	POS pos;
 	int32 i;
-	@{
+
 	MouseGetPos(&pos);
 	for(i = wndCtl.wndCnt - 1; i >= 0; i--) {
 		tmpRect = wndCtl.sortedWnd[i]->wndRect;
