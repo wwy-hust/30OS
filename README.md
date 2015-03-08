@@ -1,6 +1,8 @@
 30OS
 =========
-*After learning "Making an OS in 30 days", I made this OS, just for study & fun. This Os is writen by assembly and C.*
+*After learning "Making an OS in 30 days", I made this OS for study & fun. This Os is writen by assembly and C.*
+
+*document added, you could use Doxygen to generate document.*
 
 ###Supported Function:###
 
@@ -19,12 +21,18 @@
 3. ....
 
 ###ScreenShot###
-![image](https://github.com/wwy-hust/30OS/blob/master/screenshot.png)
+![image](http://github.com/wwy-hust/30OS/blob/master/screenshot.png)
 
-###How To Build & Run###
-I made this OS on windows platform. You should install Cygwin ( install rm, cp, make & cat ) to build the OS. Open your Cygwin terminal and do next steps.
+###How To Build###
+I made this OS on windows platform. You should install Cygwin ( install rm, cp, make & cat ) to build the OS. 
+
+Open your Cygwin terminal and do next steps.
 
     [user@Localhost]$ chmod +x ./z_tools/*
-    [user@Localhost]$ cd MyOS
+    [user@Localhost]$ cd src
     [user@Localhost]$ make IMG       # to generate OS.img, If failed first time, make again
-    use OS.img as floppy disk image to boot OS with virtual machine. (I used VMWare)
+    
+###How To Run###
+Use OS.img as floopy img to boot with Virtual Machines software.
+
+In OS you could operate as a windows. Use "Win + F1" to open a new console.

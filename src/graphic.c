@@ -85,7 +85,7 @@ void set_palette(int32 start, int32 end, uint8 *rgb)
  *  @param xtopLeft x value of left top position.
  *  @param ytopLeft y value of left top position.
  *  @param xBottomRight x value of right bottom position.
- *  @param yBottomRIght y value of right bottom position.
+ *  @param yBottomRight y value of right bottom position.
  *  @return NULL
  */
 void fill_box(SHEET* sheet, uint8 color, int32 xtopLeft, int32 ytopLeft, int32 xBottomRight, int32 yBottomRight)
@@ -106,7 +106,7 @@ void fill_box(SHEET* sheet, uint8 color, int32 xtopLeft, int32 ytopLeft, int32 x
  *  @param xtopLeft x value of left top position.
  *  @param ytopLeft y value of left top position.
  *  @param xBottomRight x value of right bottom position.
- *  @param yBottomRIght y value of right bottom position.
+ *  @param yBottomRight y value of right bottom position.
  *  @return NULL
  */
 void fill_box_with_buf(SHEET* sheet, uint8* buf, int32 xtopLeft, int32 ytopLeft, int32 xBottomRight, int32 yBottomRight)
@@ -386,7 +386,7 @@ void draw_console_wnd(SHEET* sheet, int8* title, uint8* icon, int32 topLeftX, in
 
 /** @brief test if a point is in a rectangle.
  *  @param rect the rectangle.
- *  @param POS the position of pos.
+ *  @param pos the position of pos.
  *  @return whether the point is in the rectangle, TRUE if in else FALSE;
  */
 boolean pos_inside_rect(IN RECT* rect, IN POS* pos)

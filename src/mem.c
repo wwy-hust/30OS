@@ -10,7 +10,7 @@
 static MEM_MANAGEMENT mem;
 
 /** @brief test whether the cpu is exactly I386.
- *  @param NULL.
+ *  @param NULL
  *  @return TRUE or FALSE
  */
 boolean isCpu_i386()
@@ -27,8 +27,8 @@ boolean isCpu_i386()
 }
 
 /** @brief enable cache of CPU.
- *  @param NULL.
- *  @return NULL.
+ *  @param NULL
+ *  @return NULL
  */
 void enableCache()
 {
@@ -39,8 +39,8 @@ void enableCache()
 }
 
 /** @brief disable cache of CPU.
- *  @param NULL.
- *  @return NULL.
+ *  @param NULL
+ *  @return NULL
  */
 void disableCache()
 {
@@ -74,8 +74,8 @@ uint32 memtest(uint32 start, uint32 end)
 
 /** @brief init memory management control block.
  *  Should be called in front of all other component, after mem_init(), you could alloc mem.
- *  @param NULL.
- *  @return NULL.
+ *  @param NULL
+ *  @return NULL
  */
 void mem_init()
 {
@@ -197,7 +197,7 @@ boolean mem_free(IN uint32 addr, IN uint32 size)
 }
 
 /** @brief get free memory size in byte.
- *  @param NULL.
+ *  @param NULL
  *  @return number free bytes.
  */
 uint32	mem_getFreeSum()
@@ -206,7 +206,7 @@ uint32	mem_getFreeSum()
 }
 
 /** @brief get used memory size in byte.
- *  @param NULL.
+ *  @param NULL
  *  @return number used bytes.
  */
 uint32	mem_getUsedSum()
@@ -215,7 +215,7 @@ uint32	mem_getUsedSum()
 }
 
 /** @brief get total memory size in byte.
- *  @param NULL.
+ *  @param NULL
  *  @return number of all bytes.
  */
 uint32	mem_getTotalSize()
