@@ -19,6 +19,7 @@
 /** @addtogroup hal
  *  @{
  */
+/// TSS is task status segment, feature provided by BIOS
 typedef struct TSS32 {
 	int32 backlink, esp0, ss0, esp1, ss1, esp2, ss2, cr3;
 	int32 eip, eflags, eax, ecx, edx, ebx, esp, ebp, esi, edi;

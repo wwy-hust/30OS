@@ -1,4 +1,8 @@
-
+/** @file typedef.h
+ *  @brief define types used by almost all modules.
+ *
+ */
+ 
 #ifndef _TYPE_DEF_H_
 #define _TYPE_DEF_H_
 
@@ -11,7 +15,7 @@
 #endif
 
 typedef unsigned char		uint8;
-typedef unsigned short	uint16;
+typedef unsigned short		uint16;
 typedef unsigned int		uint32;
 
 typedef signed char			int8;

@@ -1,8 +1,16 @@
-
+/** @file funcUtils.h
+ *  @brief wraper of assembly. User call this function will jmp to assembly code.
+ *
+ *  All the implementation is in funcUtils.nas
+ */
+ 
 #ifndef _FUNC_UTILS_H_
 #define _FUNC_UTILS_H_
 
 #include "typedef.h"
+
+/// @addtogroup hal
+/// @{
 
 #define ADDR_BOOTINFO		0x00000ff0
 
@@ -16,6 +24,9 @@
 #define LIMIT_BOTPAK		0x0007ffff
 
 
+/// @addtogroup io_func
+/// @brief basic io function used to init environment
+/// @{
 void io_hlt(void);
 void io_cli(void);		//屏蔽所有中断
 void io_sti(void);		//打开所有中断
@@ -34,6 +45,7 @@ void io_cli(void);
 
 void load_gdtr(int32 limit, int32 addr);
 void load_idtr(int32 limit, int32 addr);
+/// @}
 
 void asm_interrupt_handler_0x0c(void);
 void asm_interrupt_handler_0x0d(void);
@@ -56,5 +68,7 @@ void start_bin(int eip, int cs, int esp, int ds, int* tss_esp0);
 // char display API
 void asm_end_app(void);
 void asm_os_console_api(void);
+
+/// @}
 
 #endif

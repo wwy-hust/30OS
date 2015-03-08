@@ -1,7 +1,20 @@
-
+/** @file globalTbl.h
+ *  @brief store segment descriptor & gate descriptor related function
+ *
+ *  These features are provided by BIOS & x86.
+ *  GDT is global (segment) descriptor table
+ *  IDT is interrupt descriptor table
+ *  LDT is local (segment) descriptor table
+ */
+ 
 #include "globalTbl.h"
 
-
+/** @brief init gdt and idt
+ *  GDT is global (segment) descriptor table
+ *  IDT is interrupt descriptor table
+ *  @param NULL
+ *  @return NULL
+ */
 void init_gdtidt(void)
 {
 	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
@@ -34,6 +47,13 @@ void init_gdtidt(void)
 	return;
 }
 
+/** @brief interval functions. set segment descriptor
+ *  @param sd segment descriptor
+ *  @param limit limit of the descriptor
+ *  @param base base address
+ *  @param ar access right.
+ *  @return NULL
+ */
 void set_segmdesc(struct SEGMENT_DESCRIPTOR *sd, uint32 limit, int32 base, int32 ar)
 {
 	if (limit > 0xfffff) {
@@ -49,6 +69,13 @@ void set_segmdesc(struct SEGMENT_DESCRIPTOR *sd, uint32 limit, int32 base, int32
 	return;
 }
 
+/** @brief interval functions. set gate descriptor
+ *  @param gd gate descriptor
+ *  @param offset offset of interrupt handle
+ *  @param selector selector of gate descriptor
+ *  @param ar access right.
+ *  @return NULL
+ */
 void set_gatedesc(struct GATE_DESCRIPTOR *gd, int32 offset, int32 selector, int32 ar)
 {
 	gd->offset_low   = offset & 0xffff;
