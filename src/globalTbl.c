@@ -1,4 +1,4 @@
-/** @file globalTbl.h
+/** @file globalTbl.c
  *  @brief store segment descriptor & gate descriptor related function
  *
  *  These features are provided by BIOS & x86.
@@ -43,7 +43,7 @@ void init_gdtidt(void)
 	set_gatedesc(idt + 0x27, (int)asm_interrupt_handler_0x27, 2 * 8, AR_INTGATE32);
 	set_gatedesc(idt + 0x2c, (int)asm_interrupt_handler_0x2c, 2 * 8, AR_INTGATE32);
 
-	set_gatedesc(idt + 0x40, (int)asm_os_console_api, 2 * 8, AR_INTGATE32 + 0x60);
+	set_gatedesc(idt + 0x40, (int)asm_os_console_api, 2 * 8, AR_INTGATE32 + 0x60);		///< this interrupt vector support api
 	return;
 }
 

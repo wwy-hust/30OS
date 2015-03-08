@@ -1,4 +1,12 @@
-
+/** @file api.c
+ *  @brief OS api callback by INT 0x40.
+ *
+ *  Everytime application call os api. It actually trigger an interrupt with INT 0x40.
+ *  OS use asm_os_console_api as the interrupt handler. you could refer it in globalTbl.c.
+ *  API_xxx is called by asm_os_console_api according to edx. The routine array is listed in wnd_console.c named api_routine_array.
+ *  Every API_xxx has an version named api_xxx. api_xxx is called by application.
+ */
+ 
 #include "api.h"
 
 int32 API_putchar(int32 edi, int32 esi, int32 ebp, int32 esp, int32 ebx, int32 edx, int32 ecx, int32 eax)

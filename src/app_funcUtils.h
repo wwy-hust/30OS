@@ -1,4 +1,10 @@
-
+/** @file app_funcUtils.h
+ *  @brief application could call system function through function listed here.
+ *
+ *  Everytime application call os api. It actually trigger an interrupt with INT 0x40.
+ *  The request would redirect to api.c to do actually work.
+ */
+ 
 #ifndef _APP_FUNCUTILS_H_
 #define _APP_FUNCUTILS_H_
 
@@ -8,6 +14,9 @@
 
 #include "stdio.h"
 
+/** @addtogroup OS_API
+ *  @{
+ */
 typedef struct FILE_HANDLE {
 	uint8* buf;
 	int32 size;
@@ -43,5 +52,6 @@ boolean api_close(FILE_HANDLE* file);
 boolean api_seek(FILE_HANDLE* file, uint8 mode, uint32 pos);
 int32 api_read(FILE_HANDLE* file, uint8* buf, int32 bufMaxLen);
 int32 api_file_size(FILE_HANDLE* file);
+/// @}
 
 #endif
