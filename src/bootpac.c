@@ -1,4 +1,9 @@
-
+/** @file bootpac.c
+ *  @brief Main source of the OS
+ *
+ *  This file contains the main function, initOS.
+ */
+ 
 #include "asmhead.h"
 #include "funcUtils.h"
 #include "graphic.h"
@@ -38,6 +43,12 @@ typedef struct AFILEINFO{
 }AFILEINFO;
 
 extern FAT_CTL fatCtl;
+/** @brief The Task of Console.
+ *  Program like windows CMD
+ *  @param bgSheet sheet of the console
+ *  @param curTask handle of current task
+ *  @return NULL
+ */
 void task_console_main(SHEET *bgSheet, TASK* curTask)
 {
 	int32 offset, i;
@@ -69,6 +80,10 @@ void task_console_main(SHEET *bgSheet, TASK* curTask)
 
 struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
 
+/** @brief Init OS after load.
+ *  @param NULL
+ *  @return NULL
+ */
 void OS_Init(void)
 {
 	BOOTINFO* info;

@@ -35,4 +35,8 @@ Open your Cygwin terminal and do next steps.
 ###How To Run###
 Use OS.img as floopy img to boot with Virtual Machines software.
 
-In OS you could operate as a windows. Use "Win + F1" to open a new console.
+In OS you could operate as a windows. 
+
+Use "Win + F1" to open a new console.
+
+Use "Alt + F4" to terminate a program.
