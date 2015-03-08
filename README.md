@@ -21,7 +21,7 @@
 3. ....
 
 ###ScreenShot###
-![image](http://github.com/wwy-hust/30OS/blob/master/screenshot.png)
+![image](https://github.com/wwy-hust/30OS/blob/master/screenshot.png)
 
 ###How To Build###
 I made this OS on windows platform. You should install Cygwin ( install rm, cp, make & cat ) to build the OS. 
