@@ -1,8 +1,18 @@
+/** @file fat.c
+ *  @brief functions related to fat16.
+ *
+ *  no directory supproted now. Need improvement.
+ */
 
 #include "fat.h"
 
-FAT_CTL fatCtl;
+FAT_CTL fatCtl;		///< OS use this function to manage the root file directory.
 
+/** @brief init fat root directory.
+ *  this function get data from memory, extract useful information and store them in fatCtl.
+ *  @param NULL
+ *  @return whether the function executed successful.
+ */
 boolean fat_init()
 {
 	FILEINFO* finfo = (FILEINFO*)(ADR_DISKIMG + 0x002600);
@@ -38,6 +48,10 @@ boolean fat_init()
 	return TRUE;
 }
 
+/** @brief search for specific file name.
+ *  @param fileName name of the file you want to search
+ *  @return the file pointer of the file if founded. Else will return NULL.
+ */
 FILE_NODE* fat_searchFile1(uint8* fileName)
 {
 	int32 i;
@@ -45,7 +59,7 @@ FILE_NODE* fat_searchFile1(uint8* fileName)
 	
 	for(i = 0; fileName[i] != '.' && fileName[i] != 0; i++);
 	if(fileName[i] == 0) {
-		return FALSE;
+		return NULL;
 	}
 	strcpy(name, fileName);
 	for(i = 0; name[i] != '.'; i++);
@@ -55,6 +69,11 @@ FILE_NODE* fat_searchFile1(uint8* fileName)
 	return fat_searchFile(name, ext);
 }
 
+/** @brief search for specific file name.
+ *  @param fileName name of the file you want to search
+ *  @param ext suffix of the file
+ *  @return the file pointer of the file if founded. Else will return NULL.
+ */
 FILE_NODE* fat_searchFile(uint8* fileName, uint8* ext)
 {
 	int32 i;
@@ -66,6 +85,12 @@ FILE_NODE* fat_searchFile(uint8* fileName, uint8* ext)
 	return NULL;
 }
 
+/** @brief read one file throught its FILE_NODE.
+ *  This function would read the data of the file into its internal buffer. 
+ *  It calls the intercal function fat_loadFile() to copy data into its buffer.
+ *  @param file the pointer of the FILE_NODE. 
+ *  @return whether the function executed successful.
+ */
 boolean fat_readFile(FILE_NODE* file)
 {
 	int32 i;
@@ -84,6 +109,12 @@ boolean fat_readFile(FILE_NODE* file)
 	return TRUE;
 }
 
+/** @brief decode FAT table.
+ *  @param fatBase base address of the dst FAT table, extracted data are listed here.
+ *  @param fatSize size of the FAT table
+ *  @param img the src start address of the FAT table
+ *  @return NULL
+ */
 void fat_decodeFat(int32* fatBase, int32 fatSize, uint8* img)
 {
 	int32 i, j = 0;
@@ -94,6 +125,14 @@ void fat_decodeFat(int32* fatBase, int32 fatSize, uint8* img)
 	}
 }
 
+/** @brief load file with specific cluster number, size.
+ *  @param clustno the cluster number used.
+ *  @param size size you want to load.
+ *  @param buf buffer to store the data
+ *  @param fatBase base address of the dst FAT table.
+ *  @param img start address of the original file block
+ *  @return NULL
+ */
 void fat_loadFile(uint16 clustno, uint32 size, int8* buf, int32* fatBase, uint8* img)
 {
 	int i;

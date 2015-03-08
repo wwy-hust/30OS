@@ -1,12 +1,28 @@
+/** @file multiTask.c
+ *  @brief functions related to task, The OS supports Multi Task.
+ *
+ *  The multiTask include create task, run task, sleep task, stop task, switch task. etc.
+ */
 
 #include "multiTask.h"
 
-TASK_CTL taskCtl;
+TASK_CTL taskCtl;		///< global structure used to store all information related to tasks
 TIM* task_timer = NULL;
 int32 mt_tr;
 
 extern FAT_CTL fatCtl;
 
+/** @brief create task.
+ *  This function alloc a task control block on taskCtl, and return it using OUT TASK** task.
+ *  You could use task in future use, for run, stop, sleep.
+ *  @param taskName name of this task
+ *  @param taskRoutine the start address of the task. It should be a casted function pointer.
+ *  @param stackLocation stack start address for the task.
+ *  @param eflags eflags used internal
+ *  @param priority task running priority. less value means higher priority.
+ *  @param task the task handle output for future use.
+ *  @return whether the function executed successful.
+ */
 boolean task_alloc(IN int8* taskName, IN int32 taskRoutine, IN int32 stackLocation, IN int32 eflags, IN uint8 priority, OUT TASK** task)
 {
 	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
@@ -38,6 +54,11 @@ boolean task_alloc(IN int8* taskName, IN int32 taskRoutine, IN int32 stackLocati
 	return TRUE;
 }
 
+/** @brief delete task.
+ *  This function find the specific task in stopTaskList then free its control block.
+ *  @param task the task handle you want to free.
+ *  @return whether the function executed successful.
+ */
 boolean task_free(IN TASK* task)
 {
 	int32 i, j;
@@ -62,6 +83,11 @@ boolean task_free(IN TASK* task)
 	return FALSE;
 }
 
+/** @brief start one task.
+ *  This function start the specific task.
+ *  @param task the task handle you want to use.
+ *  @return whether the function executed successful.
+ */
 boolean task_run(IN TASK* task)
 {
 	int32 i, j;
@@ -106,6 +132,12 @@ boolean task_run(IN TASK* task)
 	return FALSE;		//Î´ÕÒµ½
 }
 
+/** @brief sleep one task.
+ *  This function sleep the specific task with a specific time interval.
+ *  @param task the task handle you want to use.
+ *  @param sleepTimeCnt_10ms the sleep interval of the task.
+ *  @return whether the function executed successful.
+ */
 boolean task_sleep(IN TASK* task, IN int32 sleepTimeCnt_10ms)
 {
 	int32 i, j;
@@ -136,6 +168,11 @@ boolean task_sleep(IN TASK* task, IN int32 sleepTimeCnt_10ms)
 	return FALSE;
 }
 
+/** @brief stop one task.
+ *  This function stop the specific task.
+ *  @param task the task handle you want to use.
+ *  @return whether the function executed successful.
+ */
 boolean task_stop(IN TASK* task)
 {
 	int32 i, j;
@@ -169,6 +206,11 @@ boolean task_stop(IN TASK* task)
 	return FALSE;
 }
 
+/** @brief stop and delete one task.
+ *  This function stop the specific task and delete it.
+ *  @param task the task handle you want to use.
+ *  @return whether the function executed successful.
+ */
 boolean task_stop_free(IN TASK* task)
 {
 	int32 i, j;
@@ -204,6 +246,10 @@ boolean task_stop_free(IN TASK* task)
 	return FALSE;
 }
 
+/** @brief sort tasks in taskCtl.runningTask[].
+ *  @param NULL
+ *  @return NULL
+ */
 void task_sort_running_by_priority()
 {
 	int32 i, j;
@@ -220,6 +266,10 @@ void task_sort_running_by_priority()
 	}
 }
 
+/** @brief sort tasks in taskCtl.sleepTasks[].
+ *  @param NULL
+ *  @return NULL
+ */
 void task_sort_sleep_by_sleepTime()
 {
 	int32 i, j;
@@ -236,6 +286,15 @@ void task_sort_sleep_by_sleepTime()
 	}
 }
 
+/** @brief set the basic param to be called by x86 internal function.
+ *  TSS is a x86 basic function for tasks. It it easy to be used.
+ *  @param tss tss pointer get. store in task for future use.
+ *  @param taskId Id of this task.
+ *  @param eip useful register.
+ *  @param esp useful register.
+ *  @param eflags useful register.
+ *  @return NULL
+ */
 void tss_init(TSS32* tss, int32 taskId, int32 eip, int32 esp, int32 eflags)
 {
 	struct SEGMENT_DESCRIPTOR *gdt = (struct SEGMENT_DESCRIPTOR *) ADDR_GDT;
@@ -263,6 +322,11 @@ void tss_init(TSS32* tss, int32 taskId, int32 eip, int32 esp, int32 eflags)
 	set_segmdesc(gdt + taskId, 103, (int32)tss, AR_TSS32);
 }
 
+/** @brief initialize multi task environment.
+ *  This function initialize multiple tasks environment. The OS's task modol is Round Robin.
+ *  @param NULL
+ *  @return NULL
+ */
 void multiTask_init()
 {
 	int32 i;
@@ -301,6 +365,10 @@ void multiTask_init()
 	mt_tr = 3;
 }
 
+/** @brief switch to next task.
+ *  @param NULL
+ *  @return NULL
+ */
 void multiTask_switch()
 {
 	int32 nextTaskPos;
@@ -322,6 +390,10 @@ void multiTask_switch()
 	return;
 }
 
+/** @brief check running task
+ *  @param NULL
+ *  @return the handle of the running task
+ */
 TASK* multiTask_NowRunning()
 {
 	return taskCtl.runningTasks[taskCtl.nowRunningTaskPos];

@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['pos_5finside_5frect',['pos_inside_rect',['../group__graphic.html#ga2e34150c7e68e0d3e6dbd28191d302d2',1,'pos_inside_rect(IN RECT *rect, IN POS *pos):&#160;graphic.c'],['../group__graphic.html#ga2e34150c7e68e0d3e6dbd28191d302d2',1,'pos_inside_rect(IN RECT *rect, IN POS *pos):&#160;graphic.c']]],
-  ['put_5fascii',['put_ascii',['../group__graphic.html#ga3473d9d6db4f8034f42fb16294638269',1,'put_ascii(SHEET *sheet, uint8 ascii, uint8 colorNum, int32 x, int32 y):&#160;graphic.c'],['../group__graphic.html#ga3473d9d6db4f8034f42fb16294638269',1,'put_ascii(SHEET *sheet, uint8 ascii, uint8 colorNum, int32 x, int32 y):&#160;graphic.c']]],
-  ['put_5fgbk',['put_gbk',['../group__graphic.html#ga63709ef370e647226f826b80d0f65130',1,'put_gbk(SHEET *sheet, uint16 gbk, uint8 colorNum, int32 x, int32 y):&#160;graphic.c'],['../group__graphic.html#ga63709ef370e647226f826b80d0f65130',1,'put_gbk(SHEET *sheet, uint16 gbk, uint8 colorNum, int32 x, int32 y):&#160;graphic.c']]],
-  ['putintolooparray',['PutIntoLoopArray',['../data_struct_8c.html#ae2067c536f2ff00928457a6099e2b12a',1,'PutIntoLoopArray(LoopArray *array, uint8 data):&#160;dataStruct.c'],['../data_struct_8h.html#ae2067c536f2ff00928457a6099e2b12a',1,'PutIntoLoopArray(LoopArray *array, uint8 data):&#160;dataStruct.c']]],
-  ['puts_5fstr',['puts_str',['../group__graphic.html#gaad699d88e56a51e76de2e7d15d774418',1,'puts_str(SHEET *sheet, uint8 *str, uint8 colorNum, int32 x, int32 y):&#160;graphic.c'],['../group__graphic.html#gaad699d88e56a51e76de2e7d15d774418',1,'puts_str(SHEET *sheet, uint8 *str, uint8 colorNum, int32 x, int32 y):&#160;graphic.c']]]
-];
