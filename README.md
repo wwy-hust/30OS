@@ -24,14 +24,29 @@
 ![image](https://github.com/wwy-hust/30OS/blob/master/screenshot.png)
 
 ###How To Build###
-I made this OS on windows platform. You should install Cygwin ( install rm, cp, make & cat ) to build the OS. 
+There are two build platforms
+
+1. Windows + Cygwin
+2. Linux + Wine
+
+######On Windows : ######
+
+You should install Cygwin ( install rm, cp, make & cat ) to build the OS. 
 
 Open your Cygwin terminal and do next steps.
 
     [user@Localhost]$ chmod +x ./z_tools/*
     [user@Localhost]$ cd src
     [user@Localhost]$ make IMG       # to generate OS.img, If failed first time, make again
-    
+
+######On Linux : ######
+
+Install wine first. You could use "yum" or "apt-get" to do this operation.
+
+    [user@Localhost]$ cd src
+    [user@Localhost]$ make IMG       # to generate OS.img, If failed first time, make again
+   
+
 ###How To Run###
 Use OS.img as floopy img to boot with Virtual Machines software.
 

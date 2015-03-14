@@ -1,6 +1,7 @@
 #Makefile for MyOS
 
 #COMMAND USED
+WINEPREFIX		= wine
 TOOLPATH 		= ../z_tools/
 INCPATH  		= ../z_tools/haribote/
 
@@ -16,28 +17,38 @@ OBJFILES		= funcUtils.obj string.obj graphic.obj bootpac.obj fat.obj \
 
 RES_OBJFILES = icon.obj hankaku.obj 
 
+OS_NAME = $(shell uname -o)
+LC_OS_NAME = $(shell echo $(OS_NAME) | tr '[A-Z]' '[a-z]')
+KSRC = $(shell pwd | sed 's/wifi.*/linux/g')
 
-CC					= $(TOOLPATH)cc1.exe -I$(INCPATH) -Os -Wall -quiet
-ASSEMBLER		= $(TOOLPATH)nask.exe
-EDIMG				= $(TOOLPATH)edimg.exe
-IMGTOL			= $(TOOLPATH)imgtol.com
-GAS2NASK 		= $(TOOLPATH)gas2nask.exe -a
-OBJ2BIM 		= $(TOOLPATH)obj2bim.exe
-BIM2HRB 		= $(TOOLPATH)bim2hrb.exe
-MAKEFONT 		= $(TOOLPATH)makefont.exe
-BIN2OBJ  		= $(TOOLPATH)bin2obj.exe
-GOLIB				= $(TOOLPATH)golib00.exe
+
+ifeq ($(LC_OS_NAME), gnu/linux)
+CMDPREFIX       = $(WINEPREFIX)
+else
+CMDPREFIX       = 
+endif
+
+CC				= $(CMDPREFIX) $(TOOLPATH)cc1.exe -I$(INCPATH) -Os -Wall -quiet
+ASSEMBLER		= $(CMDPREFIX) $(TOOLPATH)nask.exe
+EDIMG			= $(CMDPREFIX) $(TOOLPATH)edimg.exe
+IMGTOL			= $(CMDPREFIX) $(TOOLPATH)imgtol.com
+GAS2NASK 		= $(CMDPREFIX) $(TOOLPATH)gas2nask.exe -a
+OBJ2BIM 		= $(CMDPREFIX) $(TOOLPATH)obj2bim.exe
+BIM2HRB 		= $(CMDPREFIX) $(TOOLPATH)bim2hrb.exe
+MAKEFONT 		= $(CMDPREFIX) $(TOOLPATH)makefont.exe
+BIN2OBJ  		= $(CMDPREFIX) $(TOOLPATH)bin2obj.exe
+GOLIB			= $(CMDPREFIX) $(TOOLPATH)golib00.exe
 
 RM	= rm
 CP	= cp
 CAT	= cat
 
-#USED BY USER
-COPY : IMG
-	CP -f tmp.img "/cygdrive/d/Virtual Machines/30OS.img"
 
 IMG : OS.img
 
+#USED BY USER
+COPY : IMG
+	CP -f tmp.img "/cygdrive/d/Virtual Machines/30OS.img"
 
 #CALLED TARGET
 SYS_LST : asmhead.nas ipl.nas
@@ -57,7 +68,7 @@ OS.img : OS.sys $(RES_DIR)HZK16.fnt SYS_LST crack2.bin hello.bin color.bin read.
 		copy from:read.bin to:@: \
 		copy from:tim.h to:@: \
 		copy from:$(RES_DIR)readme.txt to:@: \
-		imgout:tmp.img
+		imgout:OS.img
 
 apilib.lib : app_funcUtils.obj app_funcUtils1.obj
 	$(GOLIB) app_funcUtils.obj app_funcUtils1.obj out:apilib.lib
@@ -130,4 +141,4 @@ OS.sys : bootpac.hrb SYS_LST
 	
 
 clean :
-	RM *.img *.bak *.sys *.lst *.bin *.map *.gas *.obj bootpac.nas hello.nas color.nas crack1.nas read.nas *.hrb *.bim
+	$(RM) *.img *.bak *.sys *.lst *.bin *.map *.gas *.obj bootpac.nas hello.nas color.nas crack1.nas read.nas *.hrb *.bim
